@@ -1,0 +1,119 @@
+.comparison-section {
+    padding: 60px 0;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 40px;
+    font-weight: 400;
+    color: #383846;
+    margin-bottom: 32px;
+    padding-left: 120px;
+  }
+  
+  .comparison-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    background: white;
+  }
+  
+  .comparison-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  
+  .comparison-item:last-child {
+    border-bottom: none;
+  }
+  
+  .company-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 320px;
+  }
+  
+  .company-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .company-name {
+    font-size: 16px;
+    color: #383846;
+    font-weight: 500;
+  }
+  
+  .vs-divider {
+    position: relative;
+    width: 132px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .vs-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #E5E7EB;
+  }
+  
+  .vs-circle {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .vs-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #0D6EFD;
+    border-radius: 50%;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1280px) {
+    .comparison-container {
+      width: 100%;
+      margin: 0 16px;
+    }
+    
+    .section-title {
+      padding-left: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .company-info {
+      width: auto;
+    }
+    
+    .vs-divider {
+      width: 60px;
+    }
+    
+    .company-name {
+      font-size: 14px;
+    }
+  }
+  

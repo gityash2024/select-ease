@@ -1,0 +1,115 @@
+.navbar {
+  position: sticky; /* Make the navbar sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: url('../assets/Hero.png') no-repeat center center; /* Add background image */
+  background-size: cover; /* Ensure the image covers the navbar */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Default shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Stronger shadow when scrolled */
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 32px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  margin: 0 32px;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #006B8F;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-box input {
+  /* margin-top: 15px; */
+  padding: 8px 16px;
+  border-radius: 24px;
+  width: 200px;
+  font-size: 14px;
+  border: 1px solid #47b6db !important;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-box input:focus {
+  border-color: #004F6E;
+}
+
+.contact-btn {
+  background-color: #006B8F;
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #005472;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .search-box input {
+    width: 150px;
+  }
+}
+
+/* Add these styles to your Navbar.css */
+.disabled-link {
+  cursor: not-allowed !important;
+  position: relative;
+  pointer-events: auto !important;
+}
+
+.disabled-link:hover {
+  color: #6B7280 !important;
+}
