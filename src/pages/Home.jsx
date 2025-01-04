@@ -34,9 +34,14 @@ import howItWorks from '../assets/how-it-works.svg';
 import SalesAnalytics from '../assets/SalesAnalytics.svg';
 import ProductsAnalytics from '../assets/ProductsAnalytics.svg';
 import CustomersAnalytics from '../assets/CustomersAnalytics.svg';
-import testimonials_1 from '../assets/testimonials_1.png';
-import testimonials_2 from '../assets/testimonials_2.png';
+import testimonials_1 from '../assets/Photo1.png';
+import testimonials_2 from '../assets/Photo2.png';
+import herarform from '../assets/herarform.png';
 import Photo from '../assets/Photo.svg';
+import reviewsBg from '../assets/blue bg.png'; 
+import { IoIosSearch } from "react-icons/io"; 
+// import {BgMask} from '../assets/BgMask.png'
+ 
 const Section = styled.section`
   width: 100%;
   padding: ${props => props.padding || '20px 0'};
@@ -65,7 +70,6 @@ const HeroSection = styled(Section)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,240,0.95) 0%, rgba(240,255,255,0.95) 100%);
     z-index: 1;
   }
 `;
@@ -76,58 +80,88 @@ const ContentWrapper = styled.div`
   padding: 0 20px;
   position: relative;
   z-index: 2;
+  overflow-x: hidden; // Add this line
 `;
 
 const Container = styled.div`
   width: 100%;
+  overflow-x: hidden; // Add this line
 `;
+
 
 
 
 
 const Title = styled.h1`
   font-size: 56px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   margin-bottom: 40px;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  color: black; 
+  font-family:outfit;
+`;
+
+
+const BoldSpan = styled.span`
+  font-weight: 700; 
 `;
 
 const SearchContainer = styled.div`
   display: flex;
+  align-items: stretch;
+  width: 100%;
   max-width: 500px;
   margin: 0 auto 40px;
-  position: relative;
+  background: white;
+  border-radius: 999px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
 `;
 
 const SearchInput = styled.input`
-  width: 100%;
-  height: 56px;
-  margin-bottom: 30px;
-  padding: 0 120px 0 24px;
-  border-radius: 28px;
-  border: 1px solid #E0E0E0;
+  flex: 1;
+  height: 48px;
+  padding: 0 20px;
+  border: none;
   font-size: 16px;
+  background: white;
+  
   &:focus {
     outline: none;
-    border-color: #006B8F;
+  }
+  
+  &::placeholder {
+    color: #111827;
   }
 `;
 
 const SearchButton = styled.button`
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  height: 48px;
-  padding: 0 24px;
-  background: #006B8F;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 10px;
+  padding: 16px 32px; 
+  background: #026283;
   color: white;
   border: none;
-  border-radius: 24px;
+  border-radius: 0px; 
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap; 
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: #005472; 
+  }
 `;
 
 const ImagesSection = styled.div`
@@ -138,18 +172,47 @@ const ImagesSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 24px;
+  gap: 0px;
+  padding: 0 20px; // Add this line
+  box-sizing: border-box; // Add this line
 `;
-
 const ImageWrapper = styled.div`
   position: relative;
   width: calc(33.33% - 16px);
+  
   img {
     width: 100%;
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    position: absolute;
+    top: -30px;
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .python {
+    left:-80%;
+    transform: translateX(-50%);
+  }
+
+  .oracle {
+    left: 60%;
+    transform: translateX(-50%);
+  }
+
+  .boat {
+    left: 180%;
+    transform: translateX(-50%);
   }
 `;
+
 
 const Dot = styled.div`
   position: absolute;
@@ -161,12 +224,12 @@ const Dot = styled.div`
   z-index: 2;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 42px;
-  font-weight: 600;
-  color: ${props => props.color || '#1A1A1A'};
-  margin-bottom: 40px;
-`;
+// const SectionTitle = styled.h2`
+//   font-size: 42px;
+//   font-weight: 400;
+//   color: ${props => props.color || '#1A1A1A'};
+//   margin-bottom: 40px;
+// `;
 
 const Grid = styled.div`
   display: grid;
@@ -187,6 +250,9 @@ const Card = styled.div`
   background: white;
   border-radius: 12px;
   overflow: hidden;
+  color:#383B46;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  border: 1px solid #E0E0E0; 
   transition: transform 0.2s;
   &:hover {
     transform: translateY(-4px);
@@ -203,8 +269,9 @@ const CardContent = styled.div`
   padding: 20px;
   h3 {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 8px;
+    color:#383B46;
   }
   p {
     font-size: 14px;
@@ -222,14 +289,104 @@ const CardContent = styled.div`
 `;
 
 const ReviewsSection = styled(Section)`
-  background: #003B5C;
+  background-image: url(${props => props.backgroundImage});
+  background-size: cover;
+  background-position: center;
   color: white;
-  text-align: center;
-  .review-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 40px;
+  padding: 60px 0;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 55, 80, 0.9);
+  }
+`;
+
+// const SoftwareReviewCard = styled.div`
+// background: white;
+// border-radius: 16px;
+// padding: 32px;
+// position: relative;
+// width: 380px;
+
+// .quote-icon {
+//   color: #026283;
+//   font-size: 45px;
+//   line-height: 1;
+//   font-family: serif;
+// }
+
+// .quote-text {
+//   font-size: 20px;
+//   line-height: 34px;
+//   margin: 24px 0;
+//   color: #111111;
+//   font-weight: 400;
+//   font-family: 'Outfit', sans-serif;
+// }
+
+// .rating {
+//   display: flex;
+//   align-items: center;
+//   gap: 4px;
+//   margin-bottom: 16px;
+// }
+
+// .stars {
+//   display: flex;
+//   gap: 4px;
+// }
+
+// .rating-count {
+//   color: #111111;
+//   font-size: 16px;
+//   margin-left: 8px;
+// }
+
+// .read-more {
+//   color: #006B8F;
+//   text-decoration: none;
+//   font-size: 16px;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+  
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
+// `;
+const ReviewGrid = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-top: 40px;
+  overflow-x: hidden; // Change from auto to hidden
+  padding-bottom: 20px;
+  
+  // Remove scrollbar styles since we're hiding overflow
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ReviewButton = styled.button`
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 16px 32px;
+  font-size: 16px;
+  cursor: pointer;
+  height: 52px;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
 `;
 
@@ -319,23 +476,91 @@ const ReviewCard = styled.div`
   }
 `;
 
-
-
-
-
-
-
-
 const TestimonialsSection = styled(Section)`
-  padding: 30px 0;
+  padding: 60px 20px;
   background: white;
+  text-align: center;
+`;
+const TestimonialDivider = styled.div`
+  width: 100%; 
+  width: 440px; 
+  height: 1px; 
+  background-color: #1111111A;
+  margin: 20px auto; 
 `;
 
 const TestimonialsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
   margin-top: 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 0 24px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+`;
+
+const TestimonialCard = styled.div`
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: left;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  
+  .quote-icon {
+    color: #006B8F;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 16px;
+    font-family: serif;
+  }
+  
+  .quote-text {
+    color: #383B46;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .info {
+      h4 {
+        font-size: 16px;
+        font-weight: 500;
+        color: #383B46;
+        margin-bottom: 4px;
+      }
+      
+      p {
+        font-size: 14px;
+        color: #6B7280;
+        font-weight: 400;
+      }
+    }
+  }
 `;
 
 
@@ -506,88 +731,178 @@ const ExploreButton = styled.a`
   background: #006B8F;
   color: white;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 23px;
   transition: background 0.2s;
   
   &:hover {
     background: #005472;
   }
 `;
-const TestimonialCard = styled.div`
+
+const ReviewsWrapper = styled.section`
+  background-color: #003750;
+  position: relative;
+  padding: 80px 0;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${props => props.backgroundImage});
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+`;
+
+// const ContentWrapper = styled.div`
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 24px;
+//   position: relative;
+//   z-index: 1;
+// `;
+
+const ReviewHeading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  color: ${props => props.color};
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 400px;
+  margin: 0;
+  padding: 15px;
+`;
+
+const ReviewAllButton = styled.button`
+  background-color: #026283;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #037399;
+  }
+`;
+
+const ReviewCardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const SoftwareReviewCard = styled.div`
   background: white;
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   
-  .quote-text {
+  .quote-icon {
+    font-size: 32px;
     color: #333;
+    margin-bottom: 16px;
+  }
+
+  .quote-text {
     font-size: 16px;
     line-height: 1.6;
+    color: #333;
     margin-bottom: 24px;
-    position: relative;
   }
-  
-  .author {
+
+  .rating {
     display: flex;
     align-items: center;
-    gap: 16px;
-    
-    img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    .stars {
+      color: #FFD700;
+      font-size: 20px;
+      letter-spacing: 2px;
     }
-    
-    .info {
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 4px;
-      }
-      
-      p {
-        font-size: 14px;
-        color: #666;
-      }
+
+    .rating-count {
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  .read-more {
+    color: #026283;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 16px;
+
+    span {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover span {
+      transform: translateX(4px);
     }
   }
 `;
+
+
 
 const Home = () => {
   return (
     <Container>
       <HeroSection>
-      <img src={hero} alt="" className="contact-hero-background" />
+        <img src={hero} alt="" className="contact-hero-background" />
 
         <ContentWrapper>
           <Title>
-            Find the Best AI Tools with Expert Reviews and Comparisons.
+            Find the <BoldSpan>Best AI Tools</BoldSpan> with <BoldSpan>Expert Reviews</BoldSpan> and <BoldSpan>Comparisons</BoldSpan>.
           </Title>
-          
+
           <SearchContainer>
-            <SearchInput placeholder="Search..." />
-            <SearchButton>Search</SearchButton>
-          </SearchContainer>
+      <SearchInput placeholder="Search..." />
+      <SearchButton><IoIosSearch />Search</SearchButton>
+    </SearchContainer>
 
           <ImagesSection>
             <ImageWrapper>
-              <Dot color="#FF6B6B" position="top: -12px; left: -12px;" />
+              <Dot color="#FF6B6B" position="top: -35px; left: -160px;" />
               <img src={seo} alt="SEO Tool" />
             </ImageWrapper>
-            
+
             <ImageWrapper>
               <img src={seo_2} alt="AI Interface" />
-              <div style={{position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '12px'}}>
-                <img src={python} alt="Python" style={{width: '40px', height: '40px', padding: '8px', background: 'white', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}} />
-                <img src={oracl} alt="Oracle" style={{width: '40px', height: '40px', padding: '8px', background: 'white', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}} />
-                <img src={boat} alt="Boat" style={{width: '40px', height: '40px', padding: '8px', background: 'white', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}} />
-              </div>
+              <img className="icon python" src={python} alt="Python" />
+              <img className="icon oracle" src={oracl} alt="Oracle" />
+              <img className="icon boat" src={boat} alt="Boat" />
             </ImageWrapper>
-            
+
             <ImageWrapper>
-              <Dot color="#FF6B6B" position="bottom: -12px; right: -12px;" />
+              <Dot color="#FF6B6B" position="bottom: 110px; right: -90px;" />
               <img src={seo_3} alt="Model Directory" />
             </ImageWrapper>
           </ImagesSection>
@@ -629,135 +944,164 @@ const Home = () => {
           </Grid>
         </ContentWrapper>
       </Section>
+      
+      <ReviewsWrapper>
+      <ContentWrapper>
+        <ReviewHeading>
+          <SectionTitle color="white">
+            Top 8 Most Reviewed Software of June 2024
+          </SectionTitle>
+          <ReviewAllButton>All Review</ReviewAllButton>
+        </ReviewHeading>
+        
+        <ReviewCardsGrid>
+          <SoftwareReviewCard>
+            <div className="quote-icon">❝</div>
+            <p className="quote-text">
+              "Every new business and start-up, big or small, goes through the five stages of business growth. These phases include existence, survival, success, take-off, and resource maturity."
+            </p>
+            <div className="rating">
+              <div className="stars">{'★★★★★'}</div>
+              <span className="rating-count">(1156)</span>
+            </div>
+            <a href="#" className="read-more">
+              Read More <span>→</span>
+            </a>
+          </SoftwareReviewCard>
 
-      {/* <ReviewsSection>
-  <ContentWrapper>
-    <SectionTitle color="white">Top 8 Most Reviewed Software of June 2024</SectionTitle>
-    <a href="#" style={{display: 'inline-block', padding: '12px 24px', background: 'rgba(255,255,255,0.1)', color: 'white', textDecoration: 'none', borderRadius: '6px', marginBottom: '40px'}}>All Review</a>
-    <div className="review-container">
-      {[review_1, review_2].map((review, i) => (
-        <ReviewCard key={i}>
-          <img src={review} alt="Quote" className="review-image" />
-          <p>"Every new business and start-up, big or small, goes through the five stages of business growth. These phases include existence, survival, success, take-off, and resource maturity."</p>
-          <div className="rating">
-            {Array(5).fill().map((_, i) => (
-              <Corexta_start key={i} fill="#FFD700" />
-            ))}
-            <span>(1156)</span>
-          </div>
-          <a href="#" style={{color: '#006B8F', textDecoration: 'none'}}>Read More →</a>
-        </ReviewCard>
-      ))}
-    </div>
-  </ContentWrapper>
-</ReviewsSection> */}
+          <SoftwareReviewCard>
+            <div className="quote-icon">❝</div>
+            <p className="quote-text">
+              "Every new business and start-up, big or small, goes through the five stages of business growth. These phases include existence, survival, success, take-off, and resource maturity."
+            </p>
+            <div className="rating">
+              <div className="stars">{'★★★★★'}</div>
+              <span className="rating-count">(1156)</span>
+            </div>
+            <a href="#" className="read-more">
+              Read More <span>→</span>
+            </a>
+          </SoftwareReviewCard>
+        </ReviewCardsGrid>
+      </ContentWrapper>
+    </ReviewsWrapper>
 
-<Section>
-  <ContentWrapper>
-    <SectionTitle>Comparison Tables</SectionTitle>
-    <ComparisonTable>
-      {[
-        [Comparison_1, Comparison_2],
-        [Comparison_3, Comparison_4],
-        [Comparison_5, Comparison_6],
-        [Comparison_7, Comparison_8],
-        [Comparison_8, Comparison_9],
-        [Comparison_1, Comparison_3],
-        [Comparison_4, Comparison_5],
-        [Comparison_6, Comparison_7],
-        [Comparison_8, Comparison_9],
-      ].map(([img1, img2], i) => (
-        <div className="comparison-item" key={i}>
-          {/* <div className="company">
+      <Section>
+        <ContentWrapper>
+          <SectionTitle>Comparison Tables</SectionTitle>
+          <ComparisonTable>
+            {[
+              [Comparison_1, Comparison_2],
+              [Comparison_3, Comparison_4],
+              [Comparison_5, Comparison_6],
+              [Comparison_7, Comparison_8],
+              [Comparison_8, Comparison_9],
+              [Comparison_1, Comparison_3],
+              [Comparison_4, Comparison_5],
+              [Comparison_6, Comparison_7],
+              [Comparison_8, Comparison_9],
+            ].map(([img1, img2], i) => (
+              <div className="comparison-item" key={i}>
+                {/* <div className="company">
             <img src={img1} alt="Company 1" />
             <span>BambooHR</span>
           </div> */}
-          <div className="vs">
-            <div className="dot"></div>
-            <img src={img2} alt="Company 2" />
-          </div>
-        </div>
-      ))}
-    </ComparisonTable>
-  </ContentWrapper>
-</Section>
+                <div className="vs">
+                  <div className="dot"></div>
+                  <img src={img2} alt="Company 2" />
+                </div>
+              </div>
+            ))}
+          </ComparisonTable>
+        </ContentWrapper>
+      </Section>
 
-<HowItWorksSection>
-  <ContentWrapper>
-    <Content>
-      <div>
-        <SectionTitle color="white">How It Works</SectionTitle>
-        <FeatureList>
-          <FeatureItem>
-            <div className="icon-wrapper">
-              <img src={SalesAnalytics} alt="Sales Analytics" />
-            </div>
-            <div className="text">
-              <h3>Sales Analytics:</h3>
-              <p>Trends to Drive Informed Decisions and Optimize Performance.</p>
-            </div>
-          </FeatureItem>
-          
-          <FeatureItem>
-            <div className="icon-wrapper">
-              <img src={ProductsAnalytics} alt="Products Analytics" />
-            </div>
-            <div className="text">
-              <h3>Products Analytics:</h3>
-              <p>Unleashing Insights to Enhance Offerings, Maximize Impact, and Delight Customers.</p>
-            </div>
-          </FeatureItem>
-          
-          <FeatureItem>
-            <div className="icon-wrapper">
-              <img src={CustomersAnalytics} alt="Customers Analytics" />
-            </div>
-            <div className="text">
-              <h3>Customers Analytics:</h3>
-              <p>Preferences for Exceptional Customer Experiences and Lasting Relationships.</p>
-            </div>
-          </FeatureItem>
-        </FeatureList>
-        <ExploreButton href="#">Explore All Tools</ExploreButton>
-      </div>
-      
-      <img src={howItWorks} alt="How it works" style={{
-        width: '100%',
-        borderRadius: '12px',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.15)'
-      }} />
-    </Content>
-  </ContentWrapper>
-</HowItWorksSection>
+      <HowItWorksSection>
+        <ContentWrapper>
+          <Content>
+            <div>
+              <SectionTitle color="white">How It Works</SectionTitle>
+              <FeatureList>
+                <FeatureItem>
+                  <div className="icon-wrapper">
+                    <img src={SalesAnalytics} alt="Sales Analytics" />
+                  </div>
+                  <div className="text">
+                    <h3>Sales Analytics:</h3>
+                    <p>Trends to Drive Informed Decisions and Optimize Performance.</p>
+                  </div>
+                </FeatureItem>
 
-<TestimonialsSection>
-  <ContentWrapper>
-    <SectionTitle>Testimonials</SectionTitle>
-    <TestimonialsGrid>
-      <TestimonialCard>
-        <p className="quote-text">"Every new business and start-up, big or small, goes through the five stages of business growth. These phases include existence, survival, success, take-off, and resource maturity."</p>
-        <div className="author">
-          <img src={testimonials_1} alt="Devon Lane" />
-          <div className="info">
-            <h4>Devon Lane</h4>
-            <p>Founder of Brilex</p>
-          </div>
-        </div>
-      </TestimonialCard>
+                <FeatureItem>
+                  <div className="icon-wrapper">
+                    <img src={ProductsAnalytics} alt="Products Analytics" />
+                  </div>
+                  <div className="text">
+                    <h3>Products Analytics:</h3>
+                    <p>Unleashing Insights to Enhance Offerings, Maximize Impact, and Delight Customers.</p>
+                  </div>
+                </FeatureItem>
 
-      <TestimonialCard>
-        <p className="quote-text">"Business growth is a point a business reaches where it expands and requires more avenues to generate a profit. This can happen when a company increases revenue."</p>
-        <div className="author">
-          <img src={testimonials_2} alt="Robert Fox" />
-          <div className="info">
-            <h4>Robert Fox</h4>
-            <p>Manager of Miro</p>
-          </div>
-        </div>
-      </TestimonialCard>
-    </TestimonialsGrid>
-  </ContentWrapper>
-</TestimonialsSection>
+                <FeatureItem>
+                  <div className="icon-wrapper">
+                    <img src={CustomersAnalytics} alt="Customers Analytics" />
+                  </div>
+                  <div className="text">
+                    <h3>Customers Analytics:</h3>
+                    <p>Preferences for Exceptional Customer Experiences and Lasting Relationships.</p>
+                  </div>
+                </FeatureItem>
+              </FeatureList>
+              <ExploreButton href="#">Explore All Tools</ExploreButton>
+            </div>
+
+            <img src={howItWorks} alt="How it works" style={{
+              width: '100%',
+              borderRadius: '12px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.15)'
+            }} />
+          </Content>
+        </ContentWrapper>
+      </HowItWorksSection>
+
+      <TestimonialsSection>
+        <ContentWrapper>
+          <SectionTitle style={{ textAlign: 'center' }}>Testimonials</SectionTitle>
+                  <TestimonialsGrid>
+            <TestimonialCard>
+              <div className="quote-icon">❝</div>
+              <p className="quote-text">
+                "Every new business and start-up, big or small, goes through the five stages of business growth. These phases include existence, survival, success, take-off, and resource maturity."
+              </p>
+              <div className="author">
+                <img src={testimonials_1} alt="Devon Lane" />
+                <div className="info">
+                <TestimonialDivider />
+                  <h4>Devon Lane</h4>
+                  <p>Founder of Brilex</p>
+                </div>
+              </div>
+            </TestimonialCard>
+
+            <TestimonialCard>
+              <div className="quote-icon">❝</div>
+              <p className="quote-text">
+                "Business growth is a point a business reaches where it expands and requires more avenues to generate a profit. This can happen when a company increases revenue."
+              </p>
+              <div className="author">
+                <img src={testimonials_2} alt="Robert Fox" />
+                <div className="info">
+                <TestimonialDivider />
+                  <h4>Robert Fox</h4>
+                  <p>Manager of Miro</p>
+                </div>
+              </div>
+            </TestimonialCard>
+          </TestimonialsGrid>
+        </ContentWrapper>
+      </TestimonialsSection>
+
+
 
       <Section>
         <ContentWrapper>
@@ -779,18 +1123,18 @@ const Home = () => {
 
       <Section>
         <ContentWrapper>
-        <WaitlistBanner>
-  <div className="image-section">
-    <img src={waitlist} alt="Person wearing VR headset" />
-  </div>
-  <div className="content-section">
-    <h2>Join 569 more people in the waitlist</h2>
-    <div className="input-group">
-      <input type="email" placeholder="Your work email address" />
-      <button>Join the waitlist</button>
-    </div>
-  </div>
-</WaitlistBanner>
+          <WaitlistBanner>
+            <div className="image-section">
+              <img src={waitlist} alt="Person wearing VR headset" />
+            </div>
+            <div className="content-section">
+              <h2>Join 569 more people in the waitlist</h2>
+              <div className="input-group">
+                <input type="email" placeholder="Your work email address" />
+                <button>Join the waitlist</button>
+              </div>
+            </div>
+          </WaitlistBanner>
         </ContentWrapper>
       </Section>
     </Container>

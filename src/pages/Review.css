@@ -116,7 +116,7 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
   
-  .icon-circle {
+  .icon-circles {
     width: 80px;
     height: 80px;
     background: #026283;
@@ -127,7 +127,7 @@
     justify-content: center;
   }
   
-  .icon-circle img {
+  .icon-circles img {
     width: 40px;
     height: 40px;
   }
@@ -168,3 +168,149 @@
       grid-template-columns: 1fr;
     }
   }
+
+  .review-page {
+  width: 100%;
+}
+
+.review-hero-section {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.review-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #003750;
+}
+
+.review-hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 32px;
+}
+
+.review-search-box {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.review-search-box input {
+  flex: 1;
+  padding: 12px 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.review-search-box button {
+  padding: 12px 32px;
+  background: #026283;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.products-section,
+.solutions-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.products-section h2,
+.solutions-section h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #111827;
+  margin-bottom: 40px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.icon-circles {
+  width: 64px;
+  height: 64px;
+  background: #003750;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circles img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.product-card h3 {
+  color: #111827;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.product-card p {
+  color: #6B7280;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .review-hero-content h1 {
+    font-size: 36px;
+    padding: 0 24px;
+  }
+
+  .review-search-box {
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+}

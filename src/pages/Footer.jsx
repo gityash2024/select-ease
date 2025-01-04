@@ -4,22 +4,20 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <div className="footer-content">
-        {/* Logo and Description Section */}
-        <div className="footer-main-content">
-          <div className="logo-section">
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-content">
+          {/* Logo and Description Section */}
+          <div className="footer-section logo-section">
             <img src={footerLogo} alt="Select ease" className="footer-logo" />
             <p className="footer-description">
-              Real Estate Masters Vacant lots, agricultural land, development sites. Real Estate Masters 
+              Real Estate Masters Vacant lots, agricultural land, development sites. Real Estate Masters
               Vacant lots, agricultural land, development sites.
             </p>
           </div>
 
-          <div className="vertical-line"></div>
-
           {/* Quick Links Section */}
-          <div className="footer-section">
+          <div className="footer-section links-section">
             <h3 className="footer-heading">Quick Links</h3>
             <ul className="footer-links">
               <li><a href="/">Home</a></li>
@@ -29,27 +27,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="vertical-line"></div>
-
           {/* Contact Information Section */}
-          <div className="footer-section">
+          <div className="footer-section contact-section">
             <h3 className="footer-heading">Contact Information</h3>
             <div className="contact-info">
-              <div className="address-block">
-                <p>3659 Ranchview Dr,</p>
-                <p>Richardson, California 22639</p>
-              </div>
-              <div className="contact-details">
-                <p className="email">hello@example.com</p>
-                <p className="phone">(239) 555-0108</p>
-              </div>
+              <p>3891 Ranchview Dr, Richardson,</p>
+              <p>California 62639</p>
+              <p>hello@example.com</p>
+              <p>(239) 555-0108</p>
             </div>
           </div>
 
-          <div className="vertical-line"></div>
-
           {/* Social Media Links Section */}
-          <div className="footer-section">
+          <div className="footer-section social-section">
             <h3 className="footer-heading">Social Media Links</h3>
             <ul className="footer-links">
               <li><a href="/">Home</a></li>
@@ -69,7 +59,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

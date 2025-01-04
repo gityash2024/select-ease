@@ -1,7 +1,7 @@
 // Review.jsx
 import React from 'react';
 import './Review.css';
-import Icon from '../assets/Icon.png';
+import Instagram from '../assets/Instagram.svg';
 import hero from '../assets/Hero.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +10,8 @@ const ProductCard = () => {
    return(
 
   <div className="product-card" style={{cursor:"pointer"}} onClick={() => navigate('/write-feedback')}>
-   <div className="icon-circle">
-     <img src={Icon} alt="Product icon" />
+   <div className="icon-circles">
+     <img src={Instagram} alt="Product icon" />
    </div>
    <h3>SALESFORCE</h3>
    <p>by Salesforce</p>

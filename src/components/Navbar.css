@@ -58,21 +58,30 @@
   gap: 16px;
 }
 
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+}
+
 .search-box input {
-  /* margin-top: 15px; */
   padding: 8px 16px;
-  border-radius: 24px;
   width: 200px;
   font-size: 14px;
-  border: 1px solid #47b6db !important;
+  border: none !important;
   outline: none;
-  transition: border-color 0.3s ease;
+  background: transparent;
 }
 
 .search-box input:focus {
-  border-color: #004F6E;
+  border-color: transparent;
 }
 
+/* Updated button styles */
 .contact-btn {
   background-color: #006B8F;
   color: white;
@@ -90,14 +99,6 @@
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .nav-actions {
-    gap: 8px;
-  }
-
   .search-box input {
     width: 150px;
   }
@@ -111,5 +112,5 @@
 }
 
 .disabled-link:hover {
-  color: #6B7280 !important;
+  color: #cccfd6 !important;
 }
