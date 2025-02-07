@@ -1,10 +1,8 @@
-import React from 'react';
-import './Product.css';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { productAPI } from '../services/api';
+import toast from 'react-hot-toast';
 import hero from '../assets/Hero.png';
-import corexta from '../assets/corexta.png';
-import project from '../assets/project.png';
-import software from '../assets/software.png';
-import crm from '../assets/crm.png';
 import link from '../assets/link.png';
 import github from '../assets/github.png';
 import Facebook from '../assets/Facebook.svg';
@@ -15,37 +13,69 @@ import Linkedin from '../assets/Linkedin.svg';
 import makers_1 from '../assets/makers_1.png';
 import makers_2 from '../assets/makers_2.png';
 import makers_3 from '../assets/makers_3.png';
-import Corexta_start from '../assets/Corexta_start.png';
-import Corexta_1 from '../assets/Corexta_1.png';
-import Corexta_2 from '../assets/Corexta_2.png';
-import Corexta_3 from '../assets/Corexta_3.png';
-import { useNavigate } from 'react-router-dom';
+import project from '../assets/project.png';
+import software from '../assets/software.png';
+import crm from '../assets/crm.png';
+import './Product.css';
 
 const Product = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [product, setProduct] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProductDetails();
+  }, [id]);
+
+  const fetchProductDetails = async () => {
+    try {
+      const response = await productAPI.getProductById(id);
+      setProduct(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch product details');
+      navigate('/products');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFollow = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      toast.error('Please login to follow products');
+      return;
+    }
+    setIsFollowing(!isFollowing);
+    toast.success(isFollowing ? 'Unfollowed successfully' : 'Followed successfully');
+  };
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (!product) {
+    return <div className="error">Product not found</div>;
+  }
 
   return (
     <div className="product-page">
- <div className="hero-section">
+      <div className="hero-section">
         <img src={hero} alt="" className="hero-background" />
         <div className="hero-container">
           <h1>Products</h1>
-          <button 
-            onClick={() => navigate('/vendor')} 
-            className="add-product-btn"
-          >
-            Add Product
-          </button>
         </div>
       </div>
 
       <div className="product-container">
         <div className="product-header">
           <div className="product-info">
-            <img src={Corexta_start} alt="Corexta" className="product-logo" />
+            <img src={product.logo || hero} alt={product.name} className="product-logo" />
             <div className="product-title">
-              <h2>Corexta</h2>
-              <p>All-in-One Agency Management platform</p>
+              <h2>{product.name}</h2>
+              <p>{product.description}</p>
               <div className="ratings">
                 <span className="stars">★★★★★</span>
                 <span className="reviews-count">1156 Reviews</span>
@@ -55,25 +85,54 @@ const Product = () => {
             </div>
           </div>
           <div className="action-buttons">
-            <button className="follow-btn">Follow</button>
-            <button className="visit-btn">Visit Website</button>
+            <button className="follow-btn" onClick={handleFollow}>
+              {isFollowing ? 'Following' : 'Follow'}
+            </button>
+            <button className="visit-btn" onClick={() => window.open(product.url, '_blank')}>
+              Visit Website
+            </button>
           </div>
         </div>
 
         <div className="product-nav">
           <div className="nav-tabs">
-            <button className="active">Overview</button>
-            <button>Launches</button>
-            <button>Reviews</button>
-            <button>Team</button>
-            <button>More</button>
+            <button 
+              className={activeTab === 'overview' ? 'active' : ''} 
+              onClick={() => setActiveTab('overview')}
+            >
+              Overview
+            </button>
+            <button 
+              className={activeTab === 'launches' ? 'active' : ''} 
+              onClick={() => setActiveTab('launches')}
+            >
+              Launches
+            </button>
+            <button 
+              className={activeTab === 'reviews' ? 'active' : ''} 
+              onClick={() => setActiveTab('reviews')}
+            >
+              Reviews
+            </button>
+            <button 
+              className={activeTab === 'team' ? 'active' : ''} 
+              onClick={() => setActiveTab('team')}
+            >
+              Team
+            </button>
+            <button 
+              className={activeTab === 'more' ? 'active' : ''} 
+              onClick={() => setActiveTab('more')}
+            >
+              More
+            </button>
           </div>
         </div>
 
         <div className="product-content">
           <div className="main-content">
             <div className="use-section">
-              <h3>Do you use Corexta?</h3>
+              <h3>Do you use {product.name}?</h3>
               <div className="use-buttons">
                 <button className="use-btn">I use this</button>
                 <button className="use-btn outline">I use something else</button>
@@ -81,12 +140,8 @@ const Product = () => {
             </div>
 
             <div className="about-section">
-              <h3>What is Corexta?</h3>
-              <p>
-                Manage your agency with our all-in-one platform. Manage projects, clients, HR, 
-                Payroll, Asset and finances seamlessly. Scale your business and drive success 
-                with our comprehensive suite of features
-              </p>
+              <h3>What is {product.name}?</h3>
+              <p>{product.description}</p>
 
               <div className="tags">
                 <span className="tag">
@@ -104,7 +159,7 @@ const Product = () => {
               </div>
 
               <div className="feature-images">
-                <img src={project} alt="Feature" />
+                <img src={product.logo || project} alt="Feature" />
                 <img src={software} alt="Feature" />
                 <img src={crm} alt="Feature" />
               </div>
@@ -112,11 +167,7 @@ const Product = () => {
               <div className="launch-section">
                 <h3>Recent launches</h3>
                 <div className="launch-content">
-                  <p>
-                    Manage your agency with our all-in-one platform. Manage projects, clients, HR, 
-                    Payroll, Asset and finances seamlessly. Scale your business and drive success 
-                    with our comprehensive suite of features
-                  </p>
+                  <p>{product.description}</p>
                   <span className="launch-date">3 days ago</span>
                 </div>
               </div>
@@ -126,18 +177,20 @@ const Product = () => {
           <div className="sidebar">
             <div className="info-card">
               <h4>Product status</h4>
-              <p>Claimed</p>
+              <p>{product.status}</p>
             </div>
 
             <div className="info-card">
               <h4>Links</h4>
               <div className="link-item">
                 <img src={link} alt="Website" />
-                <a href="https://corexta.com">corexta.com</a>
+                <a href={product.url} target="_blank" rel="noopener noreferrer">
+                  {product.url}
+                </a>
               </div>
               <div className="link-item">
                 <img src={github} alt="Github" />
-                <a href="#">Github</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Github</a>
               </div>
             </div>
 
@@ -154,17 +207,16 @@ const Product = () => {
 
             <div className="info-card">
               <h4>Pricing</h4>
-              <p>Paid (with a free trial or plan)</p>
+              <p>${product.price} (with a free trial or plan)</p>
             </div>
 
-            <div className="info-card-2 ">
+            <div className="info-card-2">
               <h4>Makers</h4>
               <div className="makers-avatars">
                 <img src={makers_1} alt="Maker" />
                 <img src={makers_2} alt="Maker" />
                 <img src={makers_3} alt="Maker" />
                 <img src={makers_3} alt="Maker" />
-                {/* <a href="#" className="view-all">View All</a> */}
               </div>
             </div>
           </div>
@@ -175,4 +227,3 @@ const Product = () => {
 };
 
 export default Product;
-
