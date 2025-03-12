@@ -197,7 +197,9 @@ function App() {
             <Route path="products/:id" element={<Product />} />
             <Route path="reviews" element={<Review />} />
             <Route path="blogs" element={<Blogs />} />
-            <Route path="blogs/:id" element={<BlogDetails />} />
+            <Route path="blog-details" element={<BlogDetails />} />
+            <Route path="blog-details/:id" element={<BlogDetails />} />
+
             <Route path="comparison" element={<Comparison />} />
             <Route path="contact" element={<Contact />} />
             <Route path="write-feedback" element={<WriteFeedback />} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Package, List, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Package, List, LogOut, BookAIcon } from 'lucide-react';
 import styled from 'styled-components';
 import toast from 'react-hot-toast';
 
@@ -96,6 +96,7 @@ const AdminLayout = () => {
     { icon: Users, label: 'Users', path: '/admin/users' },
     { icon: Package, label: 'Products', path: '/admin/products' },
     { icon: List, label: 'Categories', path: '/admin/categories' },
+    { icon: BookAIcon, label: 'Blogs', path: '/admin/blogs' },
   ];
 
   return (

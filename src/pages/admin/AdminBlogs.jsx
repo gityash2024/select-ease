@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api';
 
-// Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
@@ -19,7 +18,6 @@ const modalVariants = {
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } }
 };
 
-// Styled components
 const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -248,6 +246,7 @@ const ModalContent = styled(motion.div)`
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const ModalHeader = styled.div`
@@ -280,18 +279,21 @@ const CloseButton = styled.button`
 
 const ModalBody = styled.div`
   padding: 1.5rem;
+  overflow-x: hidden;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  width: 100%;
 `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 `;
 
 const Label = styled.label`
@@ -309,6 +311,7 @@ const Input = styled.input`
   border-radius: 6px;
   font-size: 0.95rem;
   width: 100%;
+  box-sizing: border-box;
   
   &:focus {
     outline: none;
@@ -325,6 +328,7 @@ const Textarea = styled.textarea`
   width: 100%;
   resize: vertical;
   min-height: 120px;
+  box-sizing: border-box;
   
   &:focus {
     outline: none;
@@ -404,7 +408,6 @@ const ConfirmButtons = styled.div`
   gap: 0.75rem;
 `;
 
-// Main component
 const AdminBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
@@ -430,7 +433,7 @@ const AdminBlogs = () => {
   useEffect(() => {
     if (searchTerm) {
       const filtered = blogs.filter(blog => 
-        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         blog.author?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         blog.content?.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -447,11 +450,8 @@ const AdminBlogs = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` }
       });
       if (response.data && response.data.blogs) {
-        const sortedBlogs = response.data.blogs.sort((a, b) => 
-          new Date(b.createdAt) - new Date(a.createdAt)
-        );
-        setBlogs(sortedBlogs);
-        setFilteredBlogs(sortedBlogs);
+        setBlogs(response.data.blogs);
+        setFilteredBlogs(response.data.blogs);
       }
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -514,7 +514,6 @@ const AdminBlogs = () => {
     setIsSubmitting(true);
     try {
       if (currentBlog) {
-        // Update existing blog
         await axios.put(
           `${API_URL}/blogs/${currentBlog.id}`,
           formData,
@@ -522,7 +521,6 @@ const AdminBlogs = () => {
         );
         toast.success('Blog updated successfully');
       } else {
-        // Create new blog
         await axios.post(
           `${API_URL}/blogs`,
           formData,
@@ -568,7 +566,6 @@ const AdminBlogs = () => {
     }
   };
   
-  // Pagination
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
@@ -684,7 +681,6 @@ const AdminBlogs = () => {
         </EmptyState>
       )}
       
-      {/* Add/Edit Blog Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <ModalOverlay
@@ -776,8 +772,6 @@ const AdminBlogs = () => {
           </ModalOverlay>
         )}
       </AnimatePresence>
-      
-      {/* Delete Confirmation Dialog */}
       <AnimatePresence>
         {isConfirmOpen && (
           <ModalOverlay

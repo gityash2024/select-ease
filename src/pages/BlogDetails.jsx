@@ -3,7 +3,7 @@ import './BlogDetails.css';
 import hero from '../assets/Hero.png';
 import { BsCalendar3 } from 'react-icons/bs';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { blogAPI } from '../services/api';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
@@ -13,14 +13,15 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  
+  const { id: routeId } = useParams();
+  const queryId = searchParams.get('id');
+  const blogId = routeId || queryId;
   
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        // Get blog ID from query parameters
-        const searchParams = new URLSearchParams(location.search);
-        const blogId = searchParams.get('id');
-        
         if (!blogId) {
           toast.error('Blog ID not provided');
           navigate('/blogs');
@@ -28,7 +29,7 @@ const BlogDetails = () => {
         }
         
         const response = await blogAPI.getBlogById(blogId);
-        setBlog(response.data);
+        setBlog(response.data.blog);
       } catch (error) {
         console.error('Error fetching blog details:', error);
         toast.error('Failed to load blog details');
@@ -38,7 +39,7 @@ const BlogDetails = () => {
     };
     
     fetchBlog();
-  }, [location.search, navigate]);
+  }, [blogId, navigate]);
   
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -48,10 +49,20 @@ const BlogDetails = () => {
     return <div className="not-found">Blog not found</div>;
   }
   
-  // Format date if available
   const formattedDate = blog.createdAt 
     ? format(new Date(blog.createdAt), 'dd MMMM yyyy')
     : 'No date available';
+    
+  const shareOnFacebook = () => {
+    const url = window.location.href;
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+  };
+  
+  const shareOnTwitter = () => {
+    const url = window.location.href;
+    const text = blog.title;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  };
   
   return (
     <div className="blog-details">
@@ -60,29 +71,58 @@ const BlogDetails = () => {
         <h1>Blog Details</h1>
       </section>
 
-      <div className="blog-details-content">
-        <div className="blog-details-header">
-          <div className="blog-meta-info">
-            <div className="blog-date">
-              <BsCalendar3 size={16} />
-              <span>{formattedDate}</span>
+      <div className="blog-details-container">
+        <div className="blog-details-content">
+          <div className="blog-details-header">
+            <div className="blog-meta-info">
+              <div className="blog-date">
+                <BsCalendar3 size={16} />
+                <span>{formattedDate}</span>
+              </div>
+              {blog.author && (
+                <div className="blog-author">
+                  <span>By {blog.author}</span>
+                </div>
+              )}
+              <span className="back-button">
+                <button style={{border:"1px solid #026283"}} onClick={() => navigate(-1)}>Back</button>
+              </span>
+            </div>
+            <h1 className="blog-title">{blog.title}</h1>
+          </div>
+
+          {blog.image_url && (
+            <div className="blog-featured-image">
+              <img src={blog.image_url} alt={blog.title} />
+            </div>
+          )}
+
+          <div className="blog-content">
+            {blog.summary && (
+              <div className="blog-summary">
+                <p>{blog.summary}</p>
+              </div>
+            )}
+            <div className="blog-text">
+              {blog.content.split('\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
           </div>
-          <h1 className="blog-title">{blog.heading}</h1>
-        </div>
 
-        <div className="blog-content">
-          <p className="blog-text">
-            {blog.text}
-          </p>
-        </div>
-
-        <div className="share-section">
-          <span className="share-text">Share Here:</span>
-          <div className="social-icons">
-            <FaFacebookF size={18} className="social-icon" />
-            <FaTwitter size={18} className="social-icon" />
-            <FaInstagram size={18} className="social-icon" />
+          <div className="share-section">
+            <span className="share-text">Share Here:</span>
+            <div className="social-icons">
+              <div className="social-icon" onClick={shareOnFacebook}>
+                <FaFacebookF size={18} />
+              </div>
+              <div className="social-icon" onClick={shareOnTwitter}>
+                <FaTwitter size={18} />
+              </div>
+              <div className="social-icon">
+                <FaInstagram size={18} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

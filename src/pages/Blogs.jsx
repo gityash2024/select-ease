@@ -16,19 +16,25 @@ const BlogCard = ({ blog, defaultImage }) => {
     
   return (
     <div 
-      className="blog-card-custom" 
-      style={{cursor:"pointer"}} 
-      onClick={() => navigate(`/blog-details?id=${blog.id}`)}
-    >
-      <img src={defaultImage} alt={blog.heading} className="blog-image" />
+    className="blog-card-custom" 
+    style={{cursor:"pointer"}} 
+    onClick={() => navigate(`/blog-details/${blog.id}`)}
+      >
+      <img src={blog.image_url || defaultImage} alt={blog.title} className="blog-image" />
       <div className="blog-content">
-        <h3 className="blog-title">{blog.heading}</h3>
+        <h3 className="blog-title">{blog.title}</h3>
         <div className="blog-meta">
           <div className="date-container">
             <img src={calendar} alt="calendar" className="calendar-icon" />
             <span>{formattedDate}</span>
           </div>
+          {blog.author && (
+            <div className="author-container">
+              <span className="author">By {blog.author}</span>
+            </div>
+          )}
         </div>
+        {blog.summary && <p className="blog-summary">{blog.summary}</p>}
       </div>
     </div>
   );
@@ -45,7 +51,7 @@ const Blogs = () => {
     const fetchBlogs = async () => {
       try {
         const response = await blogAPI.getAllBlogs();
-        setBlogs(response.data?.blogs||[]);
+        setBlogs(response.data?.blogs || []);
       } catch (error) {
         console.error('Error fetching blogs:', error);
         toast.error('Failed to load blogs');
@@ -81,7 +87,7 @@ const Blogs = () => {
             <div className="no-blogs-message">No blogs available at the moment.</div>
           ) : (
             <div className="blog-grid">
-              {blogs?.map((blog, index) => (
+              {blogs.map((blog, index) => (
                 <BlogCard
                   key={blog.id}
                   blog={blog}
