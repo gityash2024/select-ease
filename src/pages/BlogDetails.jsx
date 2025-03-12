@@ -1,10 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './BlogDetails.css';
 import hero from '../assets/Hero.png';
 import { BsCalendar3 } from 'react-icons/bs';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { blogAPI } from '../services/api';
+import { format } from 'date-fns';
+import toast from 'react-hot-toast';
 
 const BlogDetails = () => {
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        // Get blog ID from query parameters
+        const searchParams = new URLSearchParams(location.search);
+        const blogId = searchParams.get('id');
+        
+        if (!blogId) {
+          toast.error('Blog ID not provided');
+          navigate('/blogs');
+          return;
+        }
+        
+        const response = await blogAPI.getBlogById(blogId);
+        setBlog(response.data);
+      } catch (error) {
+        console.error('Error fetching blog details:', error);
+        toast.error('Failed to load blog details');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchBlog();
+  }, [location.search, navigate]);
+  
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+  
+  if (!blog) {
+    return <div className="not-found">Blog not found</div>;
+  }
+  
+  // Format date if available
+  const formattedDate = blog.createdAt 
+    ? format(new Date(blog.createdAt), 'dd MMMM yyyy')
+    : 'No date available';
+  
   return (
     <div className="blog-details">
       <section className="blog-details-hero">
@@ -17,34 +65,15 @@ const BlogDetails = () => {
           <div className="blog-meta-info">
             <div className="blog-date">
               <BsCalendar3 size={16} />
-              <span>15 June 2024</span>
+              <span>{formattedDate}</span>
             </div>
-            <div className="blog-category">Business</div>
           </div>
-          <h1 className="blog-title">Announcing the free upgrade for the subscribed plans</h1>
+          <h1 className="blog-title">{blog.heading}</h1>
         </div>
 
         <div className="blog-content">
           <p className="blog-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ullamcorper augue ut libero suscipit, vel convallis turpis euismod. Nullam at mauris malesuada, convallis ipsum ut, consequat enim. Aliquam erat volutpat. Sed fermentum nisi vitae diam sagittis pharetra.
-          </p>
-
-          <div className="blog-quote">
-            "Early in my career... I had to choose between honest arrogance and hypocritical humility... I deliberately chose honest arrogance, and I've never been sorry."
-          </div>
-
-          <div className="sustainable-design">
-            <h2>Sustainable Concrete Design</h2>
-            <div className="design-points">
-              <div className="design-point">By enhancing sustainable concrete design processes</div>
-              <div className="design-point">Making climate-conscious choices when we can</div>
-              <div className="design-point">Resources have always been used in a diverse and regular basis</div>
-              <div className="design-point">A competitive price point can add value into your lot or area </div>
-            </div>
-          </div>
-
-          <p className="blog-text">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Et harum quidem rerum facilis est et expedita distinctio.
+            {blog.text}
           </p>
         </div>
 

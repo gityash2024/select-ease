@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './WriteFeedback.css';
 import hero from '../assets/Hero.png';
 import saleforce from '../assets/saleforce.png';
@@ -9,8 +9,29 @@ import Guidelines from '../assets/Guidelines.png';
 import Guidelines1 from '../assets/Guidelines1.png';
 import Guidelines2 from '../assets/Guidelines2.png';
 import Guidelines3 from '../assets/Guidelines3.png';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { productAPI, reviewAPI } from '../services/api';
+import toast from 'react-hot-toast';
 
 const WriteFeedback = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    organization: '',
+    jobTitle: '',
+    companySize: '',
+    usageDuration: '',
+    title: '',
+    comment: '',
+    termsAccepted: false
+  });
+  
   const [ratings, setRatings] = useState({
     overall: 0,
     features: 0,
@@ -18,11 +39,85 @@ const WriteFeedback = () => {
     value: 0
   });
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        // Get product ID from query parameters
+        const searchParams = new URLSearchParams(location.search);
+        const productId = searchParams.get('productId');
+        
+        if (!productId) {
+          toast.error('Product ID not provided');
+          navigate('/reviews');
+          return;
+        }
+        
+        const response = await productAPI.getProductById(productId);
+        setProduct(response.data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        toast.error('Failed to load product details');
+        navigate('/reviews');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProduct();
+  }, [location.search, navigate]);
+
   const handleRating = (category, value) => {
     setRatings(prev => ({
       ...prev,
       [category]: value
     }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (ratings.overall === 0) {
+      toast.error('Please provide an overall rating');
+      return;
+    }
+    
+    if (!formData.title.trim() || !formData.comment.trim()) {
+      toast.error('Please provide a title and review comment');
+      return;
+    }
+    
+    if (!formData.termsAccepted) {
+      toast.error('Please accept the terms and conditions');
+      return;
+    }
+    
+    try {
+      setSubmitting(true);
+      
+      const reviewData = {
+        productId: product.id,
+        rating: ratings.overall,
+        comment: formData.comment,
+        title: formData.title
+      };
+      
+      await reviewAPI.createReview(reviewData);
+      toast.success('Review submitted successfully!');
+      navigate('/reviews');
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      toast.error('Failed to submit review. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const RatingStars = ({ category, value }) => {
@@ -32,7 +127,7 @@ const WriteFeedback = () => {
           <span
             key={star}
             onClick={() => handleRating(category, star)}
-            style={{ color: star <= value ? '#FDB241' : '#D1D5DB' }}
+            style={{ color: star <= value ? '#FDB241' : '#D1D5DB', cursor: 'pointer' }}
           >
             ★
           </span>
@@ -41,23 +136,27 @@ const WriteFeedback = () => {
     );
   };
 
+  if (loading) {
+    return <div className="loading">Loading product details...</div>;
+  }
+  
+  if (!product) {
+    return <div className="not-found">Product not found</div>;
+  }
+
   return (
     <div className="write-feedback">
       <section className="write-hero-section">
         <img src={hero} alt="" className="write-hero-background" />
         <h1>Your feedback can make a BIG impact</h1>
-        <div className="search-container">
-          <input type="text" placeholder="Search..." />
-          <button>Search</button>
-        </div>
       </section>
 
       <section className="review-section">
         <div className="review-header">
-          <img src={saleforce} alt="Salesforce logo" className="company-logo" />
+          <img src={saleforce} alt="Product logo" className="company-logo" />
           <div>
-            <h2>Write Review for Salesforce</h2>
-            <p>Sed ut perspiciatis unde omnis iste natus the error sit voluptatem accusantium doloremque laudantium totam rem aperiam...</p>
+            <h2>Write Review for {product.name}</h2>
+            <p>{product.description}</p>
           </div>
         </div>
 
@@ -76,33 +175,61 @@ const WriteFeedback = () => {
           </button>
         </div>
 
-        <form className="review-form">
+        <form className="review-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label>Name</label>
-              <input type="text" placeholder="Name" />
+              <input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Name" 
+              />
             </div>
             <div className="form-group">
               <label>Business Email</label>
-              <input type="email" placeholder="Your Business Email Address" />
+              <input 
+                type="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Your Business Email Address" 
+              />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
               <label>Organization Name</label>
-              <input type="text" placeholder="Organization Name" />
+              <input 
+                type="text" 
+                name="organization"
+                value={formData.organization}
+                onChange={handleInputChange}
+                placeholder="Organization Name" 
+              />
             </div>
             <div className="form-group">
               <label>Job Title</label>
-              <input type="text" placeholder="Job Title" />
+              <input 
+                type="text" 
+                name="jobTitle"
+                value={formData.jobTitle}
+                onChange={handleInputChange}
+                placeholder="Job Title" 
+              />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
               <label>Company Size</label>
-              <select defaultValue="">
+              <select 
+                name="companySize"
+                value={formData.companySize}
+                onChange={handleInputChange}
+              >
                 <option value="" disabled>Please select</option>
                 <option value="1-10">1-10 employees</option>
                 <option value="11-50">11-50 employees</option>
@@ -112,8 +239,12 @@ const WriteFeedback = () => {
               </select>
             </div>
             <div className="form-group">
-              <label>How long have you used this software?</label>
-              <select defaultValue="">
+              <label>How long have you used this product?</label>
+              <select 
+                name="usageDuration"
+                value={formData.usageDuration}
+                onChange={handleInputChange}
+              >
                 <option value="" disabled>Please select</option>
                 <option value="less-6">Less than 6 months</option>
                 <option value="6-12">6-12 months</option>
@@ -144,22 +275,45 @@ const WriteFeedback = () => {
 
           <div className="form-group">
             <label>Title of Review</label>
-            <input type="text" placeholder="Describe your experience in a short sentence." />
+            <input 
+              type="text" 
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              placeholder="Describe your experience in a short sentence." 
+            />
           </div>
 
           <div className="form-group">
             <label>Your Review</label>
-            <textarea placeholder="Salesforce is"></textarea>
+            <textarea 
+              name="comment"
+              value={formData.comment}
+              onChange={handleInputChange}
+              placeholder={`${product.name} is`}
+            ></textarea>
           </div>
 
           <div className="form-checkbox">
-            <input type="checkbox" id="terms" />
+            <input 
+              type="checkbox" 
+              id="terms" 
+              name="termsAccepted"
+              checked={formData.termsAccepted}
+              onChange={handleInputChange}
+            />
             <label htmlFor="terms">
-              I certify that my feedback is based on my experience with this product. By submitting, I agree to the terms of use and privacy policy of SoftwareSuggest.
+              I certify that my feedback is based on my experience with this product. By submitting, I agree to the terms of use and privacy policy of SelectEase.
             </label>
           </div>
 
-          <button type="submit" className="next-btn">Next</button>
+          <button 
+            type="submit" 
+            className="next-btn" 
+            disabled={submitting}
+          >
+            {submitting ? 'Submitting...' : 'Submit Review'}
+          </button>
         </form>
 
         <div className="guidelines">

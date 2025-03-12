@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:3000/api';
 const adminAPI = {
   admin: {
     login: (data) => axios.post(`${API_URL}/auth/login`, data),
+    signup: (data) => axios.post(`${API_URL}/auth/signup`, data),
     getStats: () => axios.get(`${API_URL}/admin/stats`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` }
     }),

@@ -93,7 +93,7 @@
   margin-bottom: 32px;
 }
 
-.auth-buttons button {
+/* .auth-buttons button {
   flex: 1;
   height: 44px;
   border: none;
@@ -107,7 +107,7 @@
   cursor: pointer;
   color: white;
   padding: 0 16px;
-}
+} */
 
 .google-btn {
   background: #DB4437;
