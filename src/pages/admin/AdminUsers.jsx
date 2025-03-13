@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserPlus, Trash2, CopyIcon } from 'lucide-react';
 import styled from 'styled-components';
-import  adminAPI  from './adminApi';
+import adminAPI from './adminApi';
 import toast from 'react-hot-toast';
 
 const Container = styled.div`
@@ -108,11 +108,68 @@ const ModalContent = styled.div`
   max-width: 32rem;
 `;
 
+const ConfirmModalContent = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 24rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
 const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+`;
+
+const ConfirmModalHeader = styled.h3`
+  font-size: 1.25rem;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const ConfirmModalText = styled.p`
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+`;
+
+const ConfirmModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+`;
+
+const CancelButton = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+`;
+
+const DeleteButton = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #dc2626;
+  }
 `;
 
 const Form = styled.form`
@@ -164,6 +221,8 @@ const ModalFooter = styled.div`
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -181,7 +240,7 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     try {
       const response = await adminAPI.users.getAll();
-      setUsers(response.data?.users||[]);
+      setUsers(response.data?.users || []);
     } catch (error) {
       toast.error('Failed to fetch users');
     }
@@ -215,27 +274,36 @@ const AdminUsers = () => {
       toast.error('Failed to create user');
     }
   };
-const formatDateAndTime=(date)=>{
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = new Date(date).toLocaleDateString('en-US', options);
-  const formattedTime = new Date(date).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-  return `${formattedDate} at ${formattedTime}`
-}
-  const handleDelete = async (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      try {
-        await adminAPI.users.delete(userId);
-        toast.success('User deleted successfully');
-        fetchUsers();
-      } catch (error) {
-        toast.error('Failed to delete user');
-      }
+
+  const formatDateAndTime = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    const formattedTime = new Date(date).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+    return `${formattedDate} at ${formattedTime}`;
+  };
+
+  const openDeleteConfirmation = (userId) => {
+    setUserToDelete(userId);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await adminAPI.users.delete(userToDelete);
+      toast.success('User deleted successfully');
+      fetchUsers();
+      setIsConfirmModalOpen(false);
+      setUserToDelete(null);
+    } catch (error) {
+      toast.error('Failed to delete user');
     }
   };
+
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     toast.success('Copied to clipboard');
   };
+
   return (
     <Container>
       <Header>
@@ -253,25 +321,30 @@ const formatDateAndTime=(date)=>{
               <Th>Username</Th>
               <Th>Email</Th>
               <Th>Role</Th>
-              <Th>Created At </Th>
+              <Th>Created At</Th>
               <Th>Actions</Th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
-                <Td>{user.username||'--'}</Td>
-                <Td>{user.email||'--'}
-                <CopyIcon style={{ cursor: 'pointer',marginLeft: '5px' }} onClick={() => copyToClipboard(user.email)} size={16} />
+                <Td>{user.username || '--'}</Td>
+                <Td>
+                  {user.email || '--'}
+                  <CopyIcon 
+                    style={{ cursor: 'pointer', marginLeft: '5px' }} 
+                    onClick={() => copyToClipboard(user.email)} 
+                    size={16} 
+                  />
                 </Td>
                 <Td>
                   <Badge type={user.is_admin ? 'admin' : 'vendor'}>
                     {user.is_admin ? 'Admin' : 'Vendor'}
                   </Badge>
                 </Td>
-                <Td>{formatDateAndTime(user.createdAt)||'--'}</Td>
+                <Td>{formatDateAndTime(user.createdAt) || '--'}</Td>
                 <Td>
-                  <ActionButton onClick={() => handleDelete(user.id)}>
+                  <ActionButton onClick={() => openDeleteConfirmation(user.id)}>
                     <Trash2 size={20} />
                   </ActionButton>
                 </Td>
@@ -373,6 +446,25 @@ const formatDateAndTime=(date)=>{
               </ModalFooter>
             </Form>
           </ModalContent>
+        </Modal>
+      )}
+
+      {isConfirmModalOpen && (
+        <Modal>
+          <ConfirmModalContent>
+            <ConfirmModalHeader>Delete User</ConfirmModalHeader>
+            <ConfirmModalText>
+              Are you sure you want to delete this user? This action cannot be undone.
+            </ConfirmModalText>
+            <ConfirmModalFooter>
+              <CancelButton onClick={() => setIsConfirmModalOpen(false)}>
+                Cancel
+              </CancelButton>
+              <DeleteButton onClick={handleDelete}>
+                Delete
+              </DeleteButton>
+            </ConfirmModalFooter>
+          </ConfirmModalContent>
         </Modal>
       )}
     </Container>

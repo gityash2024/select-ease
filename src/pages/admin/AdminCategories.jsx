@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit } from 'lucide-react';
 import styled from 'styled-components';
-import  adminAPI  from './adminApi';
+import adminAPI from './adminApi';
 import toast from 'react-hot-toast';
 
 const Container = styled.div`
@@ -105,6 +105,63 @@ const ModalContent = styled.div`
   max-width: 32rem;
 `;
 
+const ConfirmModalContent = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 24rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const ConfirmModalHeader = styled.h3`
+  font-size: 1.25rem;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const ConfirmModalText = styled.p`
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+`;
+
+const ConfirmModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+`;
+
+const CancelButton = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+`;
+
+const DeleteButton = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -189,9 +246,10 @@ const AdminCategories = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    description: ''
   });
 
   useEffect(() => {
@@ -236,34 +294,40 @@ const AdminCategories = () => {
     setSelectedCategory(category);
     setFormData({
       name: category.name,
-      description: category.description || ''
     });
     setIsEditMode(true);
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (categoryId) => {
-    if (window.confirm('Are you sure you want to delete this category?')) {
-      try {
-        await adminAPI.categories.delete(categoryId);
-        toast.success('Category deleted successfully');
-        fetchCategories();
-      } catch (error) {
-        toast.error('Failed to delete category');
-      }
+  const openDeleteConfirmation = (category) => {
+    setCategoryToDelete(category);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await adminAPI.categories.delete(categoryToDelete.id);
+      toast.success('Category deleted successfully');
+      setIsConfirmModalOpen(false);
+      setCategoryToDelete(null);
+      fetchCategories();
+    } catch (error) {
+      toast.error('Failed to delete category');
     }
   };
-  const formatDateAndTime=(date)=>{
+
+  const formatDateAndTime = (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
     const formattedTime = new Date(date).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
     return `${formattedDate} at ${formattedTime}`
-  }
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setIsEditMode(false);
     setSelectedCategory(null);
-    setFormData({ name: '', description: '' });
+    setFormData({ name: '' });
   };
 
   return (
@@ -281,7 +345,6 @@ const AdminCategories = () => {
           <thead>
             <tr>
               <Th>Name</Th>
-              <Th>Description</Th>
               <Th>Created At</Th>
               <Th>Actions</Th>
             </tr>
@@ -290,14 +353,13 @@ const AdminCategories = () => {
             {categories.map((category) => (
               <tr key={category.id}>
                 <Td>{category.name}</Td>
-                <Td>{category.description || '-'}</Td>
                 <Td>{formatDateAndTime(category.createdAt) || '-'}</Td>
                 <Td>
                   <ActionButtons>
                     <IconButton onClick={() => handleEdit(category)} color="#026283" hoverColor="#015272">
                       <Edit size={20} />
                     </IconButton>
-                    <IconButton onClick={() => handleDelete(category.id)} color="#ef4444" hoverColor="#dc2626">
+                    <IconButton onClick={() => openDeleteConfirmation(category)} color="#ef4444" hoverColor="#dc2626">
                       <Trash2 size={20} />
                     </IconButton>
                   </ActionButtons>
@@ -326,14 +388,7 @@ const AdminCategories = () => {
                   required
                 />
               </FormGroup>
-              <FormGroup>
-                <Label>Description</Label>
-                <TextArea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                />
-              </FormGroup>
+             
               <ButtonGroup>
                 <Button type="button" onClick={closeModal} style={{ backgroundColor: '#6b7280' }}>
                   Cancel
@@ -344,6 +399,25 @@ const AdminCategories = () => {
               </ButtonGroup>
             </Form>
           </ModalContent>
+        </Modal>
+      )}
+
+      {isConfirmModalOpen && (
+        <Modal>
+          <ConfirmModalContent>
+            <ConfirmModalHeader>Delete Category</ConfirmModalHeader>
+            <ConfirmModalText>
+              Are you sure you want to delete "{categoryToDelete?.name}"? This action cannot be undone.
+            </ConfirmModalText>
+            <ConfirmModalFooter>
+              <CancelButton onClick={() => setIsConfirmModalOpen(false)}>
+                Cancel
+              </CancelButton>
+              <DeleteButton onClick={handleDelete}>
+                Delete
+              </DeleteButton>
+            </ConfirmModalFooter>
+          </ConfirmModalContent>
         </Modal>
       )}
     </Container>
