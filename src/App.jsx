@@ -14,6 +14,8 @@ import School from './pages/School';
 import Testimonials from './pages/Testimonials';
 import BlogDetails from './pages/BlogDetails';
 import UserDashboard from './pages/UserDashboard';
+import AddProduct from './pages/AddProduct';
+import EditProduct from './pages/EditProduct';
 import Comparison from './pages/Comparison';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -203,8 +205,10 @@ function App() {
             <Route path="comparison" element={<Comparison />} />
             <Route path="contact" element={<Contact />} />
             <Route path="write-feedback" element={<WriteFeedback />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="edit-product" element={<EditProduct />} />
             <Route path="vendor" element={<Vendor />} />
-            <Route path="testimonials" element={<Testimonials />} />
+            <Route path="about-us" element={<Testimonials />} />
             <Route 
               path="dashboard" 
               element={

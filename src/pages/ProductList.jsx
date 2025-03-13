@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { productAPI, categoryAPI } from '../services/api';
-import { X, User, Search, Filter, Package } from 'lucide-react';
+import { Search, Package } from 'lucide-react';
 import toast from 'react-hot-toast';
 import hero from '../assets/Hero.png';
 import './ProductList.css';
@@ -10,7 +10,6 @@ const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState({ products: [], total: 0, page: 1, limit: 10, totalPages: 0 });
   const [categories, setCategories] = useState([]);
-  const [showAddModal, setShowAddModal] = useState(false);  
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
@@ -20,16 +19,8 @@ const ProductList = () => {
     status: ''
   });
 
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category_id: '',
-    url: '',
-    logo: ''
-  });
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -70,38 +61,36 @@ const ProductList = () => {
     }
   };
 
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
-    if (!isAuthenticated) {
-      toast.info('Please login to add a product');
-      navigate('/login');
-      return;
-    }
-    setLoading(true);
-    try {
-      await productAPI.createProduct(formData);
-      toast.success('Product added successfully');
-      setShowAddModal(false);
-      fetchProducts(1);
-      setCurrentPage(1);
-    } catch (error) {
-      toast.error(error.response?.data?.error || 'Failed to add product');
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  const handleFormInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
   const handleAddClick = () => {
     if (!isAuthenticated) {
-      toast.info('Please login to add a product');
+      toast('Please login to add a product', {
+        icon: 'ℹ️',
+      });
       navigate('/login');
     } else {
-      setShowAddModal(true);
+      navigate('/add-product');
     }
+  };
+
+  const toggleProductSelection = (productId) => {
+    if (selectedProducts.includes(productId)) {
+      setSelectedProducts(prev => prev.filter(id => id !== productId));
+    } else {
+      if (selectedProducts.length >= 5) {
+        toast.error('You can compare a maximum of 5 products');
+        return;
+      }
+      setSelectedProducts(prev => [...prev, productId]);
+    }
+  };
+
+  const handleCompare = () => {
+    if (selectedProducts.length < 2) {
+      toast.error('Please select at least 2 products to compare');
+      return;
+    }
+    
+    navigate(`/comparison?products=${selectedProducts.join(',')}`);
   };
 
   const filteredProducts = Array.isArray(products.products) 
@@ -167,6 +156,7 @@ const ProductList = () => {
         <select
           value={filters.category}
           onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
+          className="filter-dropdown"
         >
           <option value="">All Categories</option>
           {categories.map(category => (
@@ -178,6 +168,7 @@ const ProductList = () => {
           <select
             value={filters.status}
             onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+            className="filter-dropdown"
           >
             <option value="">All Status</option>
             <option value="pending">Pending</option>
@@ -186,21 +177,62 @@ const ProductList = () => {
           </select>
         )}
       </div>
+      
+      {selectedProducts.length > 0 && (
+        <div className="comparison-bar">
+          <div className="selected-count">
+            {selectedProducts.length} products selected
+          </div>
+          <button 
+            onClick={handleCompare}
+            className="compare-button"
+            disabled={selectedProducts.length < 2}
+          >
+            Compare Selected
+          </button>
+          <button 
+            onClick={() => setSelectedProducts([])}
+            className="clear-button"
+          >
+            Clear Selection
+          </button>
+        </div>
+      )}
 
       {filteredProducts.length > 0 ? (
         <>
           <div className="products-grid">
             {filteredProducts.map(product => (
-              <div key={product.id} className="product-card" onClick={() => navigate(`/products/${product.id}`)}>
-                <img src={product.logo || hero} alt={product.name} className="product-image" />
-                <div className="product-content">
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <div className="product-footer">
-                    <span className="price">${product.price}</span>
-                    {isAuthenticated && (
-                      <span className={`status ${product.status}`}>{product.status}</span>
-                    )}
+              <div key={product.id} className="product-card">
+                <div className="product-card-inner">
+                  <div 
+                    className="product-image-container" 
+                    onClick={() => navigate(`/products/${product.id}`)}
+                  >
+                    <img 
+                      src={product.image_url || product.logo || hero} 
+                      alt={product.name} 
+                      className="product-image" 
+                    />
+                  </div>
+                  <div className="product-content" onClick={() => navigate(`/products/${product.id}`)}>
+                    <h3>{product.name}</h3>
+                    <p>{product.description}</p>
+                    <div className="product-footer">
+                      <span className="price">${product.price}</span>
+                      {isAuthenticated && (
+                        <span className={`status ${product.status}`}>{product.status}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="compare-checkbox">
+                    <input
+                      type="checkbox"
+                      id={`compare-${product.id}`}
+                      checked={selectedProducts.includes(product.id)}
+                      onChange={() => toggleProductSelection(product.id)}
+                    />
+                    <label htmlFor={`compare-${product.id}`}>Compare</label>
                   </div>
                 </div>
               </div>
@@ -226,83 +258,6 @@ const ProductList = () => {
         </>
       ) : (
         <EmptyState />
-      )}
-
-      {showAddModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowAddModal(false)}>
-              <X size={24} />
-            </button>
-            <h2>Add New Product</h2>
-            <form onSubmit={handleAddProduct}>
-              <div className="form-group">
-                <label>Product Name</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleFormInputChange('name', e.target.value)}
-                  required
-                  autoComplete="off"
-                />
-              </div>
-              <div className="form-group">
-                <label>Description</label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => handleFormInputChange('description', e.target.value)}
-                  required
-                  autoComplete="off"
-                />
-              </div>
-              <div className="form-group">
-                <label>Price</label>
-                <input
-                  type="number"
-                  value={formData.price}
-                  onChange={(e) => handleFormInputChange('price', e.target.value)}
-                  required
-                  autoComplete="off"
-                />
-              </div>
-              <div className="form-group">
-                <label>Category</label>
-                <select
-                  value={formData.category_id}
-                  onChange={(e) => handleFormInputChange('category_id', e.target.value)}
-                  required
-                  autoComplete="off"
-                >
-                  <option value="">Select Category</option>
-                  {categories.map(category => (
-                    <option key={category.id} value={category.id}>{category.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Website URL</label>
-                <input
-                  type="url"
-                  value={formData.url}
-                  onChange={(e) => handleFormInputChange('url', e.target.value)}
-                  autoComplete="url"
-                />
-              </div>
-              <div className="form-group">
-                <label>Logo URL</label>
-                <input
-                  type="url"
-                  value={formData.logo}
-                  onChange={(e) => handleFormInputChange('logo', e.target.value)}
-                  autoComplete="off"
-                />
-              </div>
-              <button type="submit" className="submit-btn" disabled={loading}>
-                {loading ? 'Adding...' : 'Add Product'}
-              </button>
-            </form>
-          </div>
-        </div>
       )}
     </div>
   );

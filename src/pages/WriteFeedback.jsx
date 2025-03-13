@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './WriteFeedback.css';
-import hero from '../assets/Hero.png';
-import saleforce from '../assets/saleforce.png';
-import gogle from '../assets/gogle.png';
-import lnik from '../assets/lnik.png';
-import fack from '../assets/fack.png';
-import Guidelines from '../assets/Guidelines.png';
-import Guidelines1 from '../assets/Guidelines1.png';
-import Guidelines2 from '../assets/Guidelines2.png';
-import Guidelines3 from '../assets/Guidelines3.png';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { productAPI, reviewAPI } from '../services/api';
+import { productAPI, reviewAPI, authAPI } from '../services/api';
+import { Star, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import hero from '../assets/Hero.png';
+import './WriteFeedback.css';
 
 const WriteFeedback = () => {
   const location = useLocation();
@@ -19,325 +12,240 @@ const WriteFeedback = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    organization: '',
-    jobTitle: '',
-    companySize: '',
-    usageDuration: '',
+  const [reviewFormData, setReviewFormData] = useState({
     title: '',
     comment: '',
-    termsAccepted: false
+    rating: 5,
+    pros: '',
+    cons: '',
+    recommendation: true
   });
-  
-  const [ratings, setRatings] = useState({
-    overall: 0,
-    features: 0,
-    ease: 0,
-    value: 0
-  });
+
+  // Get product ID from URL query params
+  const params = new URLSearchParams(location.search);
+  const productId = params.get('productId');
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        // Get product ID from query parameters
-        const searchParams = new URLSearchParams(location.search);
-        const productId = searchParams.get('productId');
-        
-        if (!productId) {
-          toast.error('Product ID not provided');
-          navigate('/reviews');
-          return;
-        }
-        
-        const response = await productAPI.getProductById(productId);
-        setProduct(response.data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        toast.error('Failed to load product details');
-        navigate('/reviews');
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Check if user is authenticated
+    const isAuthenticated = authAPI.isAuthenticated();
+    if (!isAuthenticated) {
+      toast.error('Please login to write a review');
+      navigate('/login');
+      return;
+    }
     
-    fetchProduct();
-  }, [location.search, navigate]);
+    if (!productId) {
+      toast.error('No product selected for review');
+      navigate('/products');
+      return;
+    }
+    
+    fetchProductDetails();
+  }, [productId]);
 
-  const handleRating = (category, value) => {
-    setRatings(prev => ({
-      ...prev,
-      [category]: value
-    }));
+  const fetchProductDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await productAPI.getProductById(productId);
+      setProduct(response.data);
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+      toast.error('Failed to fetch product details');
+      navigate('/products');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const handleInputChange = (field, value) => {
+    setReviewFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (ratings.overall === 0) {
-      toast.error('Please provide an overall rating');
-      return;
-    }
-    
-    if (!formData.title.trim() || !formData.comment.trim()) {
-      toast.error('Please provide a title and review comment');
-      return;
-    }
-    
-    if (!formData.termsAccepted) {
-      toast.error('Please accept the terms and conditions');
-      return;
-    }
-    
     try {
       setSubmitting(true);
-      
       const reviewData = {
-        productId: product.id,
-        rating: ratings.overall,
-        comment: formData.comment,
-        title: formData.title
+        ...reviewFormData,
+        product_id: productId
       };
       
       await reviewAPI.createReview(reviewData);
-      toast.success('Review submitted successfully!');
-      navigate('/reviews');
+      toast.success('Review submitted successfully');
+      
+      // Navigate to product details page
+      navigate(`/products/${productId}`);
     } catch (error) {
       console.error('Error submitting review:', error);
-      toast.error('Failed to submit review. Please try again.');
+      toast.error('Failed to submit review');
     } finally {
       setSubmitting(false);
     }
   };
 
-  const RatingStars = ({ category, value }) => {
+  if (loading) {
     return (
-      <div className="stars">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            onClick={() => handleRating(category, star)}
-            style={{ color: star <= value ? '#FDB241' : '#D1D5DB', cursor: 'pointer' }}
-          >
-            ★
-          </span>
-        ))}
+      <div className="write-feedback-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading product details...</p>
       </div>
     );
-  };
-
-  if (loading) {
-    return <div className="loading">Loading product details...</div>;
   }
-  
+
   if (!product) {
-    return <div className="not-found">Product not found</div>;
+    return (
+      <div className="write-feedback-error">
+        <h2>Error</h2>
+        <p>Product not found</p>
+        <button className="back-button" onClick={() => navigate('/products')}>
+          Back to Products
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className="write-feedback">
-      <section className="write-hero-section">
-        <img src={hero} alt="" className="write-hero-background" />
-        <h1>Your feedback can make a BIG impact</h1>
-      </section>
+    <div className="write-feedback-page">
+      <div className="hero-section">
+        <img src={hero} alt="" className="hero-background" />
+        <div className="hero-container">
+          <h1>Write a Review</h1>
+        </div>
+      </div>
 
-      <section className="review-section">
-        <div className="review-header">
-          <img src={saleforce} alt="Product logo" className="company-logo" />
-          <div>
-            <h2>Write Review for {product.name}</h2>
-            <p>{product.description}</p>
+      <div className="feedback-container">
+        <div className="feedback-header">
+          <button className="back-button" onClick={() => navigate(`/products/${productId}`)}>
+            <ArrowLeft size={16} />
+            Back to Product
+          </button>
+          <h2>Review for {product.name}</h2>
+        </div>
+
+        <div className="product-card">
+          <div className="product-info">
+            <img src={product.logo || product.image_url || hero} alt={product.name} className="product-logo" />
+            <div>
+              <h3>{product.name}</h3>
+              <p className="product-description">{product.description}</p>
+            </div>
           </div>
         </div>
 
-        <div className="auth-buttons">
-          <button className="google-btn">
-            <img src={gogle} alt="Google" />
-            Sign in with Google
-          </button>
-          <button className="linkedin-btn">
-            <img src={lnik} alt="LinkedIn" />
-            Sign in with LinkedIn
-          </button>
-          <button className="facebook-btn">
-            <img src={fack} alt="Facebook" />
-            Login with Facebook
-          </button>
-        </div>
+        <div className="review-form-container">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Your Overall Rating</label>
+              <div className="rating-input">
+                {[...Array(5)].map((_, index) => (
+                  <Star
+                    key={index}
+                    size={32}
+                    onClick={() => handleInputChange('rating', index + 1)}
+                    fill={index < reviewFormData.rating ? '#fbbf24' : 'none'}
+                    color={index < reviewFormData.rating ? '#fbbf24' : '#d1d5db'}
+                    style={{ cursor: 'pointer' }}
+                  />
+                ))}
+                <span className="rating-text">
+                  {reviewFormData.rating === 5 ? 'Excellent' : 
+                   reviewFormData.rating === 4 ? 'Very Good' :
+                   reviewFormData.rating === 3 ? 'Good' :
+                   reviewFormData.rating === 2 ? 'Fair' : 'Poor'}
+                </span>
+              </div>
+            </div>
 
-        <form className="review-form" onSubmit={handleSubmit}>
-          <div className="form-row">
             <div className="form-group">
-              <label>Name</label>
-              <input 
-                type="text" 
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Name" 
+              <label htmlFor="title">Review Title</label>
+              <input
+                type="text"
+                id="title"
+                value={reviewFormData.title}
+                onChange={(e) => handleInputChange('title', e.target.value)}
+                placeholder="Summarize your experience with this product"
+                required
               />
             </div>
-            <div className="form-group">
-              <label>Business Email</label>
-              <input 
-                type="email" 
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Your Business Email Address" 
-              />
-            </div>
-          </div>
 
-          <div className="form-row">
             <div className="form-group">
-              <label>Organization Name</label>
-              <input 
-                type="text" 
-                name="organization"
-                value={formData.organization}
-                onChange={handleInputChange}
-                placeholder="Organization Name" 
+              <label htmlFor="comment">Your Review</label>
+              <textarea
+                id="comment"
+                value={reviewFormData.comment}
+                onChange={(e) => handleInputChange('comment', e.target.value)}
+                placeholder="Share your experience with this product. What do you like or dislike?"
+                required
+                rows={5}
               />
             </div>
-            <div className="form-group">
-              <label>Job Title</label>
-              <input 
-                type="text" 
-                name="jobTitle"
-                value={formData.jobTitle}
-                onChange={handleInputChange}
-                placeholder="Job Title" 
-              />
-            </div>
-          </div>
 
-          <div className="form-row">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="pros">Pros</label>
+                <textarea
+                  id="pros"
+                  value={reviewFormData.pros}
+                  onChange={(e) => handleInputChange('pros', e.target.value)}
+                  placeholder="What did you like about this product?"
+                  rows={3}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="cons">Cons</label>
+                <textarea
+                  id="cons"
+                  value={reviewFormData.cons}
+                  onChange={(e) => handleInputChange('cons', e.target.value)}
+                  placeholder="What could be improved?"
+                  rows={3}
+                />
+              </div>
+            </div>
+
             <div className="form-group">
-              <label>Company Size</label>
-              <select 
-                name="companySize"
-                value={formData.companySize}
-                onChange={handleInputChange}
+              <label>Would you recommend this product?</label>
+              <div className="recommendation-options">
+                <button
+                  type="button"
+                  className={`recommendation-btn ${reviewFormData.recommendation ? 'selected' : ''}`}
+                  onClick={() => handleInputChange('recommendation', true)}
+                >
+                  <CheckCircle size={20} />
+                  Yes, I recommend this product
+                </button>
+                <button
+                  type="button"
+                  className={`recommendation-btn ${reviewFormData.recommendation === false ? 'selected' : ''}`}
+                  onClick={() => handleInputChange('recommendation', false)}
+                >
+                  <XCircle size={20} />
+                  No, I don't recommend this product
+                </button>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={() => navigate(`/products/${productId}`)}
               >
-                <option value="" disabled>Please select</option>
-                <option value="1-10">1-10 employees</option>
-                <option value="11-50">11-50 employees</option>
-                <option value="51-200">51-200 employees</option>
-                <option value="201-500">201-500 employees</option>
-                <option value="501+">501+ employees</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>How long have you used this product?</label>
-              <select 
-                name="usageDuration"
-                value={formData.usageDuration}
-                onChange={handleInputChange}
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={submitting}
               >
-                <option value="" disabled>Please select</option>
-                <option value="less-6">Less than 6 months</option>
-                <option value="6-12">6-12 months</option>
-                <option value="1-2">1-2 years</option>
-                <option value="2+">More than 2 years</option>
-              </select>
+                {submitting ? 'Submitting...' : 'Submit Review'}
+              </button>
             </div>
-          </div>
-
-          <div className="rating-section">
-            <div className="rating-group">
-              <label>Overall Rating</label>
-              <RatingStars category="overall" value={ratings.overall} />
-            </div>
-            <div className="rating-group">
-              <label>Features</label>
-              <RatingStars category="features" value={ratings.features} />
-            </div>
-            <div className="rating-group">
-              <label>Ease of use</label>
-              <RatingStars category="ease" value={ratings.ease} />
-            </div>
-            <div className="rating-group">
-              <label>Value for money</label>
-              <RatingStars category="value" value={ratings.value} />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Title of Review</label>
-            <input 
-              type="text" 
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              placeholder="Describe your experience in a short sentence." 
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Your Review</label>
-            <textarea 
-              name="comment"
-              value={formData.comment}
-              onChange={handleInputChange}
-              placeholder={`${product.name} is`}
-            ></textarea>
-          </div>
-
-          <div className="form-checkbox">
-            <input 
-              type="checkbox" 
-              id="terms" 
-              name="termsAccepted"
-              checked={formData.termsAccepted}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="terms">
-              I certify that my feedback is based on my experience with this product. By submitting, I agree to the terms of use and privacy policy of SelectEase.
-            </label>
-          </div>
-
-          <button 
-            type="submit" 
-            className="next-btn" 
-            disabled={submitting}
-          >
-            {submitting ? 'Submitting...' : 'Submit Review'}
-          </button>
-        </form>
-
-        <div className="guidelines">
-          <h3>Review Guidelines</h3>
-          <div className="guidelines-grid">
-            <div className="guideline-card">
-              <img src={Guidelines} alt="No Incomplete Information" />
-              <p>No Incomplete Information</p>
-            </div>
-            <div className="guideline-card">
-              <img src={Guidelines1} alt="No Self-Promotional Activity" />
-              <p>No Self-Promotional Activity</p>
-            </div>
-            <div className="guideline-card">
-              <img src={Guidelines2} alt="No Hateful Language" />
-              <p>No Hateful or Disparaging Language</p>
-            </div>
-            <div className="guideline-card">
-              <img src={Guidelines3} alt="No Fake Names" />
-              <p>No Use of Fake Names or Spam Content.</p>
-            </div>
-          </div>
+          </form>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

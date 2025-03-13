@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { productAPI, reviewAPI } from '../services/api';
+import { productAPI, reviewAPI, authAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import hero from '../assets/Hero.png';
 import link from '../assets/link.png';
@@ -17,6 +17,7 @@ import project from '../assets/project.png';
 import software from '../assets/software.png';
 import crm from '../assets/crm.png';
 import './Product.css';
+import { Star, CheckCircle, XCircle, Clock, Send, MessageSquare } from 'lucide-react';
 
 const Product = () => {
   const { id } = useParams();
@@ -27,19 +28,31 @@ const Product = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewFormData, setReviewFormData] = useState({
+    title: '',
+    comment: '',
+    rating: 5,
+    pros: '',
+    cons: '',
+    recommendation: true
+  });
 
   useEffect(() => {
+    setIsAuthenticated(authAPI.isAuthenticated());
     fetchProductDetails();
   }, [id]);
 
   useEffect(() => {
-    if (product && activeTab === 'reviews') {
+    if (product) {
       fetchProductReviews();
     }
-  }, [product, activeTab]);
+  }, [product]);
 
   const fetchProductDetails = async () => {
     try {
+      setLoading(true);
       const response = await productAPI.getProductById(id);
       setProduct(response.data);
     } catch (error) {
@@ -56,13 +69,8 @@ const Product = () => {
     
     setReviewsLoading(true);
     try {
-      // This is a placeholder - you might need to create an API endpoint for product reviews
-      // For now, we'll use the getAllReviews endpoint and filter client-side
-      const response = await reviewAPI.getAllReviews();
-      const productReviews = response.data.filter(review => 
-        review.productId === product.id || review.product_id === product.id
-      );
-      setReviews(productReviews);
+      const response = await reviewAPI.getProductReviews(product.id);
+      setReviews(response.data);
     } catch (error) {
       console.error('Error fetching product reviews:', error);
       toast.error('Failed to load reviews');
@@ -72,13 +80,51 @@ const Product = () => {
   };
 
   const handleFollow = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
+    if (!isAuthenticated) {
       toast.error('Please login to follow products');
       return;
     }
     setIsFollowing(!isFollowing);
     toast.success(isFollowing ? 'Unfollowed successfully' : 'Followed successfully');
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    
+    if (!isAuthenticated) {
+      toast.error('Please login to submit a review');
+      navigate('/login');
+      return;
+    }
+    
+    try {
+      const reviewData = {
+        ...reviewFormData,
+        product_id: product.id
+      };
+      
+      await reviewAPI.createReview(reviewData);
+      toast.success('Review submitted successfully');
+      setShowReviewForm(false);
+      setReviewFormData({
+        title: '',
+        comment: '',
+        rating: 5,
+        pros: '',
+        cons: '',
+        recommendation: true
+      });
+      
+      // Refresh reviews
+      fetchProductReviews();
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      toast.error('Failed to submit review');
+    }
+  };
+
+  const handleReviewInputChange = (field, value) => {
+    setReviewFormData(prev => ({ ...prev, [field]: value }));
   };
 
   if (loading) {
@@ -88,6 +134,11 @@ const Product = () => {
   if (!product) {
     return <div className="error">Product not found</div>;
   }
+
+  // Calculate average rating
+  const averageRating = product.reviews && product.reviews.length > 0
+    ? product.reviews.reduce((sum, review) => sum + review.rating, 0) / product.reviews.length
+    : 0;
 
   return (
     <div className="product-page">
@@ -106,7 +157,16 @@ const Product = () => {
               <h2>{product.name}</h2>
               <p>{product.description}</p>
               <div className="ratings">
-                <span className="stars">★★★★★</span>
+                <span className="stars">
+                  {[...Array(5)].map((_, index) => (
+                    <Star 
+                      key={index}
+                      size={16}
+                      fill={index < Math.round(averageRating) ? '#fbbf24' : 'none'}
+                      color={index < Math.round(averageRating) ? '#fbbf24' : '#d1d5db'}
+                    />
+                  ))}
+                </span>
                 <span className="reviews-count">{reviews.length} Reviews</span>
                 <span className="dot">•</span>
                 <span className="followers-count">Followers</span>
@@ -117,9 +177,11 @@ const Product = () => {
             <button className="follow-btn" onClick={handleFollow}>
               {isFollowing ? 'Following' : 'Follow'}
             </button>
-            <button className="visit-btn" onClick={() => window.open(product.url, '_blank')}>
-              Visit Website
-            </button>
+            {product.url && (
+              <button className="visit-btn" onClick={() => window.open(product.url, '_blank')}>
+                Visit Website
+              </button>
+            )}
           </div>
         </div>
 
@@ -132,28 +194,22 @@ const Product = () => {
               Overview
             </button>
             <button 
-              className={activeTab === 'launches' ? 'active' : ''} 
-              onClick={() => setActiveTab('launches')}
-            >
-              Launches
-            </button>
-            <button 
               className={activeTab === 'reviews' ? 'active' : ''} 
               onClick={() => setActiveTab('reviews')}
             >
-              Reviews
+              Reviews ({reviews.length})
             </button>
             <button 
-              className={activeTab === 'team' ? 'active' : ''} 
-              onClick={() => setActiveTab('team')}
+              className={activeTab === 'features' ? 'active' : ''} 
+              onClick={() => setActiveTab('features')}
             >
-              Team
+              Features
             </button>
             <button 
-              className={activeTab === 'more' ? 'active' : ''} 
-              onClick={() => setActiveTab('more')}
+              className={activeTab === 'pricing' ? 'active' : ''} 
+              onClick={() => setActiveTab('pricing')}
             >
-              More
+              Pricing
             </button>
           </div>
         </div>
@@ -165,7 +221,10 @@ const Product = () => {
                 <div className="use-section">
                   <h3>Do you use {product.name}?</h3>
                   <div className="use-buttons">
-                    <button className="use-btn" onClick={() => navigate(`/write-feedback?productId=${product.id}`)}>
+                    <button 
+                      className="use-btn" 
+                      onClick={() => setShowReviewForm(true)}
+                    >
                       I use this
                     </button>
                     <button className="use-btn outline">I use something else</button>
@@ -192,17 +251,9 @@ const Product = () => {
                   </div>
   
                   <div className="feature-images">
-                    <img src={product.logo || project} alt="Feature" />
+                    <img src={product.image_url || product.logo || project} alt="Feature" />
                     <img src={software} alt="Feature" />
                     <img src={crm} alt="Feature" />
-                  </div>
-  
-                  <div className="launch-section">
-                    <h3>Recent launches</h3>
-                    <div className="launch-content">
-                      <p>{product.description}</p>
-                      <span className="launch-date">3 days ago</span>
-                    </div>
                   </div>
                 </div>
               </>
@@ -212,7 +263,10 @@ const Product = () => {
               <div className="reviews-section">
                 <div className="reviews-header">
                   <h3>Product Reviews</h3>
-                  <button className="write-review-btn" onClick={() => navigate(`/write-feedback?productId=${product.id}`)}>
+                  <button 
+                    className="write-review-btn" 
+                    onClick={() => setShowReviewForm(true)}
+                  >
                     Write a Review
                   </button>
                 </div>
@@ -225,19 +279,59 @@ const Product = () => {
                       <div key={review.id} className="review-card">
                         <div className="review-header">
                           <div className="reviewer-info">
-                            <span className="reviewer-name">{review.user?.username || 'Anonymous'}</span>
+                            <span className="reviewer-name">
+                              {review.user?.username || review.user?.firstName || 'Anonymous'}
+                            </span>
                             <span className="review-date">
                               {new Date(review.createdAt).toLocaleDateString()}
                             </span>
                           </div>
                           <div className="review-rating">
                             {[...Array(5)].map((_, i) => (
-                              <span key={i} style={{ color: i < review.rating ? '#FDB241' : '#D1D5DB' }}>★</span>
+                              <Star 
+                                key={i} 
+                                size={16}
+                                fill={i < review.rating ? '#fbbf24' : 'none'}
+                                color={i < review.rating ? '#fbbf24' : '#d1d5db'}
+                              />
                             ))}
                           </div>
                         </div>
                         <h4 className="review-title">{review.title}</h4>
                         <p className="review-content">{review.comment}</p>
+                        
+                        {(review.pros || review.cons) && (
+                          <div className="review-details">
+                            {review.pros && (
+                              <div className="review-pros">
+                                <h5>Pros</h5>
+                                <p>{review.pros}</p>
+                              </div>
+                            )}
+                            {review.cons && (
+                              <div className="review-cons">
+                                <h5>Cons</h5>
+                                <p>{review.cons}</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        
+                        {review.recommendation !== null && (
+                          <div className="recommendation">
+                            {review.recommendation ? (
+                              <div className="recommends">
+                                <CheckCircle size={16} color="#10b981" />
+                                <span>Recommends this product</span>
+                              </div>
+                            ) : (
+                              <div className="does-not-recommend">
+                                <XCircle size={16} color="#ef4444" />
+                                <span>Does not recommend this product</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -249,30 +343,73 @@ const Product = () => {
               </div>
             )}
             
-            {activeTab === 'launches' && (
-              <div className="launches-section">
-                <h3>Product Launches</h3>
-                <p>No launches available for this product yet.</p>
+            {activeTab === 'features' && (
+              <div className="features-section">
+                <h3>Features</h3>
+                <div className="features-list">
+                  <div className="feature-item">
+                    <CheckCircle size={20} color="#10b981" />
+                    <span>User-friendly interface</span>
+                  </div>
+                  <div className="feature-item">
+                    <CheckCircle size={20} color="#10b981" />
+                    <span>Advanced analytics</span>
+                  </div>
+                  <div className="feature-item">
+                    <CheckCircle size={20} color="#10b981" />
+                    <span>Real-time collaboration</span>
+                  </div>
+                  <div className="feature-item">
+                    <CheckCircle size={20} color="#10b981" />
+                    <span>Cloud storage</span>
+                  </div>
+                  <div className="feature-item">
+                    <CheckCircle size={20} color="#10b981" />
+                    <span>Mobile compatibility</span>
+                  </div>
+                </div>
               </div>
             )}
             
-            {activeTab === 'team' && (
-              <div className="team-section">
-                <h3>Team Members</h3>
-                <div className="team-members">
-                  <div className="team-member">
-                    <img src={makers_1} alt="Team Member" />
-                    <div className="member-info">
-                      <h4>John Doe</h4>
-                      <p>Co-founder & CEO</p>
-                    </div>
+            {activeTab === 'pricing' && (
+              <div className="pricing-section">
+                <h3>Pricing Plans</h3>
+                <div className="pricing-plans">
+                  <div className="pricing-plan">
+                    <h4>Basic</h4>
+                    <div className="plan-price">${product.price / 2}/month</div>
+                    <ul className="plan-features">
+                      <li>Basic features</li>
+                      <li>1 user</li>
+                      <li>5GB storage</li>
+                      <li>Email support</li>
+                    </ul>
+                    <button className="plan-btn">Choose Plan</button>
                   </div>
-                  <div className="team-member">
-                    <img src={makers_2} alt="Team Member" />
-                    <div className="member-info">
-                      <h4>Jane Smith</h4>
-                      <p>Co-founder & CTO</p>
-                    </div>
+                  <div className="pricing-plan popular">
+                    <div className="popular-tag">Popular</div>
+                    <h4>Professional</h4>
+                    <div className="plan-price">${product.price}/month</div>
+                    <ul className="plan-features">
+                      <li>All Basic features</li>
+                      <li>5 users</li>
+                      <li>20GB storage</li>
+                      <li>Priority support</li>
+                      <li>Advanced analytics</li>
+                    </ul>
+                    <button className="plan-btn">Choose Plan</button>
+                  </div>
+                  <div className="pricing-plan">
+                    <h4>Enterprise</h4>
+                    <div className="plan-price">${product.price * 2}/month</div>
+                    <ul className="plan-features">
+                      <li>All Professional features</li>
+                      <li>Unlimited users</li>
+                      <li>100GB storage</li>
+                      <li>24/7 dedicated support</li>
+                      <li>Custom integrations</li>
+                    </ul>
+                    <button className="plan-btn">Contact Sales</button>
                   </div>
                 </div>
               </div>
@@ -285,19 +422,17 @@ const Product = () => {
               <p>{product.status}</p>
             </div>
 
-            <div className="info-card">
-              <h4>Links</h4>
-              <div className="link-item">
-                <img src={link} alt="Website" />
-                <a href={product.url} target="_blank" rel="noopener noreferrer">
-                  {product.url}
-                </a>
+            {product.url && (
+              <div className="info-card">
+                <h4>Links</h4>
+                <div className="link-item">
+                  <img src={link} alt="Website" />
+                  <a href={product.url} target="_blank" rel="noopener noreferrer">
+                    {product.url}
+                  </a>
+                </div>
               </div>
-              <div className="link-item">
-                <img src={github} alt="Github" />
-                <a href="#" target="_blank" rel="noopener noreferrer">Github</a>
-              </div>
-            </div>
+            )}
 
             <div className="info-card">
               <h4>Social</h4>
@@ -321,12 +456,103 @@ const Product = () => {
                 <img src={makers_1} alt="Maker" />
                 <img src={makers_2} alt="Maker" />
                 <img src={makers_3} alt="Maker" />
-                <img src={makers_3} alt="Maker" />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showReviewForm && (
+        <div className="modal-overlay">
+          <div className="modal-content review-form-modal">
+            <button className="modal-close" onClick={() => setShowReviewForm(false)}>
+              <XCircle size={24} />
+            </button>
+            <h2>Write a Review for {product.name}</h2>
+            <form onSubmit={handleSubmitReview}>
+              <div className="form-group">
+                <label>Rating</label>
+                <div className="rating-input">
+                  {[...Array(5)].map((_, index) => (
+                    <Star
+                      key={index}
+                      size={32}
+                      onClick={() => handleReviewInputChange('rating', index + 1)}
+                      fill={index < reviewFormData.rating ? '#fbbf24' : 'none'}
+                      color={index < reviewFormData.rating ? '#fbbf24' : '#d1d5db'}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Title</label>
+                <input
+                  type="text"
+                  value={reviewFormData.title}
+                  onChange={(e) => handleReviewInputChange('title', e.target.value)}
+                  placeholder="Summarize your experience"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Review</label>
+                <textarea
+                  value={reviewFormData.comment}
+                  onChange={(e) => handleReviewInputChange('comment', e.target.value)}
+                  placeholder="Share your experience with this product"
+                  required
+                  rows={5}
+                />
+              </div>
+              <div className="form-group">
+                <label>Pros</label>
+                <textarea
+                  value={reviewFormData.pros}
+                  onChange={(e) => handleReviewInputChange('pros', e.target.value)}
+                  placeholder="What did you like about this product?"
+                  rows={3}
+                />
+              </div>
+              <div className="form-group">
+                <label>Cons</label>
+                <textarea
+                  value={reviewFormData.cons}
+                  onChange={(e) => handleReviewInputChange('cons', e.target.value)}
+                  placeholder="What could be improved?"
+                  rows={3}
+                />
+              </div>
+              <div className="form-group">
+                <label>Would you recommend this product?</label>
+                <div className="recommendation-input">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="recommendation"
+                      checked={reviewFormData.recommendation === true}
+                      onChange={() => handleReviewInputChange('recommendation', true)}
+                    />
+                    Yes, I would recommend this
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="recommendation"
+                      checked={reviewFormData.recommendation === false}
+                      onChange={() => handleReviewInputChange('recommendation', false)}
+                    />
+                    No, I would not recommend this
+                  </label>
+                </div>
+              </div>
+              <button type="submit" className="submit-btn">
+                Submit Review
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

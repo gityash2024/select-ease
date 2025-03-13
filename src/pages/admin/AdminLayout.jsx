@@ -3,6 +3,7 @@ import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Users, Package, List, LogOut, BookAIcon } from 'lucide-react';
 import styled from 'styled-components';
 import toast from 'react-hot-toast';
+import { MdReviews } from 'react-icons/md';
 
 const Container = styled.div`
   display: flex;

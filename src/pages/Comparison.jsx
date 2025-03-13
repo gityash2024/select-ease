@@ -1,330 +1,248 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { productAPI, categoryAPI } from '../services/api';
 import './Comparison.css';
-import styled from 'styled-components';
-import axios from 'axios';
-import { motion } from 'framer-motion';
-import { Star, Check, X } from 'lucide-react';
+import { Star, Check, X, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
-
-const API_URL = 'http://localhost:3000/api';
-
-const ComparisonContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-const ProductSelectionContainer = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-`;
-
-const SelectionTitle = styled.h2`
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #444;
-`;
-
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-`;
-
-const ProductCard = styled.div`
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 0.75rem;
-`;
-
-const ProductName = styled.h3`
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  text-align: center;
-`;
-
-const ProductPrice = styled.p`
-  font-weight: 600;
-  color: #026283;
-`;
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  margin-top: 0.75rem;
-  cursor: pointer;
-  
-  input {
-    margin-right: 0.5rem;
-  }
-`;
-
-const CompareButton = styled.button`
-  background-color: #026283;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 500;
-  margin-top: 1.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  
-  &:hover {
-    background-color: #01516e;
-  }
-  
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
-
-const ComparisonTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-`;
-
-const TableHeader = styled.th`
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  background-color: #f9fafb;
-  &:first-child {
-    width: 180px;
-  }
-`;
-
-const TableCell = styled.td`
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-  
-  &:not(:first-child) {
-    text-align: center;
-  }
-`;
-
-const FeatureCell = styled(TableCell)`
-  font-weight: 500;
-  background-color: #f9fafb;
-`;
-
-const StarRating = styled.div`
-  display: flex;
-  justify-content: center;
-  color: #f59e0b;
-`;
+import hero from '../assets/Hero.png';
 
 const Comparison = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [showComparison, setShowComparison] = useState(false);
-  
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
-  
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/products`);
-      if (response.data && response.data.products) {
-        setProducts(response.data.products);
+    const fetchCategories = async () => {
+      try {
+        const response = await categoryAPI.getAllCategories();
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
       }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      toast.error('Failed to load products');
-    }
-  };
-  
-  const handleProductSelection = (product) => {
-    if (selectedProducts.some(p => p.id === product.id)) {
-      // Remove if already selected
-      setSelectedProducts(selectedProducts.filter(p => p.id !== product.id));
-    } else {
-      // Add if not selected and less than 5 products are selected
-      if (selectedProducts.length < 5) {
-        setSelectedProducts([...selectedProducts, product]);
-      } else {
-        toast.error('You can compare a maximum of 5 products');
-      }
-    }
-  };
-  
-  const handleCompare = () => {
-    if (selectedProducts.length < 2) {
+    };
+
+    fetchCategories();
+
+    // Get product IDs from URL query params
+    const params = new URLSearchParams(location.search);
+    const productIds = params.get('products')?.split(',') || [];
+
+    if (productIds.length < 2) {
       toast.error('Please select at least 2 products to compare');
+      navigate('/products');
       return;
     }
-    setShowComparison(true);
-  };
-  
-  const isChecked = (productId) => {
-    return selectedProducts.some(p => p.id === productId);
-  };
-  
-  const renderRating = (rating) => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      stars.push(
-        <Star 
-          key={i} 
-          size={16} 
-          fill={i < Math.floor(rating) ? '#f59e0b' : 'none'} 
-          stroke={i < Math.floor(rating) ? '#f59e0b' : '#d1d5db'}
-        />
-      );
+
+    fetchProductsForComparison(productIds);
+  }, [location.search]);
+
+  const fetchProductsForComparison = async (productIds) => {
+    try {
+      setLoading(true);
+      const response = await productAPI.compareProducts(productIds);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products for comparison:', error);
+      toast.error('Failed to fetch comparison data');
+      navigate('/products');
+    } finally {
+      setLoading(false);
     }
-    return <StarRating>{stars}</StarRating>;
-  };
-  
-  const renderYesNo = (value) => {
-    return value ? 
-      <Check size={18} color="#10b981" /> : 
-      <X size={18} color="#ef4444" />;
   };
 
+  const getCategoryName = (categoryId) => {
+    const category = categories.find(c => c.id === categoryId);
+    return category ? category.name : 'N/A';
+  };
+
+  const renderRating = (rating) => {
+    return (
+      <div className="comparison-stars">
+        {[...Array(5)].map((_, index) => (
+          <Star
+            key={index}
+            size={16}
+            fill={index < Math.round(rating) ? '#fbbf24' : 'none'}
+            color={index < Math.round(rating) ? '#fbbf24' : '#d1d5db'}
+          />
+        ))}
+        <span className="rating-value">({rating})</span>
+      </div>
+    );
+  };
+
+  const renderYesNo = (value) => {
+    if (value === true) {
+      return <Check size={20} color="#10b981" />;
+    } else if (value === false) {
+      return <X size={20} color="#ef4444" />;
+    } else {
+      return <span className="na-text">N/A</span>;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="comparison-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading comparison data...</p>
+      </div>
+    );
+  }
+
+  if (products.length < 2) {
+    return (
+      <div className="comparison-error">
+        <h2>Comparison Error</h2>
+        <p>Not enough products to compare. Please select at least 2 products.</p>
+        <button className="back-button" onClick={() => navigate('/products')}>
+          Back to Products
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <ComparisonContainer>
-      <Title>Product Comparison</Title>
-      
-      <ProductSelectionContainer>
-        <SelectionTitle>Select up to 5 products to compare</SelectionTitle>
-        <ProductGrid>
-          {products.map(product => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ProductCard>
-                <ProductImage 
-                  src={product.image_url || 'https://via.placeholder.com/200x140?text=No+Image'} 
-                  alt={product.name} 
-                />
-                <ProductName>{product.name}</ProductName>
-                <ProductPrice>${product.price}</ProductPrice>
-                <CheckboxLabel>
-                  <input 
-                    type="checkbox" 
-                    checked={isChecked(product.id)}
-                    onChange={() => handleProductSelection(product)}
-                  />
-                  Compare
-                </CheckboxLabel>
-              </ProductCard>
-            </motion.div>
-          ))}
-        </ProductGrid>
-        
-        <CompareButton 
-          onClick={handleCompare} 
-          disabled={selectedProducts.length < 2}
-        >
-          Compare {selectedProducts.length > 0 ? `(${selectedProducts.length})` : ''}
-        </CompareButton>
-      </ProductSelectionContainer>
-      
-      {showComparison && selectedProducts.length >= 2 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <ComparisonTable>
+    <div className="comparison-page">
+      <div className="hero-section">
+        <img src={hero} alt="" className="hero-background" />
+        <div className="hero-container">
+          <h1>Product Comparison</h1>
+        </div>
+      </div>
+
+      <div className="comparison-container">
+        <div className="comparison-header">
+          <button className="back-button" onClick={() => navigate('/products')}>
+            <ArrowLeft size={16} />
+            Back to Products
+          </button>
+          <h2>Comparing {products.length} Products</h2>
+        </div>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
             <thead>
               <tr>
-                <TableHeader>Product</TableHeader>
-                {selectedProducts.map(product => (
-                  <TableHeader key={product.id}>{product.name}</TableHeader>
+                <th className="feature-column">Feature</th>
+                {products.map((product) => (
+                  <th key={product.id} className="product-column">
+                    <div className="product-header">
+                      <img 
+                        src={product.logo || product.image_url || hero} 
+                        alt={product.name} 
+                        className="product-logo" 
+                      />
+                      <h3>{product.name}</h3>
+                    </div>
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <FeatureCell>Image</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>
-                    <ProductImage 
-                      src={product.image_url || 'https://via.placeholder.com/200x140?text=No+Image'} 
-                      alt={product.name}
-                      style={{ width: '100px', height: '100px' }}
+                <td className="feature-name">Image</td>
+                {products.map((product) => (
+                  <td key={product.id}>
+                    <img 
+                      src={product.image_url || product.logo || hero} 
+                      alt={product.name} 
+                      className="product-image" 
                     />
-                  </TableCell>
+                  </td>
                 ))}
               </tr>
               <tr>
-                <FeatureCell>Price</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>${product.price}</TableCell>
+                <td className="feature-name">Price</td>
+                {products.map((product) => (
+                  <td key={product.id}>${product.price}</td>
                 ))}
               </tr>
               <tr>
-                <FeatureCell>Rating</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>
-                    {renderRating(product.rating || 0)}
-                  </TableCell>
+                <td className="feature-name">Rating</td>
+                {products.map((product) => (
+                  <td key={product.id}>
+                    {renderRating(product.averageRating || product.rating || 0)}
+                  </td>
                 ))}
               </tr>
               <tr>
-                <FeatureCell>Category</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>{product.category?.name || 'N/A'}</TableCell>
+                <td className="feature-name">Category</td>
+                {products.map((product) => (
+                  <td key={product.id}>{getCategoryName(product.category_id)}</td>
                 ))}
               </tr>
               <tr>
-                <FeatureCell>In Stock</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>
-                    {renderYesNo(product.in_stock)}
-                  </TableCell>
+                <td className="feature-name">In Stock</td>
+                {products.map((product) => (
+                  <td key={product.id}>{renderYesNo(product.in_stock)}</td>
                 ))}
               </tr>
               <tr>
-                <FeatureCell>Description</FeatureCell>
-                {selectedProducts.map(product => (
-                  <TableCell key={product.id}>{product.description || 'No description available'}</TableCell>
+                <td className="feature-name">Status</td>
+                {products.map((product) => (
+                  <td key={product.id}>
+                    <span className={`status-badge ${product.status}`}>
+                      {product.status}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="feature-name description-row">Description</td>
+                {products.map((product) => (
+                  <td key={product.id} className="description-cell">
+                    {product.description}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="feature-name">Website</td>
+                {products.map((product) => (
+                  <td key={product.id}>
+                    {product.url ? (
+                      <a 
+                        href={product.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="website-link"
+                      >
+                        Visit Website
+                      </a>
+                    ) : (
+                      <span className="na-text">N/A</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="feature-name">Actions</td>
+                {products.map((product) => (
+                  <td key={product.id}>
+                    <div className="product-actions">
+                      <button 
+                        className="view-btn" 
+                        onClick={() => navigate(`/products/${product.id}`)}
+                      >
+                        View Details
+                      </button>
+                      <button 
+                        className="review-btn" 
+                        onClick={() => navigate(`/write-feedback?productId=${product.id}`)}
+                      >
+                        Write Review
+                      </button>
+                    </div>
+                  </td>
                 ))}
               </tr>
             </tbody>
-          </ComparisonTable>
-        </motion.div>
-      )}
-    </ComparisonContainer>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -61,7 +61,7 @@ const Navbar = () => {
           </Link>
 
           <div className="nav-links">
-            <Link to="/testimonials" className="nav-link">About Us</Link>
+            <Link to="/about-us" className="nav-link">About Us</Link>
             <Link to="/categories" className="nav-link">Categories</Link>
             <Link to="/products" className="nav-link">Add a Product</Link>
             <Link to="/reviews" className="nav-link">Write a Review</Link>
