@@ -85,12 +85,13 @@
   margin: 0;
 }
 
-.product-card {
+.product-card-review{
   background: white;
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
 }
 
 .product-info {
@@ -102,6 +103,7 @@
 .product-logo {
   width: 60px;
   height: 60px;
+  min-width: 60px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -148,6 +150,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
@@ -158,6 +161,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
 }
 
 .rating-input {
@@ -229,6 +236,8 @@
   background: #026283;
   color: white;
   border: none;
+  min-width: 140px;
+  text-align: center;
 }
 
 .cancel-btn:hover {
@@ -280,6 +289,22 @@
   margin-bottom: 24px;
 }
 
+.submitting-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
 @media (max-width: 768px) {
   .feedback-header {
     flex-direction: column;
@@ -289,6 +314,7 @@
   
   .form-row {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
   
   .recommendation-options {
@@ -297,9 +323,16 @@
   
   .form-actions {
     flex-direction: column;
+    margin-top: 24px;
   }
   
   .cancel-btn, .submit-btn {
     width: 100%;
+  }
+  
+  .product-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }

@@ -5,6 +5,7 @@ import { Star, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import hero from '../assets/Hero.png';
 import './WriteFeedback.css';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const WriteFeedback = () => {
   const location = useLocation();
@@ -36,12 +37,12 @@ const WriteFeedback = () => {
     
     if (!productId) {
       toast.error('No product selected for review');
-      navigate('/products');
+      navigate('/reviews');
       return;
     }
     
     fetchProductDetails();
-  }, [productId]);
+  }, [productId, navigate]);
 
   const fetchProductDetails = async () => {
     try {
@@ -51,7 +52,7 @@ const WriteFeedback = () => {
     } catch (error) {
       console.error('Error fetching product details:', error);
       toast.error('Failed to fetch product details');
-      navigate('/products');
+      navigate('/reviews');
     } finally {
       setLoading(false);
     }
@@ -75,7 +76,7 @@ const WriteFeedback = () => {
       toast.success('Review submitted successfully');
       
       // Navigate to product details page
-      navigate(`/products/${productId}`);
+      navigate(`/reviews`);
     } catch (error) {
       console.error('Error submitting review:', error);
       toast.error('Failed to submit review');
@@ -84,69 +85,162 @@ const WriteFeedback = () => {
     }
   };
 
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   if (loading) {
     return (
-      <div className="write-feedback-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading product details...</p>
-      </div>
+      <motion.div 
+        className="write-feedback-loading"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.div 
+          className="loading-spinner"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          Loading product details...
+        </motion.p>
+      </motion.div>
     );
   }
 
   if (!product) {
     return (
-      <div className="write-feedback-error">
+      <motion.div 
+        className="write-feedback-error"
+        initial="hidden"
+        animate="visible"
+        variants={fadeIn}
+      >
         <h2>Error</h2>
         <p>Product not found</p>
-        <button className="back-button" onClick={() => navigate('/products')}>
+        <motion.button 
+          className="back-button" 
+          onClick={() => navigate('/products')}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Back to Products
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     );
   }
 
   return (
-    <div className="write-feedback-page">
-      <div className="hero-section">
-        <img src={hero} alt="" className="hero-background" />
-        <div className="hero-container">
+    <motion.div 
+      className="write-feedback-page"
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
+    >
+      <motion.div 
+        className="hero-section"
+        variants={fadeIn}
+      >
+        <motion.img 
+          src={hero} 
+          alt="" 
+          className="hero-background"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.7 }}
+        />
+        <motion.div 
+          className="hero-container"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <h1>Write a Review</h1>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="feedback-container">
-        <div className="feedback-header">
-          <button className="back-button" onClick={() => navigate(`/products/${productId}`)}>
+      <motion.div 
+        className="feedback-container"
+        variants={fadeIn}
+        transition={{ delay: 0.3 }}
+      >
+        <motion.div 
+          className="feedback-header"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.3 }}
+        >
+          <motion.button 
+            className="back-button" 
+            onClick={() => navigate('/reviews')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <ArrowLeft size={16} />
-            Back to Product
-          </button>
+            Back to Reviews
+          </motion.button>
           <h2>Review for {product.name}</h2>
-        </div>
+        </motion.div>
 
-        <div className="product-card">
+        <motion.div 
+          className="product-card-review"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.3 }}
+        >
           <div className="product-info">
-            <img src={product.logo || product.image_url || hero} alt={product.name} className="product-logo" />
+            <motion.img 
+              src={product.logo || product.image_url || hero} 
+              alt={product.name} 
+              className="product-logo"
+              whileHover={{ scale: 1.1 }}
+            />
             <div>
               <h3>{product.name}</h3>
               <p className="product-description">{product.description}</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="review-form-container">
+        <motion.div 
+          className="review-form-container"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.3 }}
+        >
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <motion.div 
+              className="form-group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.3 }}
+            >
               <label>Your Overall Rating</label>
               <div className="rating-input">
                 {[...Array(5)].map((_, index) => (
-                  <Star
+                  <motion.div
                     key={index}
-                    size={32}
-                    onClick={() => handleInputChange('rating', index + 1)}
-                    fill={index < reviewFormData.rating ? '#fbbf24' : 'none'}
-                    color={index < reviewFormData.rating ? '#fbbf24' : '#d1d5db'}
-                    style={{ cursor: 'pointer' }}
-                  />
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Star
+                      size={32}
+                      onClick={() => handleInputChange('rating', index + 1)}
+                      fill={index < reviewFormData.rating ? '#fbbf24' : 'none'}
+                      color={index < reviewFormData.rating ? '#fbbf24' : '#d1d5db'}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </motion.div>
                 ))}
                 <span className="rating-text">
                   {reviewFormData.rating === 5 ? 'Excellent' : 
@@ -155,9 +249,14 @@ const WriteFeedback = () => {
                    reviewFormData.rating === 2 ? 'Fair' : 'Poor'}
                 </span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="form-group">
+            <motion.div 
+              className="form-group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.3 }}
+            >
               <label htmlFor="title">Review Title</label>
               <input
                 type="text"
@@ -167,9 +266,14 @@ const WriteFeedback = () => {
                 placeholder="Summarize your experience with this product"
                 required
               />
-            </div>
+            </motion.div>
 
-            <div className="form-group">
+            <motion.div 
+              className="form-group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.3 }}
+            >
               <label htmlFor="comment">Your Review</label>
               <textarea
                 id="comment"
@@ -179,9 +283,14 @@ const WriteFeedback = () => {
                 required
                 rows={5}
               />
-            </div>
+            </motion.div>
 
-            <div className="form-row">
+            <motion.div 
+              className="form-row"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.3 }}
+            >
               <div className="form-group">
                 <label htmlFor="pros">Pros</label>
                 <textarea
@@ -203,50 +312,77 @@ const WriteFeedback = () => {
                   rows={3}
                 />
               </div>
-            </div>
+            </motion.div>
 
-            <div className="form-group">
+            <motion.div 
+              className="form-group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, duration: 0.3 }}
+            >
               <label>Would you recommend this product?</label>
               <div className="recommendation-options">
-                <button
+                <motion.button
                   type="button"
                   className={`recommendation-btn ${reviewFormData.recommendation ? 'selected' : ''}`}
                   onClick={() => handleInputChange('recommendation', true)}
+                  whileHover={{ scale: reviewFormData.recommendation ? 1 : 1.05 }}
+                  whileTap={{ scale: reviewFormData.recommendation ? 1 : 0.95 }}
                 >
                   <CheckCircle size={20} />
                   Yes, I recommend this product
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   type="button"
                   className={`recommendation-btn ${reviewFormData.recommendation === false ? 'selected' : ''}`}
                   onClick={() => handleInputChange('recommendation', false)}
+                  whileHover={{ scale: reviewFormData.recommendation === false ? 1 : 1.05 }}
+                  whileTap={{ scale: reviewFormData.recommendation === false ? 1 : 0.95 }}
                 >
                   <XCircle size={20} />
                   No, I don't recommend this product
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="form-actions">
-              <button
+            <motion.div 
+              className="form-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.3 }}
+            >
+              <motion.button
                 type="button"
                 className="cancel-btn"
-                onClick={() => navigate(`/products/${productId}`)}
+                onClick={() => navigate(`/reviews`)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Cancel
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 type="submit"
                 className="submit-btn"
                 disabled={submitting}
+                whileHover={{ scale: submitting ? 1 : 1.05 }}
+                whileTap={{ scale: submitting ? 1 : 0.95 }}
               >
-                {submitting ? 'Submitting...' : 'Submit Review'}
-              </button>
-            </div>
+                {submitting ? (
+                  <span className="submitting-text">
+                    <motion.span
+                      className="dot"
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
+                    />
+                    Submitting...
+                  </span>
+                ) : 'Submit Review'}
+              </motion.button>
+            </motion.div>
           </form>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
