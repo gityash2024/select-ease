@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-const API_BASE_URL = 'https://api.selectease.mymultimeds.com/api';
+const API_BASE_URL = 'https://select-ease-backend-1.onrender.com/api';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,

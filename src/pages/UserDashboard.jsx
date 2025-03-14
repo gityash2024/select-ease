@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
-const API_URL = 'https://api.selectease.mymultimeds.com/api';
+const API_URL = 'https://select-ease-backend-1.onrender.com/api';
 
 // Animation variants
 const fadeInUp = {

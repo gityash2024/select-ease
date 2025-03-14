@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
-const API_URL = 'https://api.selectease.mymultimeds.com/api';
+const API_URL = 'https://select-ease-backend-1.onrender.com/api';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },

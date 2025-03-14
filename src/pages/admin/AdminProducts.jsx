@@ -7,7 +7,7 @@ import { productAPI, categoryAPI } from '../../services/api';
 import adminAPI from './adminApi';
 import ProductDetailModal from '../ProductDetailModal';
 
-const API_URL = 'https://api.selectease.mymultimeds.com/api';
+const API_URL = 'https://select-ease-backend-1.onrender.com/api';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },

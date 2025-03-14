@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://api.selectease.mymultimeds.com/api';
+const API_URL = 'https://select-ease-backend-1.onrender.com/api';
 
 const adminAPI = {
   admin: {
