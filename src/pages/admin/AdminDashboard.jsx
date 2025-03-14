@@ -7,7 +7,7 @@ import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, L
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://api.selectease.mymultimeds.com/api';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },

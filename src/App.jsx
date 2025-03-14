@@ -6,6 +6,8 @@ import Footer from './pages/Footer';
 import Categories from './pages/Categories';
 import Product from './pages/Product';
 import Review from './pages/Review';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
 import Blogs from './pages/Blogs';
 import Contact from './pages/Contact';
 import WriteFeedback from './pages/WriteFeedback';
@@ -204,7 +206,8 @@ function App() {
             <Route path="blogs" element={<Blogs />} />
             <Route path="blog-details" element={<BlogDetails />} />
             <Route path="blog-details/:id" element={<BlogDetails />} />
-
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="comparison" element={<Comparison />} />
             <Route path="contact" element={<Contact />} />
             <Route path="write-feedback" element={<WriteFeedback />} />
