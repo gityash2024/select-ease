@@ -36,6 +36,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import AuthContext from './context/AuthContext';
+import GlobalScrollbarStyles from './components/GlobalScrollbarStyles';
 
 // Global scroll to top button
 const ScrollTopButton = styled(motion.button)`
@@ -150,6 +151,8 @@ function App() {
 
   return (
     <AuthContext.Provider value={authContextValue}>
+            <GlobalScrollbarStyles />
+
       <BrowserRouter>
         <ScrollToTop />
         <Routes>

@@ -75,7 +75,7 @@ const StyledBackButton = styled(motion.button)`
 `;
 
 const StyledFormContainer = styled(motion.div)`
-  max-width: 800px;
+  max-width: 830px;
   margin: 0 auto 40px;
   background: white;
   border-radius: 12px;

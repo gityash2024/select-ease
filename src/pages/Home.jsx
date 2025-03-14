@@ -97,7 +97,7 @@ const Title = styled.h1`
   font-weight: 400;
   line-height: 1.2;
   margin-bottom: 40px;
-  max-width: 800px;
+  max-width: 830px;
   margin-left: auto;
   margin-right: auto;
   color: black; 

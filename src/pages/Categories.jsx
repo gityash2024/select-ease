@@ -41,7 +41,7 @@ const HeroSection = styled.div`
 
   p {
     font-size: 1.2rem;
-    max-width: 800px;
+    max-width: 830px;
     margin: 0 auto 1.5rem;
     opacity: 0.9;
   }
@@ -123,7 +123,7 @@ const CategoryCard = styled(motion.div)`
     overflow: hidden;
   }
 
-  .footer {
+  .footer-category {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -282,7 +282,7 @@ const Categories = () => {
         <HeroSection>
           <h1>Browse Categories</h1>
           <p>Explore our collection of carefully curated categories to find the perfect products for your needs</p>
-          <SearchContainer>
+          {/* <SearchContainer>
             <Search size={20} color="#6b7280" />
             <input
               type="text"
@@ -290,7 +290,7 @@ const Categories = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-          </SearchContainer>
+          </SearchContainer> */}
         </HeroSection>
 
         {loading ? (
@@ -322,7 +322,7 @@ const Categories = () => {
                 <div className="content">
                   <h3>{category.name}</h3>
                   <p>{category.description || 'Explore products in this category'}</p>
-                  <div className="footer">
+                  <div className="footer-category">
                     <span className="count">
                       <Tag size={16} />
                       {Math.floor(Math.random() * 20) + 5} products
