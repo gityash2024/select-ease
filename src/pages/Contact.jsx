@@ -1,17 +1,12 @@
-// Contact.jsx
 import React, { useState } from 'react';
 import './Contact.css';
 import hero from '../assets/Hero.png';
-import Icon from '../assets/Icon.png';
-import Icon1 from '../assets/Icon1.png';
-import Icon2 from '../assets/Icon2.png';
-import Icon4 from '../assets/Icon3.png';
 import map from '../assets/map.png';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { Instagram, MapPin, Phone, Mail } from 'lucide-react';
 
-
-const ContactInfoSection = styled.div`
+const ContactInfoSection = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   max-width: 1200px;
@@ -24,7 +19,7 @@ const ContactInfoSection = styled.div`
   }
 `;
 
-const InfoCard = styled.div`
+const InfoCard = styled(motion.div)`
   flex: 1;
   text-align: center;
   padding: 24px;
@@ -38,7 +33,7 @@ const InfoCard = styled.div`
   }
 `;
 
-const IconCircle = styled.div`
+const IconCircle = styled(motion.div)`
   width: 64px;
   height: 64px;
   background: #026283;
@@ -99,18 +94,67 @@ const Contact = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  return (
-    <div className="contact-page">
-      {/* Hero Section */}
-      <section className="contact-hero-section">
-        <img src={hero} alt="" className="contact-hero-background" />
-        <h1>Contact Us</h1>
-      </section>
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
 
-      <div className="contact-content">
-        {/* Form and Map Section */}
-        <div className="form-map-container">
-          <div className="form-section">
+  const staggerChildren = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  return (
+    <motion.div 
+      className="contact-page"
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
+    >
+      <motion.section 
+        className="contact-hero-section"
+        variants={fadeIn}
+      >
+        <motion.img 
+          src={hero} 
+          alt="" 
+          className="contact-hero-background"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.7 }}
+        />
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          Contact Us
+        </motion.h1>
+      </motion.section>
+
+      <motion.div 
+        className="contact-content"
+        variants={staggerChildren}
+      >
+        <motion.div 
+          className="form-map-container"
+          variants={fadeIn}
+        >
+          <motion.div 
+            className="form-section"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <h2>Get in Touch</h2>
             <form>
               <div className="input-row">
@@ -131,111 +175,153 @@ const Contact = () => {
                 <label className="input-label">Message</label>
                 <textarea placeholder="Message"></textarea>
               </div>
-              <button type="submit">Submit</button>
+              <div className="submit-button-container">
+                <button type="submit">Submit</button>
+              </div>
             </form>
-          </div>
-          <div className="map-container">
+          </motion.div>
+          <motion.div 
+            className="map-container"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <img src={map} alt="Map" className="map-image" />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Contact Info Cards */}
-        {/* <div className="contact-info">
-          <div className="info-card">
-            <div className="icon-circle">
-              <img src={Icon} alt="Instagram" />
-            </div>
-            <h3>@FIND YOUR DRESS</h3>
-            <p>Follow us on instagram</p>
-          </div>
-          <div className="info-card">
-            <div className="icon-circle">
-              <img src={Icon1} alt="Location" />
-            </div>
-            <h3>ADDRESS</h3>
-            <p>2464 Royal Ln. Mesa, New Jersey 45463</p>
-          </div>
-          <div className="info-card">
-            <div className="icon-circle">
-              <img src={Icon2} alt="Phone" />
-            </div>
-            <h3>PHONE</h3>
-            <p>310-437-2766</p>
-            <p>310-437-2766</p>
-          </div>
-          <div className="info-card">
-            <div className="icon-circle">
-              <img src={Icon4} alt="Email" />
-            </div>
-            <h3>EMAIL</h3>
-            <p>hello@example.com</p>
-            <p>hello123@example.com</p>
-          </div>
-        </div> */}
-            <ContactInfoSection>
-      <InfoCard>
-        <IconCircle>
-          <Instagram />
-        </IconCircle>
-        <CardTitle>@FIND YOUR DRESS</CardTitle>
-        <CardText>Follow us on instagram</CardText>
-      </InfoCard>
+        <ContactInfoSection
+          variants={staggerChildren}
+          initial="hidden"
+          animate="visible"
+        >
+          <InfoCard
+            variants={fadeIn}
+            whileHover={{ y: -8, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+          >
+            <IconCircle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.4 }}
+            >
+              <Instagram />
+            </IconCircle>
+            <CardTitle>@FIND YOUR DRESS</CardTitle>
+            <CardText>Follow us on instagram</CardText>
+          </InfoCard>
 
-      <InfoCard>
-        <IconCircle>
-          <MapPin />
-        </IconCircle>
-        <CardTitle>ADDRESS</CardTitle>
-        <CardText>2464 Royal Ln. Mesa, New Jersey 45463</CardText>
-      </InfoCard>
+          <InfoCard
+            variants={fadeIn}
+            whileHover={{ y: -8, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+          >
+            <IconCircle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+            >
+              <MapPin />
+            </IconCircle>
+            <CardTitle>ADDRESS</CardTitle>
+            <CardText>2464 Royal Ln. Mesa, New Jersey 45463</CardText>
+          </InfoCard>
 
-      <InfoCard>
-        <IconCircle>
-          <Phone />
-        </IconCircle>
-        <CardTitle>PHONE</CardTitle>
-        <CardText>310-437-2766</CardText>
-        <CardText>310-437-2766</CardText>
-      </InfoCard>
+          <InfoCard
+            variants={fadeIn}
+            whileHover={{ y: -8, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+          >
+            <IconCircle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.6 }}
+            >
+              <Phone />
+            </IconCircle>
+            <CardTitle>PHONE</CardTitle>
+            <CardText>310-437-2766</CardText>
+            <CardText>310-437-2766</CardText>
+          </InfoCard>
 
-      <InfoCard>
-        <IconCircle>
-          <Mail />
-        </IconCircle>
-        <CardTitle>EMAIL</CardTitle>
-        <CardText>hello@example.com</CardText>
-        <CardText>hello123@example.com</CardText>
-      </InfoCard>
-    </ContactInfoSection>
+          <InfoCard
+            variants={fadeIn}
+            whileHover={{ y: -8, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+          >
+            <IconCircle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.7 }}
+            >
+              <Mail />
+            </IconCircle>
+            <CardTitle>EMAIL</CardTitle>
+            <CardText>hello@example.com</CardText>
+            <CardText>hello123@example.com</CardText>
+          </InfoCard>
+        </ContactInfoSection>
 
-
-        {/* FAQ Section */}
-        <div className="faq-section">
-          <div className="faq-content">
+        <motion.div 
+          className="faq-section"
+          variants={fadeIn}
+          transition={{ delay: 0.8 }}
+        >
+          <motion.div 
+            className="faq-content"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+          >
             <h2>Frequently Asked Questions</h2>
             <p>Sed ut perspiciatis unde omnis iste natus error <br />sit voluptatem accusantium.</p>
-            <button className="get-started">Get Started</button>
-          </div>
-          <div className="faq-questions">
+            <motion.button 
+              className="get-started"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get Started
+            </motion.button>
+          </motion.div>
+          <motion.div 
+            className="faq-questions"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.0, duration: 0.5 }}
+          >
             {faqItems.map((item, index) => (
-              <div 
+              <motion.div 
                 className={`faq-item ${activeIndex === index ? 'active' : ''}`} 
                 key={index}
                 onClick={() => toggleFAQ(index)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.0 + index * 0.1, duration: 0.3 }}
+                whileHover={{ boxShadow: "0 4px 8px rgba(0,0,0,0.05)" }}
               >
                 <div className="faq-question">
                   <span>{item.question}</span>
-                  <span className="arrow">▼</span>
+                  <motion.span 
+                    className="arrow"
+                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    ▼
+                  </motion.span>
                 </div>
-                <div className="faq-answer">
+                <motion.div 
+                  className="faq-answer"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ 
+                    height: activeIndex === index ? 'auto' : 0,
+                    opacity: activeIndex === index ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
                   {item.answer}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
