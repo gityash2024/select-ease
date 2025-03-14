@@ -116,6 +116,23 @@ const ProductCard = styled(motion.div)`
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+  
+  &.pending-own-product {
+    opacity: 0.7;
+    position: relative;
+  }
+  
+  &.pending-own-product::after {
+    content: "Pending Review";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f59e0b;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-bottom-left-radius: 8px;
+  }
 `;
 
 const ProductImage = styled.div`
@@ -156,6 +173,10 @@ const ProductDescription = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   cursor: pointer;
+  height: 4.5em; /* Set a fixed height for 3 lines of text */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 `;
 
 const ProductLogo = styled.div`
@@ -549,6 +570,7 @@ const AdminProducts = () => {
   const [isLogoUploading, setIsLogoUploading] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -567,6 +589,8 @@ const AdminProducts = () => {
   useEffect(() => {
     fetchProducts();
     fetchCategories();
+    const user = adminAPI.admin.getCurrentUser();
+    setCurrentUser(user);
   }, []);
 
   useEffect(() => {
@@ -774,6 +798,14 @@ const AdminProducts = () => {
     handleOpenModal(product);
   };
 
+  const isVendorProduct = (product) => {
+    return currentUser && 
+           currentUser.is_vendor && 
+           !currentUser.is_admin && 
+           product.user_id === currentUser.id &&
+           product.status !== 'published';
+  };
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -808,7 +840,12 @@ const AdminProducts = () => {
             animate="visible"
           >
             {currentProducts.map(product => (
-              <ProductCard key={product.id} variants={fadeIn} onClick={() => handleCardClick(product)}>
+              <ProductCard 
+                key={product.id} 
+                variants={fadeIn} 
+                onClick={() => handleCardClick(product)}
+                className={isVendorProduct(product) ? 'pending-own-product' : ''}
+              >
                 <ProductImage>
                   <img
                     src={product.image_url || 'https://via.placeholder.com/300x180?text=Product+Image'}
@@ -828,7 +865,7 @@ const AdminProducts = () => {
                   <ProductMeta>
                     <MetaItem>
                       <DollarSign size={14} />
-                      ${parseFloat(product.price).toFixed(2)}
+                      {parseFloat(product.price).toFixed(2)}
                     </MetaItem>
                     <MetaItem>
                       <Tag size={14} />
@@ -836,7 +873,7 @@ const AdminProducts = () => {
                     </MetaItem>
                   </ProductMeta>
                   <ProductDescription>
-                    {product.description?.substring(0, 120) + '...'}
+                    {product.description?.substring(0, 120) + (product.description?.length > 120 ? '...' : '')}
                   </ProductDescription>
                   <ProductActions>
                     <ActionButtonSmall
@@ -1091,13 +1128,12 @@ const AdminProducts = () => {
         )}
       </AnimatePresence>
 
-
-{showDetailModal && selectedProduct && (
-  <ProductDetailModal
-    product={selectedProduct}
-    onClose={() => setShowDetailModal(false)}
-  />
-)}
+      {showDetailModal && selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          onClose={() => setShowDetailModal(false)}
+        />
+      )}
     </div>
   );
 };

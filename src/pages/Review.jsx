@@ -72,7 +72,7 @@ const Review = () => {
   return (
     <div className="review-page">
       <section className="review-hero-section">
-        <img src={hero} alt="" className="hero-background" />
+        <img src={hero} alt="" className="hero-background-review" />
         <div className="review-hero-content">
           <h1>Your feedback can make a BIG impact</h1>
           <div className="review-search-box">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { X, User, LogOut, Settings, UserCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authAPI } from '../services/api';
 import AuthContext from '../context/AuthContext';
 import footerLogo from '../assets/navbar.svg';
 import './Navbar.css';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,13 +62,16 @@ const Navbar = () => {
           </Link>
 
           <div className="nav-links">
-            <Link to="/about-us" className="nav-link">About Us</Link>
-            <Link to="/categories" className="nav-link">Categories</Link>
-            <Link to="/products" className="nav-link">Add a Product</Link>
-            <Link to="/reviews" className="nav-link">Write a Review</Link>
-            <Link to="/blogs" className="nav-link">Blog</Link>
-          </div>
-
+  <NavLink to="/about-us" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About Us</NavLink>
+  <NavLink to="/categories" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Categories</NavLink>
+  <NavLink to="/products" className={({ isActive, isPending }) => 
+    isPending ? "nav-link" : isActive || location.pathname.startsWith('/products/') ? "nav-link active" : "nav-link"
+  }>Products</NavLink>
+  <NavLink to="/reviews" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Write a Review</NavLink>
+  <NavLink to="/blogs" className={({ isActive, isPending }) =>
+    isPending ? "nav-link" : isActive || location.pathname.startsWith('/blog-details') ? "nav-link active" : "nav-link"
+  }>Blog</NavLink>
+</div>
           <div className="nav-actions">
             <div className="search-box">
               <input type="text" placeholder="Search..." />

@@ -99,7 +99,7 @@
 }
 .contact-btn-2 {
   background-color: #006B8F;
-  margin-top: 32px;
+  /* margin-top: 32px; */
   color: white;
   border: none;
   padding: 8px 24px;
@@ -108,6 +108,22 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+.nav-link.active {
+  color: #006B8F;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #006B8F;
+  border-radius: 2px;
 }
 
 .contact-btn:hover {
