@@ -96,8 +96,7 @@ const Login = () => {
         <div className="auth-logo">LOGO</div>
         <div className="auth-nav">
           <a href="/" className="auth-nav-link">Home</a>
-          <a href="/about" className="auth-nav-link">About us</a>
-          <a href="/service" className="auth-nav-link">Service</a>
+          <a href="/about-us" className="auth-nav-link">About us</a>
           <Link to="/signup" className="auth-signup-btn">Sign up</Link>
         </div>
       </div>
