@@ -3,7 +3,7 @@ import { X, User, LogOut, Settings, UserCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authAPI } from '../services/api';
 import AuthContext from '../context/AuthContext';
-import footerLogo from '../assets/navbar.svg';
+import footerLogo from '../assets/header.svg';
 import './Navbar.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
