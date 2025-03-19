@@ -1,9 +1,6 @@
 import React from 'react';
 import footerLogo from '../assets/header.svg';
 import './Footer.css';
-import { FaFacebook } from 'react-icons/fa';
-import { BsInstagram, BsTwitter, BsYoutube } from 'react-icons/bs';
-import { LiaLinkedin } from 'react-icons/lia';
 
 const Footer = () => {
   return (
@@ -34,24 +31,17 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-section social-section">
-            <h3 className="footer-heading"></h3>
-            <div className="social-icons">
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-              <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer"><BsTwitter /></a>
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><BsInstagram /></a>
-              <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><BsYoutube /></a>
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><LiaLinkedin /></a>
-            </div>
+          <div className="footer-section terms-section">
+            <h3 className="footer-heading">Legal</h3>
+            <ul className="footer-links">
+              <li><a href="/terms-and-conditions">Terms of Service</a></li>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+            </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p className="copyright">Copyright © 2024. All rights reserved.</p>
-          <div className="bottom-links">
-            <a href="/terms-and-conditions">Terms of Service</a>
-            <a href="/privacy-policy">Privacy Policy</a>
-          </div>
         </div>
       </div>
     </footer>
