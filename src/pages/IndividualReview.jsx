@@ -868,9 +868,9 @@ const IndividualReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
-                    <AvatarSection>
+                    {/* <AvatarSection>
                       <Avatar>H</Avatar>
-                    </AvatarSection>
+                    </AvatarSection> */}
                   </HeaderSection>
                   
                   <PricingSection>
