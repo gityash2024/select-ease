@@ -223,6 +223,64 @@ const Dot = styled(motion.div)`
   z-index: 2;
 `;
 
+const CategorySliderSection = styled.div`
+  padding-top: 60px;
+  padding-bottom:50px;  
+  background-color: white;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+`;
+
+const CategorySliderTitle = styled.h2`
+  font-size: 32px;
+  color: #383B46;
+  margin-bottom: 20px;
+  margin-left:60px;
+  font-weight:400;
+`;
+
+const CategorySliderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right:30px;
+`;
+
+const SliderArrowButton = styled.button`
+  background-color: #E1E1E1;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin: 0 5px;
+`;
+
+const CategoryList = styled.div`
+  display: flex;
+  overflow: hidden;
+  margin: 0 10px;
+`;
+
+const CategoryButton = styled.button`
+  background-color: #E1E1E1;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: black;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+`;
 const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: ${props => props.columns};
@@ -284,6 +342,106 @@ const CardContent = styled(motion.div)`
       text-decoration: underline;
     }
   }
+`;
+
+
+const UniqueDiscoveryContainer = styled(motion.div)`
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  align-items: flex-start;
+`;
+
+const UniqueCategoryLists = styled.div`
+  min-width: 220px;
+`;
+
+const UniqueCategoryTab = styled.div`
+  color:black;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  font-weight: ${(props) => (props.active ? '600' : '500')};
+  border: ${(props) => (props.active ? '2px solid #026283' : 'none')};
+  background-color: ${(props) => (props.active ? '#E8FFFF' : 'transparent')};
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    font-weight: 600;
+    color: #333;
+  }
+`;
+
+const UniqueSoftwareGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  flex: 1;
+`;
+
+const UniqueSoftwareCard = styled(motion.div)`
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+`;
+
+const UniqueSoftwareIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background-color: ${(props) => props.bg || '#ccc'};
+`;
+
+const UniqueRatingStars = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+`;
+
+const UniqueRatingBadge = styled.span`
+  background-color: #026283;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  font-weight: 600;
+`;
+
+const UniqueReviewCount = styled.span`
+  font-size: 0.85rem;
+  color: #666;
+`;
+
+const UniqueSoftwareName = styled.div`
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+`;
+
+const UniqueContentWrapper = styled(motion.div)`
+  background-color: white;
+  padding: 40px;
+  margin: 20px 0;
+`;
+
+const UniqueSectionTitle = styled(motion.h2)`
+  font-size: 2rem;
+  color: #333;
+ 
+  text-align: left;
 `;
 
 const ReviewsWrapper = styled(motion.section)`
@@ -411,6 +569,50 @@ const SoftwareReviewCard = styled(motion.div)`
       transform: translateX(4px);
     }
   }
+`;
+
+const ExploreSection = styled(motion.section)`
+  padding: 40px;
+  background-color: #f9f9f9; 
+`;
+
+const SectionTitl = styled.h2`
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+`;
+
+const ProductGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+`;
+
+const ProductCard = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const CardTitle = styled.h3`
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #026283;
+`;
+
+const CategoryLink = styled.a`
+  font-size: 14px;
+  color:#026283;
+  text-decoration: underline;
+  display: block;
+  margin-bottom: 5px;
+`;
+
+const CompanyName = styled.p`
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
 `;
 
 const ComparisonTable = styled(motion.div)`
@@ -542,6 +744,140 @@ const ExploreButton = styled(motion.button)`
   &:hover {
     background: rgba(255, 255, 255, 0.2);
   }
+`;
+const RegisterSection = styled(motion.section)`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: white;
+  padding: 40px 60px;
+  gap: 40px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+`;
+
+const TextSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  background: white;
+  color: #00264d;
+
+  h2 {
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    font-family:Outfit;
+  }
+
+  p {
+    font-size: 24px;
+    color: #555;
+    font-family:Outfit;
+    font-weight: 300;
+  }
+
+  span {
+    color:#026283;
+    font-weight: 500;
+    font-family:Outfit;
+    
+  }
+`;
+
+const FormSection = styled.div`
+  background-color: #00264d;
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const RegisterForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Titles = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+const InputField = styled.div`
+  margin-bottom: 20px;
+  flex: 1;
+
+  label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: #cfd8dc;
+  }
+
+  input {
+    width: 245px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #003366;
+    color: white;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: 2px solid #007bff;
+    }
+
+    &::placeholder {
+      color: #a8b3c1;
+    }
+  }
+`;
+
+const NextButton = styled.button`
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #005bb5;
+  }
+`;
+
+const LoginLink = styled.p`
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+
+  span {
+    color: #007bff;
+    cursor: pointer;
+  }
+`;
+
+const TermsText = styled.p`
+  font-size: 0.75rem;
+  text-align: center;
+  color: #aaa;
+  margin-top: 10px;
 `;
 
 const TestimonialsSection = styled(motion.section)`
@@ -770,6 +1106,66 @@ const LoadingSpinner = styled(motion.div)`
     }
   }
 `;
+const CategoriesSection = styled(motion.section)`
+  padding: 40px;
+  background-color: #f9f9f9;
+  display: flex;
+`;
+
+const CategoriesList = styled.div`
+  flex: 1;
+  max-width: 200px;
+  padding-right: 20px;
+`;
+
+const CategoryItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: ${(props) => (props.selected ? '#e0f2fe' : 'transparent')};
+  color: ${(props) => (props.selected ? '#007bff' : '#333')};
+  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+`;
+
+const CardsGrid = styled.div`
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+`;
+
+const Cards = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+`;
+
+const CardTitl = styled.h3`
+  font-size: 16px;
+  margin-top: 10px;
+`;
+
+const Rating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+`;
+
+const RatingStar = styled.span`
+  color: gold;
+  font-size: 18px;
+`;
+
+const RatingCount = styled.span`
+  margin-left: 5px;
+  font-size: 14px;
+  color: #666;
+`;
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -779,22 +1175,35 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownItems, setDropdownItems] = useState([]);
+  const [sliderStartIndex, setSliderStartIndex] = useState(0);
+
+  const handleSliderPrev = () => {
+    setSliderStartIndex(Math.max(0, sliderStartIndex - 1));
+  };
+
+  const handleSliderNext = () => {
+    setSliderStartIndex(Math.min(categories.length - 1, sliderStartIndex + 1));
+  };
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+
         const productsResponse = await productAPI.getAllProducts();
         const allProducts = productsResponse.data?.products || [];
         setProducts(allProducts.filter(p => p.status === 'published').slice(0, 4));
-        
+
         const reviewsResponse = await reviewAPI.getAllReviews();
         setReviews(Array.isArray(reviewsResponse.data) ? reviewsResponse.data.slice(0, 4) : []);
-        
+
         const blogsResponse = await blogAPI.getAllBlogs();
         setBlogs(blogsResponse.data?.blogs || []);
-        
+
         const categoriesResponse = await categoryAPI.getAllCategories();
         setCategories(categoriesResponse.data || []);
       } catch (error) {
@@ -803,23 +1212,48 @@ const Home = () => {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, []);
-  
+
   const handleSearch = () => {
     if (searchTerm.trim()) {
       navigate(`/products?search=${searchTerm}`);
     }
   };
-  
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.trim()) {
+      const filteredCategories = categories.filter(category =>
+        category.name.toLowerCase().includes(value.toLowerCase())
+      );
+      const filteredProducts = products.filter(product =>
+        product.title.toLowerCase().includes(value.toLowerCase())
+      );
+      setDropdownItems([...filteredCategories, ...filteredProducts]);
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+      setDropdownItems([]);
+    }
+  };
+
+  const selectDropdownItem = (item) => {
+    setSearchTerm(item.name || item.title);
+    setShowDropdown(false);
+    handleSearch();
+  };
+
   const renderStars = (rating) => {
     return (
       <div className="stars">
         {[...Array(5)].map((_, i) => (
-          <Star 
-            key={i} 
-            size={16} 
+          <Star
+            key={i}
+            size={16}
             fill={i < Math.floor(rating) ? '#FDB241' : 'none'}
             color={i < Math.floor(rating) ? '#FDB241' : '#d1d5db'}
           />
@@ -827,6 +1261,8 @@ const Home = () => {
       </div>
     );
   };
+  
+  
 
   if (loading) {
     return (
@@ -837,7 +1273,7 @@ const Home = () => {
       >
         <LoadingSpinner
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         />
         <motion.p
           initial={{ opacity: 0 }}
@@ -851,6 +1287,8 @@ const Home = () => {
   }
 
   return (
+
+    
     <Container
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -881,10 +1319,10 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <SearchInput 
-              placeholder="Search..." 
+            <SearchInput
+              placeholder="Search by Category, Product or Keyword"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleInputChange}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
             <SearchButton
@@ -892,8 +1330,18 @@ const Home = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <IoIosSearch />Search
+              <IoIosSearch />
+              Search
             </SearchButton>
+            {showDropdown && (
+              <Dropdown>
+                {dropdownItems.map((item, index) => (
+                  <DropdownItem key={index} onClick={() => selectDropdownItem(item)}>
+                    {item.name || item.title}
+                  </DropdownItem>
+                ))}
+              </Dropdown>
+            )}
           </SearchContainer>
 
           <ImagesSection
@@ -906,18 +1354,14 @@ const Home = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <Dot 
-                color="#FF6B6B" 
-                position="top: -35px; left: -160px;" 
+              <Dot
+                color="#FF6B6B"
+                position="top: -35px; left: -160px;"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 1.0 }}
               />
-              <motion.img 
-                src={seo} 
-                alt="SEO Tool"
-                whileHover={{ scale: 1.05 }}
-              />
+              <motion.img src={seo} alt="SEO Tool" whileHover={{ scale: 1.05 }} />
             </ImageWrapper>
 
             <ImageWrapper
@@ -925,32 +1369,28 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <motion.img 
-                src={seo_2} 
-                alt="AI Interface"
-                whileHover={{ scale: 1.05 }}
-              />
-              <motion.img 
-                className="icon python" 
-                src={python} 
+              <motion.img src={seo_2} alt="AI Interface" whileHover={{ scale: 1.05 }} />
+              <motion.img
+                className="icon python"
+                src={python}
                 alt="Python"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.9 }}
                 whileHover={{ scale: 1.2 }}
               />
-              <motion.img 
-                className="icon oracle" 
-                src={oracl} 
+              <motion.img
+                className="icon oracle"
+                src={oracl}
                 alt="Oracle"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 1.0 }}
                 whileHover={{ scale: 1.2 }}
               />
-              <motion.img 
-                className="icon boat" 
-                src={boat} 
+              <motion.img
+                className="icon boat"
+                src={boat}
                 alt="Boat"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -981,6 +1421,22 @@ const Home = () => {
         </ContentWrapper>
       </HeroSection>
 
+      <CategorySliderSection>
+        <CategorySliderTitle>Featured Categories</CategorySliderTitle>
+        <CategorySliderContainer>
+          <SliderArrowButton onClick={handleSliderPrev}>&lt;</SliderArrowButton>
+          <CategoryList>
+            {categories.slice(sliderStartIndex, sliderStartIndex + 3).map((category) => (
+              <CategoryButton key={category.id} onClick={() => navigate(`/categories/${category.id}`)}>
+                {category.name}
+              </CategoryButton>
+            ))}
+          </CategoryList>
+          <SliderArrowButton onClick={handleSliderNext}>&gt;</SliderArrowButton>
+        </CategorySliderContainer>
+      </CategorySliderSection>
+
+      
       <Section>
         <ContentWrapper
           initial={{ opacity: 0, y: 20 }}
@@ -1034,60 +1490,58 @@ const Home = () => {
         </ContentWrapper>
       </Section>
 
-      <Section>
-        <ContentWrapper
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <SectionTitle
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            Top Rated Products
-          </SectionTitle>
-          <Grid 
-            columns="repeat(4, 1fr)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            {(products.length > 0 ? products : [
-              { id: 1, name: "Meta AI", image: product_1, description: "Powerful AI assistant for everyday tasks" },
-              { id: 2, name: "Data Explorer", image: product_2, description: "Visualize complex data with ease" },
-              { id: 3, name: "Code Generator", image: product_3, description: "AI-powered code suggestions" },
-              { id: 4, name: "Neural Engine", image: product_4, description: "Advanced neural network tool" }
-            ]).map((product, i) => (
-              <Card 
-                key={product.id || i}
-                whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.8 + (i * 0.1) }}
-                onClick={() => navigate(`/products/${product.id}`)}
-              >
-                <CardImage 
-                  src={product.image_url || product.logo || [product_1, product_2, product_3, product_4][i % 4]} 
-                  alt={product.name}
-                  whileHover={{ scale: 1.05 }}
-                />
-                <CardContent>
-                  <h3>{product.name}</h3>
-                  <p>{product.description?.substring(0, 50) || "Explore this product"}{product.description?.length > 50 ? "..." : ""}</p>
-                  <a href="#" onClick={(e) => {
-                    e.preventDefault();
-                    navigate(`/products/${product.id}`);
-                  }}>
-                    View Product <ArrowRight size={14} />
-                  </a>
-                </CardContent>
-              </Card>
-            ))}
-          </Grid>
-        </ContentWrapper>
-      </Section>
       
+
+      <UniqueContentWrapper
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <UniqueSectionTitle
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        Discover Top Software by Categories
+      </UniqueSectionTitle>
+
+      <UniqueDiscoveryContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
+        {/* Sidebar Category List */}
+        <UniqueCategoryLists>
+          {['HR Software', 'Accounting Software', 'CRM Software', 'ERP Software', 'ERP Software', 'ERP Software'].map((cat, idx) => (
+            <UniqueCategoryTab key={idx} active={idx === 0}>
+              {cat}
+            </UniqueCategoryTab>
+          ))}
+        </UniqueCategoryLists>
+
+        {/* Software Cards */}
+        <UniqueSoftwareGrid>
+          {[
+            { color: '#77DD77' },
+            { color: '#FFB347' },
+            { color: '#779ECB' },
+            { color: '#FF6961' },
+            { color: '#FFD700' },
+            { color: '#B19CD9' },
+          ].map((software, i) => (
+            <UniqueSoftwareCard key={i} whileHover={{ scale: 1.03 }}>
+              <UniqueSoftwareIcon bg={software.color} />
+              <UniqueRatingStars>
+                <UniqueRatingBadge>5.0 ★</UniqueRatingBadge>
+                <UniqueReviewCount>(144 Reviews)</UniqueReviewCount>
+              </UniqueRatingStars>
+              <UniqueSoftwareName>Name of Software</UniqueSoftwareName>
+            </UniqueSoftwareCard>
+          ))}
+        </UniqueSoftwareGrid>
+      </UniqueDiscoveryContainer>
+    </UniqueContentWrapper>
+     
       <ReviewsWrapper
         backgroundImage={reviewsBg}
         initial={{ opacity: 0 }}
@@ -1151,6 +1605,80 @@ const Home = () => {
           </ReviewCardsGrid>
         </ContentWrapper>
       </ReviewsWrapper>
+
+      <ExploreSection
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 1.0 }}
+    >
+      <SectionTitle>Explore Products by Services</SectionTitle>
+      <ProductGrid>
+        {/* Generate 6 Product Cards */}
+        {[...Array(6)].map((_, index) => (
+          <ProductCard key={index}>
+            <CardTitle>Software & App</CardTitle>
+            <CategoryLink href="#"> Software Companies</CategoryLink>
+            {[...Array(8)].map((_, i) => (
+              <CompanyName key={i}>Software Companies</CompanyName>
+            ))}
+          </ProductCard>
+        ))}
+      </ProductGrid>
+    </ExploreSection>
+
+      <Section>
+        <ContentWrapper
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <SectionTitle
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            Top Rated Products
+          </SectionTitle>
+          <Grid 
+            columns="repeat(4, 1fr)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            {(products.length > 0 ? products : [
+              { id: 1, name: "Meta AI", image: product_1, description: "Powerful AI assistant for everyday tasks" },
+              { id: 2, name: "Data Explorer", image: product_2, description: "Visualize complex data with ease" },
+              { id: 3, name: "Code Generator", image: product_3, description: "AI-powered code suggestions" },
+              { id: 4, name: "Neural Engine", image: product_4, description: "Advanced neural network tool" }
+            ]).map((product, i) => (
+              <Card 
+                key={product.id || i}
+                whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.8 + (i * 0.1) }}
+                onClick={() => navigate(`/products/${product.id}`)}
+              >
+                <CardImage 
+                  src={product.image_url || product.logo || [product_1, product_2, product_3, product_4][i % 4]} 
+                  alt={product.name}
+                  whileHover={{ scale: 1.05 }}
+                />
+                <CardContent>
+                  <h3>{product.name}</h3>
+                  <p>{product.description?.substring(0, 50) || "Explore this product"}{product.description?.length > 50 ? "..." : ""}</p>
+                  <a href="#" onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/products/${product.id}`);
+                  }}>
+                    View Product <ArrowRight size={14} />
+                  </a>
+                </CardContent>
+              </Card>
+            ))}
+          </Grid>
+        </ContentWrapper>
+      </Section>
 
       <Section>
         <ContentWrapper
@@ -1320,6 +1848,73 @@ const Home = () => {
           </Content>
         </ContentWrapper>
       </HowItWorksSection>
+
+      <RegisterSection
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <TextSection>
+        <h2>
+          Grow your business faster <br />
+          <span>by selling your product</span>
+        </h2>
+        <p>Sell your products to customers on selectease.world</p>
+      </TextSection>
+
+      <FormSection>
+        <RegisterForm>
+          <Titles>List Your Product - It's Free</Titles>
+
+          <InputGroup>
+            <InputField>
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" placeholder="Select-Ease" />
+            </InputField>
+
+            <InputField>
+              <label htmlFor="businessEmail">Business Email</label>
+              <input type="email" id="businessEmail" placeholder="business@gmail.com" />
+            </InputField>
+          </InputGroup>
+
+          <InputGroup>
+            <InputField>
+              <label htmlFor="organization">Organization</label>
+              <input type="text" id="organization" placeholder="Organization" />
+            </InputField>
+
+            <InputField>
+              <label htmlFor="phone">Phone</label>
+              <input type="tel" id="phone" placeholder="+91" />
+            </InputField>
+          </InputGroup>
+
+          <InputGroup>
+            <InputField>
+              <label htmlFor="website">Website</label>
+              <input type="url" id="website" placeholder="selectease.com" />
+            </InputField>
+
+            <InputField>
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" placeholder="********" />
+            </InputField>
+          </InputGroup>
+
+          <NextButton type="submit">Next</NextButton>
+
+          <LoginLink>
+            Already have an account? <span>Sign In</span>
+          </LoginLink>
+
+          <TermsText>
+            By signing up you agree to the <span style={{ color: "#ffffff" }}>Terms of Use</span> and{' '}
+            <span style={{ color: "#ffffff" }}>Privacy Policy</span>.
+          </TermsText>
+        </RegisterForm>
+      </FormSection>
+    </RegisterSection>
 
       <TestimonialsSection
         initial={{ opacity: 0, y: 20 }}

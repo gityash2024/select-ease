@@ -71,6 +71,9 @@ const Navbar = () => {
   <NavLink to="/blogs" className={({ isActive, isPending }) =>
     isPending ? "nav-link" : isActive || location.pathname.startsWith('/blog-details') ? "nav-link active" : "nav-link"
   }>Blog</NavLink>
+  <NavLink to="/individual-review" className={({ isActive, isPending }) =>
+    isPending ? "nav-link" : isActive || location.pathname.startsWith('/individual-review') ? "nav-link active" : "nav-link"
+  }>Review</NavLink>
 </div>
           <div className="nav-actions">
             <div className="search-box">

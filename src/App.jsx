@@ -39,6 +39,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import AuthContext from './context/AuthContext';
 import GlobalScrollbarStyles from './components/GlobalScrollbarStyles';
+import ProductDetailModal from './pages/ProductDetailModal';
+import IndividualReview from './pages/IndividualReview';
+import IndividualFeature from './pages/IndividualFeature';
+import IndividualRating from './pages/individualRating';
+import SoftwareReviews from './pages/SoftwareReviews';
+import GetSoftwareCompanyDemo from './pages/GetSoftwareCompanyDemo';
+import Specifications from './pages/Specifications';
+import Dropdwonindividual from './pages/Dropdwonindividual';
+// import IndividaulCompanyName from './pages/IndividaulCompanyName';
+import Dashboard from './pages/Dashboard';
+
 
 // Global scroll to top button
 const ScrollTopButton = styled(motion.button)`
@@ -215,6 +226,19 @@ function App() {
             <Route path="edit-product" element={<EditProduct />} />
             <Route path="vendor" element={<Vendor />} />
             <Route path="about-us" element={<Testimonials />} />
+            <Route path="product-detail" element={<ProductDetailModal />} />
+            <Route path="School" element={<School />} />
+            <Route path="individual-review" element={<IndividualReview />} />
+            <Route path="individual-feature" element={<IndividualFeature />} />
+            <Route path="individual-rating" element={<IndividualRating />} />
+            <Route path="software-review" element={<SoftwareReviews />} />
+            <Route path="get-software-company-demo" element={<GetSoftwareCompanyDemo />} />
+            <Route path="specifications" element={<Specifications />} />
+            <Route path="drop-down-individual" element={<Dropdwonindividual />} />
+            {/* <Route path="individaul-company-name" element={<IndividaulCompanyName />} /> */}
+
+            
+            <Route path="Dashboard" element={<Dashboard />} />
             <Route 
               path="dashboard" 
               element={

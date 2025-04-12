@@ -1,17 +1,14 @@
-import react from 'react';
+import React from 'react';
 import './School.css';
 import corexta from '../assets/corexta.png';
 import hero from '../assets/Hero.png';
 
-
-// School.jsx
 const School = () => {
   return (
     <div className="school-page">
       <div className="hero-section">
         <h1>School Management Software</h1>
         <img src={hero} alt="" className="contact-hero-background" />
-
       </div>
 
       <div className="content-container">
@@ -78,20 +75,52 @@ const School = () => {
             <p>Showing 1 - 20 of 535 products</p>
           </div>
 
-          {[1, 2, 3].map((item) => (
-            <div className="software-card" key={item}>
+          {[
+            {
+              id: 1,
+              title: 'Software Rating',
+              description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
+              rating: 5.0,
+              reviews: 23,
+              badge: 'Highly Recommended',
+            },
+            {
+              id: 2,
+              title: 'Software Rating',
+              description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
+              rating: 4.5,
+              reviews: 19,
+            },
+            {
+              id: 3,
+              title: 'Software Rating',
+              description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
+              rating: 5.0,
+              reviews: 30,
+              badge: 'Editor\'s Choice',
+            },
+          ].map((item) => (
+            <div className="software-card" key={item.id}>
               <div className="card-left">
                 <img src={corexta} alt="Software logo" className="software-logo" />
               </div>
               <div className="card-middle">
-                <h3>Software Rating</h3>
+                <h3>{item.title}</h3>
                 <p>No. 1 School Information Software</p>
-                <div className="description">
-                  Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                {item.badge && <span className="badge">{item.badge}</span>}
+                <div className="description">{item.description}</div>
+                <div className="rating-container">
+                  <span className="rating">{item.rating} ★</span>
+                  <span className="reviews">({item.reviews} reviews)</span>
                 </div>
               </div>
               <div className="card-right">
-                <button className="buy-btn">Buy Now</button>
+                <button className="review-btn">Read Reviews</button>
+                {item.id === 1 ? (
+                  <button className="demo-btn">Get Your Demo</button>
+                ) : (
+                  <button className="buy-btn">Buy Now</button>
+                )}
               </div>
             </div>
           ))}

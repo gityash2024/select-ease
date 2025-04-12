@@ -321,7 +321,7 @@
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background0.2s ease;
 }
 
 .submit-btn:hover:not(:disabled) {
