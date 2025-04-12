@@ -223,14 +223,14 @@ const Dot = styled(motion.div)`
   z-index: 2;
 `;
 
-const CategorySliderSection = styled.div`
-  padding-top: 60px;
-  padding-bottom:50px;  
-  background-color: white;
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-`;
+// const CategorySliderSection = styled.div`
+//   padding-top: 60px;
+//   padding-bottom:50px;  
+//   background-color: white;
+//   display: flex; 
+//   align-items: center; 
+//   justify-content: space-between; 
+// `;
 
 const CategorySliderTitle = styled.h2`
   font-size: 32px;
@@ -240,47 +240,47 @@ const CategorySliderTitle = styled.h2`
   font-weight:400;
 `;
 
-const CategorySliderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right:30px;
-`;
+// const CategorySliderContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-right:30px;
+// `;
 
-const SliderArrowButton = styled.button`
-  background-color: #E1E1E1;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  margin: 0 5px;
-`;
+// const SliderArrowButton = styled.button`
+//   background-color: #E1E1E1;
+//   border: none;
+//   border-radius: 50%;
+//   width: 40px;
+//   height: 40px;
+//   font-size: 1.2rem;
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: black;
+//   margin: 0 5px;
+// `;
 
-const CategoryList = styled.div`
-  display: flex;
-  overflow: hidden;
-  margin: 0 10px;
-`;
+// const CategoryList = styled.div`
+//   display: flex;
+//   overflow: hidden;
+//   margin: 0 10px;
+// `;
 
-const CategoryButton = styled.button`
-  background-color: #E1E1E1;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 15px;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  color: black;
+// const CategoryButton = styled.button`
+//   background-color: #E1E1E1;
+//   border: none;
+//   border-radius: 20px;
+//   padding: 8px 15px;
+//   margin: 0 5px;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+//   color: black;
 
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`;
+//   &:hover {
+//     background-color: #e0e0e0;
+//   }
+// `;
 const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: ${props => props.columns};
@@ -1148,12 +1148,12 @@ const CardTitl = styled.h3`
   margin-top: 10px;
 `;
 
-const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-`;
+// const Rating = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 10px 0;
+// `;
 
 const RatingStar = styled.span`
   color: gold;
@@ -1166,6 +1166,408 @@ const RatingCount = styled.span`
   color: #666;
 `;
 
+// const CategorySliderSection = styled(motion.section)`
+//   padding: 24px 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   background: white;
+//   flex-wrap: wrap;
+//   gap: 16px;
+  
+//   @media (max-width: 768px) {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+// `;
+
+// const CategoryTitle = styled.h2`
+//   font-size: 24px;
+//   font-weight: 500;
+//   color: #333;
+//   margin: 0;
+// `;
+
+// const CategorySliderContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   flex-wrap: nowrap;
+// `;
+
+// const SliderArrowButton = styled.button`
+//   background-color: #333;
+//   color: white;
+//   border: none;
+//   border-radius: 50%;
+//   width: 36px;
+//   height: 36px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   margin: 0 12px;
+//   transition: all 0.2s ease;
+  
+//   &:hover {
+//     background-color: #555;
+//     transform: scale(1.05);
+//   }
+  
+//   &:active {
+//     transform: scale(0.95);
+//   }
+// `;
+
+// const CategoryList = styled.div`
+//   display: flex;
+//   gap: 12px;
+//   overflow-x: auto;
+//   scrollbar-width: none;
+  
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// `;
+
+// const CategoryButton = styled.button`
+//   background-color: #f5f5f5;
+//   border: none;
+//   border-radius: 999px;
+//   padding: 12px 20px;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   cursor: pointer;
+//   transition: all 0.2s;
+  
+//   .circle {
+//     width: 24px;
+//     height: 24px;
+//     border-radius: 50%;
+//     background-color: ${props => props.color || '#026283'};
+//     flex-shrink: 0;
+//   }
+  
+//   span {
+//     font-size: 16px;
+//     font-weight: 500;
+//     white-space: nowrap;
+//   }
+  
+//   &:hover {
+//     background-color: #e5e5e5;
+//     transform: translateY(-2px);
+//   }
+// `;
+
+// Recently Visited Products Section
+const ProductsSection = styled(motion.section)`
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const ProductsTitle = styled.h2`
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 24px;
+`;
+
+// const ProductGrid = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   gap: 24px;
+  
+//   @media (max-width: 1024px) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+  
+//   @media (max-width: 640px) {
+//     grid-template-columns: 1fr;
+//   }
+// `;
+
+// const ProductCard = styled.div`
+//   border: 1px solid #eee;
+//   border-radius: 8px;
+//   overflow: hidden;
+//   transition: transform 0.2s, box-shadow 0.2s;
+//   background: white;
+  
+//   &:hover {
+//     transform: translateY(-5px);
+//     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+//   }
+// `;
+
+const ProductImage = styled.div`
+  height: 200px;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  position: relative;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .badge-container {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+    
+    &.purple {
+      background-color: #8A2BE2;
+    }
+    
+    &.orange {
+      background-color: #FF8C00;
+    }
+  }
+  
+  .buyer-badge {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    background-color: #E0F7FF;
+    color: #026283;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+`;
+
+const ProductContent = styled.div`
+  padding: 20px;
+`;
+
+const ProductHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+`;
+
+const ProductTitle = styled.h3`
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+`;
+
+const ProductCompany = styled.p`
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  margin-bottom: 12px;
+`;
+
+const RatingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+`;
+
+const Rating = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 16px;
+  
+  span {
+    font-weight: 500;
+  }
+`;
+
+const ActionButton = styled.button`
+  background-color: #f5f5f5;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #e5e5e5;
+  }
+`;
+
+const ProductDescription = styled.p`
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+`;
+
+const PriceSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PriceLabel = styled.span`
+  font-size: 12px;
+  color: #666;
+`;
+
+const Price = styled.span`
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+`;
+
+const BuyButton = styled.button`
+  background-color: #026283;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #014e6a;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const CategoryMessage = styled.div`
+  margin-top: 40px;
+  text-align: center;
+`;
+
+const MessageText = styled.p`
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  
+  strong {
+    font-weight: 600;
+  }
+`;
+
+const ViewAllButton = styled.button`
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #e5e5e5;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const CategorySliderSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+`;
+
+const CategoryTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+`;
+
+const CategorySliderContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const SliderArrowButton = styled.button`
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 10px;
+  
+  &:hover {
+    background-color: #555;
+  }
+`;
+
+const CategoryList = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const CategoryButton = styled.button`
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  
+  .circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: ${props => props.color || '#026283'};
+  }
+  
+  span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+`;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -1422,22 +1824,101 @@ const Home = () => {
       </HeroSection>
 
       <CategorySliderSection>
-        <CategorySliderTitle>Featured Categories</CategorySliderTitle>
-        <CategorySliderContainer>
-          <SliderArrowButton onClick={handleSliderPrev}>&lt;</SliderArrowButton>
-          <CategoryList>
-            {categories.slice(sliderStartIndex, sliderStartIndex + 3).map((category) => (
-              <CategoryButton key={category.id} onClick={() => navigate(`/categories/${category.id}`)}>
-                {category.name}
-              </CategoryButton>
-            ))}
-          </CategoryList>
-          <SliderArrowButton onClick={handleSliderNext}>&gt;</SliderArrowButton>
-        </CategorySliderContainer>
-      </CategorySliderSection>
+  <CategoryTitle>Featured Categories</CategoryTitle>
+  <CategorySliderContainer>
+    <SliderArrowButton onClick={handleSliderPrev}>
+      <span>&#10094;</span>
+    </SliderArrowButton>
+    <CategoryList>
+      {[
+        { name: "Software Category", color: "#026283" },
+        { name: "Software Category", color: "#FF8C00" },
+        { name: "Software Category", color: "#8BC34A" }
+      ].map((category, index) => (
+        <CategoryButton 
+          key={index} 
+          color={category.color}
+          onClick={() => navigate(`/categories/${index}`)}
+        >
+          <div className="circle" style={{ backgroundColor: category.color }}></div>
+          <span>{category.name}</span>
+        </CategoryButton>
+      ))}
+    </CategoryList>
+    <SliderArrowButton onClick={handleSliderNext}>
+      <span>&#10095;</span>
+    </SliderArrowButton>
+  </CategorySliderContainer>
+</CategorySliderSection>
+
+<ProductsSection
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+>
+  <ProductsTitle>Recently Visited Products</ProductsTitle>
+  <ProductGrid>
+    {[1, 2, 3].map((item, index) => (
+      <ProductCard key={index} onClick={() => navigate(`/products/${index}`)}>
+        <ProductImage>
+          {/* Replace with actual product images */}
+          <img 
+            src={index === 0 ? categories_1 : index === 1 ? categories_2 : categories_3}
+            alt={`Product ${index + 1}`} 
+          />
+          {index === 2 && (
+            <>
+              <div className="badge-container">
+                <div className="badge purple">H</div>
+                <div className="badge orange">A</div>
+              </div>
+              <div className="buyer-badge">Buyer's Choice</div>
+            </>
+          )}
+        </ProductImage>
+        <ProductContent>
+          <ProductHeader>
+            <div>
+              <ProductTitle>Software Rating</ProductTitle>
+              <ProductCompany>By Software Company</ProductCompany>
+            </div>
+          </ProductHeader>
+          <RatingContainer>
+            <Rating>
+              <span>5.0</span>
+              <Star size={16} fill="#FFD700" color="#FFD700" />
+            </Rating>
+            <ActionButton>Read reviews</ActionButton>
+            <ActionButton>Features</ActionButton>
+          </RatingContainer>
+          <ProductDescription>
+            Lorem ipsum dolor sit amet consectetur. Semper ornare viverra volutpat.
+          </ProductDescription>
+          <PriceSection>
+            <PriceContainer>
+              <PriceLabel>Starting at</PriceLabel>
+              <Price>₹4,999</Price>
+            </PriceContainer>
+            <BuyButton>Buy Now</BuyButton>
+          </PriceSection>
+        </ProductContent>
+      </ProductCard>
+    ))}
+  </ProductGrid>
+  <CategoryMessage>
+    <MessageText>
+      You have only visited <strong>three product(s)</strong>.<br />
+      There are over <strong>60+ categories</strong> for u to explore.
+    </MessageText>
+    <ViewAllButton onClick={() => navigate('/categories')}>
+      View All Categories
+    </ViewAllButton>
+  </CategoryMessage>
+</ProductsSection>
+
 
       
-      <Section>
+      {/* <Section>
         <ContentWrapper
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1448,7 +1929,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Featured Categories
+            Recently Visited Products
           </SectionTitle>
           <Grid 
             columns="repeat(3, 1fr)"
@@ -1488,7 +1969,7 @@ const Home = () => {
             ))}
           </Grid>
         </ContentWrapper>
-      </Section>
+      </Section> */}
 
       
 
