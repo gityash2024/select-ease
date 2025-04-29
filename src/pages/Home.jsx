@@ -1869,8 +1869,8 @@ const Home = () => {
           {index === 2 && (
             <>
               <div className="badge-container">
-                <div className="badge purple">H</div>
-                <div className="badge orange">A</div>
+                {/* <div className="badge purple">H</div>
+                <div className="badge orange">A</div> */}
               </div>
               <div className="buyer-badge">Buyer's Choice</div>
             </>
