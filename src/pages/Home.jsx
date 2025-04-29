@@ -223,7 +223,7 @@ const Dot = styled(motion.div)`
   z-index: 2;
 `;
 
-// const CategorySliderSection = styled.div`
+// const CategorySliderSectionSection = styled.div`
 //   padding-top: 60px;
 //   padding-bottom:50px;  
 //   background-color: white;

@@ -49,9 +49,40 @@ import Specifications from './pages/Specifications';
 import Dropdwonindividual from './pages/Dropdwonindividual';
 // import IndividaulCompanyName from './pages/IndividaulCompanyName';
 import Dashboard from './pages/Dashboard';
+import QuickSmartReview from './pages/QuickSmartReview';
+import QuickSmartFeature from './pages/QuickSmartFeature';
+import QuickSmartRating from './pages/QuickSmartRating';
+import QuickSmartSpecification from './pages/QuickSmartSpecification';
+import QuickGetSoftwareCompanyDemo from './pages/QuickGetSoftwareCompanyDemo';
+import QuickDropdwon from './pages/QuickDropdwon';
+import ScogoReview from './pages/ScogoReview';
+import ScogoFeature from './pages/ScogoFeature';
+import ScogoRating from './pages/ScogoRating';
+import ScogoSpecification from './pages/ScogoSpecification';
+import ScogoGetSoftwareCompanyDemo from './pages/ScogoGetSoftwareCompanyDemo';
+import ScogoDropdwon from './pages/ScogoDropdwon';
+import LowtouchReview from './pages/LowtouchReview';
+import LowtouchFeature from './pages/LowtouchFeature';
+import LowtouchRating from './pages/LowtouchRating';
+import LowtouchSpecification from './pages/LowtouchSpecification';
+import LowtouchGetSoftwareCompanyDemo from './pages/LowtouchGetSoftwareCompanyDemo';
+import LowtouchDropdwon from './pages/LowtouchDropdwon';
+// import NapkinReview from './pages/NapkinReview';
+// import NapkinFeature from './pages/NapkinFeature';
+// import NapkinRating from './pages/NapkinRating';
+// import NapkinSpecification from './pages/NapkinSpecification';
+// import NapkinGetSoftwareCompanyDemo from './pages/NapkinGetSoftwareCompanyDemo';
+// import NapkinDropdwon from './pages/NapkinDropdwon';
+// import CaptionReview from './pages/CaptionReview';
+// import CaptionFeature from './CaptionFeature';
+// import CaptionRating from './CaptionRating';
+// import CaptionSpecification from './CaptionSpecification';
+// import CaptionSoftwareReviews from './CaptionSoftwareReviews';
+// import CaptionGetSoftwareCompanyDemo from './CaptionGetSoftwareCompanyDemo';
+// import CaptionDropdwon from './CaptionDropdwon';
 
 
-// Global scroll to top button
+// Global scroll to top button  
 const ScrollTopButton = styled(motion.button)`
   position: fixed;
   bottom: 2rem;
@@ -236,6 +267,39 @@ function App() {
             <Route path="specifications" element={<Specifications />} />
             <Route path="drop-down-individual" element={<Dropdwonindividual />} />
             {/* <Route path="individaul-company-name" element={<IndividaulCompanyName />} /> */}
+            <Route path="quick-smart-review" element={<QuickSmartReview />} />
+            <Route path="quick-smart-feature" element={<QuickSmartFeature />} />
+            <Route path="quick-smart-rating" element={<QuickSmartRating />} />
+            <Route path="quick-smart-specification" element={<QuickSmartSpecification />} />
+            <Route path="quick-smart-softwarecompanydemo" element={<QuickGetSoftwareCompanyDemo />} />
+            <Route path="quick-smart-quickdropdwon" element={<QuickDropdwon />} />
+            <Route path="scogo-review" element={<ScogoReview />} />
+            <Route path="scogo-feature" element={<ScogoFeature />} />
+            <Route path="scogo-rating" element={<ScogoRating />} />
+            <Route path="scogo-specification" element={<ScogoSpecification />} />
+            <Route path="scogo-softwarecompanydemo" element={<ScogoGetSoftwareCompanyDemo />} />
+            <Route path="scogo-dropdwon" element={<ScogoDropdwon />} />
+            <Route path="lowtouch-review" element={<LowtouchReview />} />
+            <Route path="lowtouch-feature" element={<LowtouchFeature />} />
+            <Route path="lowtouch-rating" element={<LowtouchRating />} />
+            <Route path="lowtouch-specificating" element={<LowtouchSpecification />} />
+            <Route path="lowtouch-softwarecompanydemo" element={<LowtouchGetSoftwareCompanyDemo />} />
+            <Route path="lowtouch-dropdwon" element={<LowtouchDropdwon />} />
+            {/* <Route path="napkin-review" element={<NapkinReview />} />
+            <Route path="napkin-feature" element={<NapkinFeature />} />
+            <Route path="napkin-rating" element={<NapkinRating />} />
+            <Route path="napkin-specification" element={<NapkinSpecification />} />
+            <Route path="napkin-softwarecompanydemo" element={<NapkinGetSoftwareCompanyDemo />} />
+            <Route path="napkin-dropdwon" element={<NapkinDropdwon />} /> */}
+            {/* <Route path="caption-review" element={<CaptionReview />} />
+            <Route path="caption-feature" element={<CaptionFeature />} />
+            <Route path="caption-rating" element={<CaptionRating />} />
+            <Route path="caption-specification" element={<CaptionSpecification />} />
+            <Route path="caption-softwarecompanydemo" element={<CaptionSoftwareCompanyDemo />} />
+            <Route path="caption-dropdwon" element={<CaptionDropdwon />} />
+            <Route path="caption-software-reviews" element={<CaptionSoftwareReviews />} />
+            <Route path="caption-getsoftware-companyDemo" element={<CaptionGetSoftwareCompanyDemo />} />
+             */}
 
             
             <Route path="Dashboard" element={<Dashboard />} />

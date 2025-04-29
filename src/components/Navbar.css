@@ -6,19 +6,20 @@
   z-index: 100;
   background: url('../assets/Hero.png') no-repeat center center;
   background-size: cover;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08); /* Slightly more visible shadow */
   transition: box-shadow 0.3s ease;
+  padding: 12px 0; /* Reduced vertical padding */
 }
 
 .navbar.scrolled {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow on scroll */
 }
 
 .navbar-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  height: 64px;
+  height: auto; /* Adjust height based on content */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,27 +31,27 @@
 }
 
 .navbar-logo img {
-  height: 18px;
-  margin-bottom: 5px;
+  height: 26px; /* Increased logo height */
+  margin-bottom: 0;
   width: auto;
 }
 
 .nav-links {
   display: flex;
-  gap: 32px;
-  margin: 0 32px;
+  gap: 28px; /* Adjusted gap between links */
+  margin: 0 32px; /* Keep existing horizontal margin */
 }
 
 .nav-link {
-  color: #333;
+  color: #333; /* Keep existing color */
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px; /* Slightly smaller font size */
+  font-weight: 400; /* Regular font weight */
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #006B8F;
+  color: #006B8F; /* Keep existing hover color */
 }
 
 .nav-actions {
@@ -61,22 +62,22 @@
 }
 
 .auth-buttons {
-  display: flex;
+  display: none; /* Still hidden */
   gap: 12px;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  background: white;
-  border-radius: 999px;
-  border: 1px solid #E5E7EB;
+  background: white; /* Keep existing background */
+  border-radius: 8px; /* Slightly more rounded search box */
+  border: 1px solid #E5E7EB; /* Keep existing border */
   overflow: hidden;
 }
 
 .search-box input {
   padding: 8px 16px;
-  width: 200px;
+  width: 180px; /* Adjusted width */
   font-size: 14px;
   border: none !important;
   outline: none;
@@ -84,55 +85,46 @@
 }
 
 .search-box input:focus {
-  border-color: transparent;
+  border-color: transparent; /* Keep existing focus border */
 }
 
 .contact-btn {
-  background-color: #006B8F;
-  color: white;
+  background-color: #006B8F; /* Keep existing background color */
+  color: white; /* Keep existing text color */
   border: none;
-  padding: 8px 24px;
-  border-radius: 24px;
+  padding: 8px 18px; /* Adjusted padding */
+  border-radius: 20px; /* More rounded contact button */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 .contact-btn-2 {
-  background-color: #006B8F;
-  /* margin-top: 32px; */
-  color: white;
-  border: none;
-  padding: 8px 24px;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: none; /* Still hidden */
 }
 .nav-link.active {
-  color: #006B8F;
-  font-weight: 600;
+  color: #006B8F; /* Keep existing color */
+  font-weight: 500;
   position: relative;
 }
 
 .nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -3px; /* Adjusted underline position */
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #006B8F;
+  background-color: #006B8F; /* Keep existing color */
   border-radius: 2px;
 }
 
 .contact-btn:hover {
-  background-color: #005472;
+  background-color: #005472; /* Keep existing hover color */
 }
 
 .signup-btn {
-  background-color: #00AD8F;
+  background-color: #00AD8F; /* Keep existing color */
   color: white;
   border: none;
   padding: 8px 24px;
@@ -141,10 +133,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: none; /* Still hidden */
 }
 
 .signup-btn:hover {
-  background-color: #009879;
+  background-color: #009879; /* Keep existing hover color */
 }
 
 .disabled-link {
@@ -157,487 +150,53 @@
   color: #cccfd6 !important;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1100;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  width: 90%;
-  max-width: 440px;
-  position: relative;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.logout-modal {
-  max-width: 360px;
-}
-
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  color: #6B7280;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.modal-close:hover {
-  background-color: #F3F4F6;
-}
-
-.modal-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.modal-header h2 {
-  font-size: 24px;
-  color: #111827;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.modal-header p {
-  color: #6B7280;
-  font-size: 14px;
-}
-
-.logout-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.cancel-btn {
-  background-color: #F3F4F6;
-  color: #374151;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  flex: 1;
-  max-width: 140px;
-}
-
-.cancel-btn:hover {
-  background-color: #E5E7EB;
-}
-
-.logout-confirm-btn {
-  background-color: #EF4444;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  flex: 1;
-  max-width: 140px;
-}
-
-.logout-confirm-btn:hover {
-  background-color: #DC2626;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.form-group label {
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
-}
-
-.form-group input {
-  padding: 10px 16px;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #006B8F;
-  box-shadow: 0 0 0 2px rgba(0, 107, 143, 0.1);
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.checkbox-group label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #374151;
-  cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  border: 1px solid #E5E7EB;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-submit {
-  background-color: #006B8F;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 8px;
-}
-
-.auth-submit:hover {
-  background-color: #005472;
-}
-
-.auth-footer {
-  margin-top: 24px;
-  text-align: center;
-  color: #6B7280;
-  font-size: 14px;
-}
-
-.toggle-auth {
-  background: none;
-  border: none;
-  color: #006B8F;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0 4px;
-  font-size: 14px;
-}
-
-.toggle-auth:hover {
-  text-decoration: underline;
-}
-
-.auth-btn {
-  background-color: transparent;
-  color: #006B8F;
-  border: 1px solid #006B8F;
-  padding: 8px 24px;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.auth-btn:hover {
-  background-color: rgba(0, 107, 143, 0.1);
-}
-
-.social-auth {
-  display: flex;
-  gap: 12px;
-  margin: 24px 0;
-}
-
-.social-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.social-btn:hover {
-  background-color: #F9FAFB;
-}
-
-.social-btn img {
-  width: 20px;
-  height: 20px;
-}
-
-.form-group.error input {
-  border-color: #EF4444;
-}
-
-.error-message {
-  color: #EF4444;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.auth-submit.loading {
-  position: relative;
-  color: transparent;
-}
-
-.auth-submit.loading::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  border: 2px solid white;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.profile-section {
-  position: relative;
-}
-
-.profile-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  color: #006B8F;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.profile-btn:hover {
-  background-color: rgba(0, 107, 143, 0.1);
-}
-
-.profile-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  background: white;
-  border-radius: 12px;
-  min-width: 240px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 16px;
-  z-index: 1000;
-}
-
-.profile-header {
-  display: flex;
-  gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #E5E7EB;
-}
-
-.profile-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.profile-name {
-  font-weight: 500;
-  color: #111827;
-  font-size: 14px;
-  margin: 0 0 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.profile-email {
-  color: #6B7280;
-  font-size: 12px;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.profile-menu {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.profile-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
-  border: none;
-  background: none;
-  border-radius: 6px;
-  color: #374151;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  width: 100%;
-  text-align: left;
-}
-
-.profile-menu-item:hover {
-  background-color: #F3F4F6;
-}
-
-.profile-menu-item svg {
-  color: #6B7280;
-}
-
-.profile-dropdown::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  right: 24px;
-  width: 12px;
-  height: 12px;
-  background: white;
-  transform: rotate(45deg);
-  border-left: 1px solid #E5E7EB;
-  border-top: 1px solid #E5E7EB;
-}
-
+/* Media Queries - Adjust as needed */
 @media (max-width: 1024px) {
   .nav-links {
     gap: 20px;
-    margin: 0 16px;
+    margin: 0 16px; /* Keep existing horizontal margin */
   }
 }
 
 @media (max-width: 768px) {
   .search-box input {
-    width: 150px;
+    width: 120px;
   }
-  
+
   .nav-links {
     gap: 16px;
-    margin: 0 12px;
+    margin: 0 12px; /* Keep existing horizontal margin */
   }
-  
+
   .nav-link {
     font-size: 14px;
   }
-  
-  .auth-buttons {
-    gap: 8px;
-  }
-  
-  .auth-btn, .signup-btn, .contact-btn {
-    padding: 6px 16px;
+
+  .contact-btn {
+    padding: 6px 14px;
     font-size: 13px;
+    border-radius: 18px;
   }
 }
 
 @media (max-width: 640px) {
-  .modal-content {
-    margin: 16px;
-    padding: 24px;
-  }
-
-  .auth-form {
-    gap: 16px;
-  }
-
-  .social-auth {
-    flex-direction: column;
-  }
-  
   .nav-links {
-    display: none;
+    display: none; /* For mobile menu */
   }
-  
+
   .navbar-container {
     justify-content: space-between;
   }
 }
 
 @media (max-width: 480px) {
-  .modal-content {
-    width: 95%;
-    padding: 24px;
-    margin: 0 16px;
-  }
-  
-  .auth-buttons {
-    flex-direction: column;
-    gap: 6px;
-    position: absolute;
-    top: 64px;
-    right: 20px;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  
   .search-box {
     display: none;
   }
-  
-  .logout-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .cancel-btn, .logout-confirm-btn {
-    max-width: 100%;
+
+  .contact-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 16px;
   }
 }

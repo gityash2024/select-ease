@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import IndividualFeature from './IndividualFeature';
-import IndividualRating from './individualRating';
-import Specifications from './Specifications';
-import SoftwareReviews from './SoftwareReviews';
-import GetSoftwareCompanyDemo from './GetSoftwareCompanyDemo';
-import Dropdwonindividual from './Dropdwonindividual';
-
+import NapkinFeature from '../NapkinFeature';
+import NapkinRating from '../NapkinRating';
+import NapkinSpecification from '../NapkinSpecification';
+import NapkinSoftwareReviews from '../NapkinSoftwareReviews';
+import NapkinGetSoftwareCompanyDemo from '../NapkinGetSoftwareCompanyDemo';
+import NapkinDropdwon from '../NapkinDropdwon';
+// import napkin1 from '../src/assets/napkin1.png';
+// import napkin2 from './src/assets/napkin2.png';
+// import napkin3 from './src/assets/napkin3.png';
+// import napkin4 from './src/assets/napkin4.png';
+// import napkin5 from './src/assets/napkin5.png'; 
 // Animations
 const fadeIn = keyframes`
   from {
@@ -68,8 +72,8 @@ const ImageSection = styled.div`
 `;
 
 const MainImageSlider = styled.div`
-  width: 300px;
-  height: 250px;
+  width: 100%;
+  height: 200px;
   background-color: #000;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -94,8 +98,8 @@ const SliderArrow = styled.button`
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.8);
   border: none;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -104,20 +108,20 @@ const SliderArrow = styled.button`
   color: #333;
   cursor: pointer;
   z-index: 10;
-  
+  transition: all 0.2s ease;
   
   &:hover {
-    background: rgba(250, 250, 250, 0.95);
+    background: rgba(255, 255, 255, 0.95);
     color: #026283;
   }
 `;
 
 const LeftArrow = styled(SliderArrow)`
-  left: -4px;
+  left: 10px;
 `;
 
 const RightArrow = styled(SliderArrow)`
-  right: -4px;
+  right: 10px;
 `;
 
 const PlayButton = styled.button`
@@ -127,12 +131,13 @@ const PlayButton = styled.button`
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.8);
   border: none;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 18px;
   color: #333;
   cursor: pointer;
   z-index: 10;
@@ -206,7 +211,24 @@ const TitleSection = styled.div`
   flex: 1;
 `;
 
+const AvatarSection = styled.div`
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    align-self: flex-end;
+  }
+`;
 
+const Avatar = styled.div`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color:rgb(9, 9, 9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+`;
 
 const Title = styled.h2`
   margin-top: 0;
@@ -293,7 +315,6 @@ const CallToAction = styled.button`
   width: fit-content;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: 'Outfit', sans-serif;
-  margin-left: 550px;
   
   &:hover {
     background-color: #01516d;
@@ -582,7 +603,7 @@ const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
-        <SectionTitle>Software Overview</SectionTitle>
+        <SectionTitle>Napkin.ai</SectionTitle>
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -655,44 +676,44 @@ const FAQContent = () => (
 
 // Mocked data structure for dynamic content
 const mockProductData = {
-  id: 1,
-  title: "Software Rating",
-  company: "Software Company",
-  rating: 4.3,
-  reviewCount: 26,
-  pricing: "₹ 9999",
-  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
-  images: [
-    { id: 1, url: "/api/placeholder/300/200", alt: "Product Image 1" },
-    { id: 2, url: "/api/placeholder/300/200", alt: "Product Image 2" },
-    { id: 3, url: "/api/placeholder/300/200", alt: "Product Image 3" },
-    { id: 4, url: "/api/placeholder/300/200", alt: "Product Image 4" },
-    { id: 5, url: "/api/placeholder/300/200", alt: "Product Image 5" }
-  ],
-  overview: {
-    softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
-    companyDetails: {
-      brandName: "Software Company",
-      information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-      founded: "2002",
-      founder: "Tito Rossmanith",
-      companySize: "20-100 employees",
-      otherProducts: "Software Company+1"
+    id: 1,
+    title: "Napkin.ai",
+    company: " AI-Powered Assistants​",
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+    ],
+    overview: {
+      softwareOverview: "Napkin AI is an innovative platform that transforms text into compelling visuals, such as diagrams, charts, and flowcharts, enhancing business storytelling and communication.",
+      companyDetails: {
+        brandName: "Napkin.ai",
+        information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
+        founded: "2021",
+        founder: "Pramod Sharma and Jerome Scholler",
+        companySize: "11-50 employees",
+        otherProducts: "QuickSmart Insights, QuickSmart Analytics"
+      }
     }
-  }
-};
+  };
 
 // Main Component with Dynamic Content
-const IndividualReview = ({ product = mockProductData }) => {
+const NapkinReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
-    individualFeature: false,
-    individualRating: false,
-    specifications: false,
-    softwareReviews: false,
+    quickFeature: false,
+    quickRating: false,
+    quickspecifications: false,
+    quicksoftwareReviews: false,
     softwareDemo: false,
     dropdown: false
   });
@@ -713,29 +734,29 @@ const IndividualReview = ({ product = mockProductData }) => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       
-      // Show components sequentially based on scroll position
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.individualFeature) {
-        setSectionsVisible(prev => ({...prev, individualFeature: true}));
+      // Show components sequentially based on scroll position  
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.napkinFeature) {
+        setSectionsVisible(prev => ({...prev, napkinFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.individualRating) {
-        setSectionsVisible(prev => ({...prev, individualRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.napkinRating) {
+        setSectionsVisible(prev => ({...prev, napkinRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.specifications) {
-        setSectionsVisible(prev => ({...prev, specifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.napkinspecifications) {
+        setSectionsVisible(prev => ({...prev, napkinspecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.softwareReviews) {
-        setSectionsVisible(prev => ({...prev, softwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.napkinsoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, napkinsoftwareReviews: true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.softwareDemo) {
-        setSectionsVisible(prev => ({...prev, softwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.napkinsoftwareDemo) {
+        setSectionsVisible(prev => ({...prev, napkinsoftwareDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.dropdown) {
-        setSectionsVisible(prev => ({...prev, dropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.napkindropdown) {
+        setSectionsVisible(prev => ({...prev, napkindropdown: true}));
       }
     };
     
@@ -851,7 +872,11 @@ const IndividualReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
+                    {/* <AvatarSection>
+                      <Avatar>H</Avatar>
+                    </AvatarSection> */}
                   </HeaderSection>
+                  
                   <PricingSection>
                     <PricingLabel>Starting At</PricingLabel>
                     <Pricing>{product.pricing}</Pricing>
@@ -913,16 +938,16 @@ const IndividualReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.individualFeature && <IndividualFeature />}
-          {sectionsVisible.individualRating && <IndividualRating />}
-          {sectionsVisible.specifications && <Specifications />}
-          {sectionsVisible.softwareReviews && <SoftwareReviews />}
-          {sectionsVisible.softwareDemo && <GetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <Dropdwonindividual />}
+          {sectionsVisible.napkinFeature && <NapkinFeature />}
+          {sectionsVisible.napkinRating && <NapkinRating />}
+          {sectionsVisible.napkinspecifications && <NapkinSpecification />}
+          {sectionsVisible.napkinsoftwareReviews && <NapkinSoftwareReviews />}
+          {sectionsVisible.napkinsoftwareDemo && <NapkinGetSoftwareCompanyDemo />}
+          {sectionsVisible.napkindropdown && <NapkinDropdwon />}
         </>
       )}
     </Container>
   );
 };
 
-export default IndividualReview;
+export default NapkinReview;
