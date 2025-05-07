@@ -12,7 +12,7 @@ import NapkinDropdwon from '../NapkinDropdwon';
 // import napkin3 from './src/assets/napkin3.png';
 // import napkin4 from './src/assets/napkin4.png';
 // import napkin5 from './src/assets/napkin5.png'; 
-// Animations
+// // Animations
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -209,25 +209,6 @@ const HeaderSection = styled.div`
 
 const TitleSection = styled.div`
   flex: 1;
-`;
-
-const AvatarSection = styled.div`
-  @media (max-width: 768px) {
-    margin-top: 15px;
-    align-self: flex-end;
-  }
-`;
-
-const Avatar = styled.div`
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color:rgb(9, 9, 9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
 `;
 
 const Title = styled.h2`
@@ -432,171 +413,6 @@ const DetailValue = styled.td`
   padding-bottom: 10px;
   font-family: 'Outfit', sans-serif;
 `;
-
-// Skeleton Components
-const SkeletonPulse = styled.div`
-  background: #eee;
-  background-image: linear-gradient(
-    to right,
-    #eee 0%,
-    #f5f5f5 20%,
-    #eee 40%,
-    #eee 100%
-  );
-  background-size: 800px 104px;
-  animation: ${shimmer} 1.5s linear infinite;
-`;
-
-const SkeletonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-const SkeletonProductCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 30px;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const SkeletonImageSection = styled.div`
-  width: 300px;
-  margin-right: 30px;
-  
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-`;
-
-const SkeletonMainImage = styled(SkeletonPulse)`
-  width: 100%;
-  height: 200px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-`;
-
-const SkeletonThumbnails = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const SkeletonThumbnail = styled(SkeletonPulse)`
-  width: 60px;
-  height: 45px;
-  border-radius: 4px;
-`;
-
-const SkeletonInfoSection = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SkeletonTitle = styled(SkeletonPulse)`
-  width: 70%;
-  height: 24px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonSubtitle = styled(SkeletonPulse)`
-  width: 40%;
-  height: 16px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonRating = styled(SkeletonPulse)`
-  width: 30%;
-  height: 16px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonPricing = styled(SkeletonPulse)`
-  width: 25%;
-  height: 20px;
-  margin: 15px 0;
-  border-radius: 4px;
-`;
-
-const SkeletonDescription = styled(SkeletonPulse)`
-  width: 100%;
-  height: 80px;
-  margin-bottom: 25px;
-  border-radius: 4px;
-`;
-
-const SkeletonButton = styled(SkeletonPulse)`
-  width: 150px;
-  height: 42px;
-  border-radius: 30px;
-`;
-
-const SkeletonTabs = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  overflow-x: auto;
-`;
-
-const SkeletonTab = styled(SkeletonPulse)`
-  width: 100px;
-  height: 36px;
-  border-radius: 4px;
-  flex-shrink: 0;
-`;
-
-const SkeletonContent = styled(SkeletonPulse)`
-  width: 100%;
-  height: 300px;
-  border-radius: 8px;
-`;
-
-// Skeleton Loader Component
-const SkeletonLoader = () => (
-  <SkeletonContainer>
-    <SkeletonProductCard>
-      <SkeletonImageSection>
-        <SkeletonMainImage />
-        <SkeletonThumbnails>
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-        </SkeletonThumbnails>
-      </SkeletonImageSection>
-      <SkeletonInfoSection>
-        <SkeletonTitle />
-        <SkeletonSubtitle />
-        <SkeletonRating />
-        <SkeletonSubtitle />
-        <SkeletonPricing />
-        <SkeletonDescription />
-        <SkeletonButton />
-      </SkeletonInfoSection>
-    </SkeletonProductCard>
-    
-    <SkeletonTabs>
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-    </SkeletonTabs>
-    
-    <SkeletonContent />
-  </SkeletonContainer>
-);
 
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
@@ -827,10 +643,7 @@ const NapkinReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-      {loading ? (
-        <SkeletonLoader />
-      ) : (
-        <>
+     
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -872,9 +685,6 @@ const NapkinReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
-                    {/* <AvatarSection>
-                      <Avatar>H</Avatar>
-                    </AvatarSection> */}
                   </HeaderSection>
                   
                   <PricingSection>
@@ -944,8 +754,7 @@ const NapkinReview = ({ product = mockProductData }) => {
           {sectionsVisible.napkinsoftwareReviews && <NapkinSoftwareReviews />}
           {sectionsVisible.napkinsoftwareDemo && <NapkinGetSoftwareCompanyDemo />}
           {sectionsVisible.napkindropdown && <NapkinDropdwon />}
-        </>
-      )}
+        
     </Container>
   );
 };

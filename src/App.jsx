@@ -47,7 +47,6 @@ import SoftwareReviews from './pages/SoftwareReviews';
 import GetSoftwareCompanyDemo from './pages/GetSoftwareCompanyDemo';
 import Specifications from './pages/Specifications';
 import Dropdwonindividual from './pages/Dropdwonindividual';
-// import IndividaulCompanyName from './pages/IndividaulCompanyName';
 import Dashboard from './pages/Dashboard';
 import QuickSmartReview from './pages/QuickSmartReview';
 import QuickSmartFeature from './pages/QuickSmartFeature';
@@ -67,12 +66,15 @@ import LowtouchRating from './pages/LowtouchRating';
 import LowtouchSpecification from './pages/LowtouchSpecification';
 import LowtouchGetSoftwareCompanyDemo from './pages/LowtouchGetSoftwareCompanyDemo';
 import LowtouchDropdwon from './pages/LowtouchDropdwon';
+
 // import NapkinReview from './pages/NapkinReview';
 // import NapkinFeature from './pages/NapkinFeature';
 // import NapkinRating from './pages/NapkinRating';
 // import NapkinSpecification from './pages/NapkinSpecification';
 // import NapkinGetSoftwareCompanyDemo from './pages/NapkinGetSoftwareCompanyDemo';
 // import NapkinDropdwon from './pages/NapkinDropdwon';
+// import NapkinSoftwareReviews from './pages/NapkinSoftwareReviews';
+
 // import CaptionReview from './pages/CaptionReview';
 // import CaptionFeature from './CaptionFeature';
 // import CaptionRating from './CaptionRating';
@@ -266,7 +268,6 @@ function App() {
             <Route path="get-software-company-demo" element={<GetSoftwareCompanyDemo />} />
             <Route path="specifications" element={<Specifications />} />
             <Route path="drop-down-individual" element={<Dropdwonindividual />} />
-            {/* <Route path="individaul-company-name" element={<IndividaulCompanyName />} /> */}
             <Route path="quick-smart-review" element={<QuickSmartReview />} />
             <Route path="quick-smart-feature" element={<QuickSmartFeature />} />
             <Route path="quick-smart-rating" element={<QuickSmartRating />} />
@@ -285,21 +286,26 @@ function App() {
             <Route path="lowtouch-specificating" element={<LowtouchSpecification />} />
             <Route path="lowtouch-softwarecompanydemo" element={<LowtouchGetSoftwareCompanyDemo />} />
             <Route path="lowtouch-dropdwon" element={<LowtouchDropdwon />} />
+
+            
             {/* <Route path="napkin-review" element={<NapkinReview />} />
             <Route path="napkin-feature" element={<NapkinFeature />} />
             <Route path="napkin-rating" element={<NapkinRating />} />
-            <Route path="napkin-specification" element={<NapkinSpecification />} />
+            <Route path="napkin-specification" element={<NapkinSepecification />} />
             <Route path="napkin-softwarecompanydemo" element={<NapkinGetSoftwareCompanyDemo />} />
-            <Route path="napkin-dropdwon" element={<NapkinDropdwon />} /> */}
-            {/* <Route path="caption-review" element={<CaptionReview />} />
+            <Route path="napkin-dropdwon" element={<NapkinDropdown /> } />
+            <Route path="napkin-software-reviews" element={<NapkinSoftwareReviews />} />
+            
+
+            <Route path="caption-review" element={<CaptionReview />} />
             <Route path="caption-feature" element={<CaptionFeature />} />
             <Route path="caption-rating" element={<CaptionRating />} />
             <Route path="caption-specification" element={<CaptionSpecification />} />
             <Route path="caption-softwarecompanydemo" element={<CaptionSoftwareCompanyDemo />} />
             <Route path="caption-dropdwon" element={<CaptionDropdwon />} />
-            <Route path="caption-software-reviews" element={<CaptionSoftwareReviews />} />
-            <Route path="caption-getsoftware-companyDemo" element={<CaptionGetSoftwareCompanyDemo />} />
-             */}
+            <Route path="caption-software-reviews" element={<CaptionSoftwareReviews />} />  */}
+            
+            
 
             
             <Route path="Dashboard" element={<Dashboard />} />

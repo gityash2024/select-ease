@@ -7,11 +7,11 @@ import QuickSmartSpecification from './QuickSmartSpecification';
 import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
 import QuickGetSoftwareCompanyDemo from './QuickGetSoftwareCompanyDemo';
 import QuickDropdwon from './QuickDropdwon';
-// import image40 from '../src/assets/image40.png';
-// import image41 from './src/assets/image41.png';
-// import image42 from './src/assets/image42.png';
-// import image43 from './src/assets/image43.png';
-// import image44 from './src/assets/image44.png';
+// import Image41 from './src/assets/Image41.png';
+// import Image42 from './src/assets/Image42.png';
+// import Image43 from './src/assets/Image43.png';
+// import Image44 from './src/assets/Image44.png';
+// import Image45 from './src/assets/Image45.png';
 // Animations
 const fadeIn = keyframes`
   from {
@@ -21,16 +21,6 @@ const fadeIn = keyframes`
     opacity: 1;
   }
 `;
-
-const shimmer = keyframes`
-  0% {
-    background-position: -468px 0;
-  }
-  100% {
-    background-position: 468px 0;
-  }
-`;
-
 // Styled Components
 const Container = styled.div`
   max-width: 1200px;
@@ -66,14 +56,14 @@ const ImageSection = styled.div`
   
   @media (max-width: 768px) {
     width: 100%;
-    margin-right: 0;
+    margin-right: 0px;
     margin-bottom: 20px;
   }
 `;
 
 const MainImageSlider = styled.div`
-  width: 100%;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   background-color: #000;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -98,8 +88,8 @@ const SliderArrow = styled.button`
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.8);
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -108,20 +98,20 @@ const SliderArrow = styled.button`
   color: #333;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.2s ease;
+  
   
   &:hover {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(250, 250, 250, 0.95);
     color: #026283;
   }
 `;
 
 const LeftArrow = styled(SliderArrow)`
-  left: 10px;
+  left: -4px;
 `;
 
 const RightArrow = styled(SliderArrow)`
-  right: 10px;
+  right: -4px;
 `;
 
 const PlayButton = styled.button`
@@ -131,13 +121,12 @@ const PlayButton = styled.button`
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.8);
   border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 22px;
   color: #333;
   cursor: pointer;
   z-index: 10;
@@ -194,7 +183,12 @@ const InfoSection = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding: 0 5px;
+  }
 `;
+
 
 const HeaderSection = styled.div`
   display: flex;
@@ -211,24 +205,7 @@ const TitleSection = styled.div`
   flex: 1;
 `;
 
-const AvatarSection = styled.div`
-  @media (max-width: 768px) {
-    margin-top: 15px;
-    align-self: flex-end;
-  }
-`;
 
-const Avatar = styled.div`
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color:rgb(9, 9, 9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
-`;
 
 const Title = styled.h2`
   margin-top: 0;
@@ -236,13 +213,22 @@ const Title = styled.h2`
   font-size: 20px;
   color: #333;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
+
 
 const Company = styled.p`
   margin-bottom: 10px;
   font-size: 14px;
   color: #777;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 `;
 
 const Rating = styled.div`
@@ -270,9 +256,13 @@ const WriteReview = styled.a`
   display: inline-block;
   padding: 5px 0;
   font-family: 'Outfit', sans-serif;
-  
+
   &:hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 13px;
   }
 `;
 
@@ -292,6 +282,10 @@ const Pricing = styled.p`
   color: #333;
   margin: 0;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const Description = styled.p`
@@ -300,6 +294,10 @@ const Description = styled.p`
   line-height: 1.6;
   margin-bottom: 25px;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 `;
 
 const CallToAction = styled.button`
@@ -315,41 +313,56 @@ const CallToAction = styled.button`
   width: fit-content;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: 'Outfit', sans-serif;
-  
+  margin: 0 auto; /* Center the button horizontally */
+  display: block;
+
   &:hover {
     background-color: #01516d;
   }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+    padding: 8px 18px;
+  }
 `;
+
 
 const TabsContainer = styled.div`
   display: flex;
   border-bottom: 1px solid #eee;
   margin-bottom: 20px;
   overflow-x: auto;
-  
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  gap: 10px;
+
   &::-webkit-scrollbar {
     height: 3px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: #ddd;
     border-radius: 10px;
   }
-  
+
   @media (max-width: 768px) {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
+    padding: 0 10px;
   }
 `;
 
 const Tab = styled.button`
   border: none;
   background: none;
-  padding: 15px 25px;
+  padding: 12px 18px;
   cursor: pointer;
   font-size: 15px;
   font-weight: ${props => props.active ? '600' : '400'};
@@ -358,9 +371,15 @@ const Tab = styled.button`
   transition: all 0.3s ease;
   white-space: nowrap;
   font-family: 'Outfit', sans-serif;
-  
+  flex-shrink: 0;
+
   &:hover {
     color: #026283;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 `;
 
@@ -370,6 +389,10 @@ const ContentSection = styled.div`
   border: 1px solid #eee;
   border-radius: 8px;
   animation: ${fadeIn} 0.5s ease-in-out;
+
+  @media (max-width: 480px) {
+    padding: 15px;
+  }
 `;
 
 // Overview Content Component
@@ -379,6 +402,10 @@ const OverviewSection = styled.div`
   border: 1px solid #eee;
   border-radius: 8px;
   margin-bottom: 20px;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 const SectionTitle = styled.h3`
@@ -387,6 +414,10 @@ const SectionTitle = styled.h3`
   color: #333;
   font-size: 18px;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const SectionParagraph = styled.p`
@@ -395,6 +426,10 @@ const SectionParagraph = styled.p`
   line-height: 1.6;
   margin-bottom: 10px;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 `;
 
 const CompanyDetailsContainer = styled.div`
@@ -402,6 +437,10 @@ const CompanyDetailsContainer = styled.div`
   background-color: #fff;
   border: 1px solid #eee;
   border-radius: 8px;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 const CompanyDetailsTitle = styled(SectionTitle)`
@@ -410,8 +449,12 @@ const CompanyDetailsTitle = styled(SectionTitle)`
 
 const DetailsTable = styled.table`
   width: 100%;
-`;
+  border-collapse: collapse;
 
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
+`;
 const DetailRow = styled.tr`
   &:not(:last-child) {
     margin-bottom: 8px;
@@ -425,178 +468,24 @@ const DetailLabel = styled.td`
   padding-bottom: 10px;
   width: 120px;
   font-family: 'Outfit', sans-serif;
+
+  @media (max-width: 480px) {
+    width: 100px;
+    font-size: 13px;
+  }
 `;
 
 const DetailValue = styled.td`
   color: #555;
   padding-bottom: 10px;
   font-family: 'Outfit', sans-serif;
-`;
 
-// Skeleton Components
-const SkeletonPulse = styled.div`
-  background: #eee;
-  background-image: linear-gradient(
-    to right,
-    #eee 0%,
-    #f5f5f5 20%,
-    #eee 40%,
-    #eee 100%
-  );
-  background-size: 800px 104px;
-  animation: ${shimmer} 1.5s linear infinite;
-`;
-
-const SkeletonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-const SkeletonProductCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 30px;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (max-width: 480px) {
+    font-size: 13px;
   }
 `;
 
-const SkeletonImageSection = styled.div`
-  width: 300px;
-  margin-right: 30px;
-  
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-`;
 
-const SkeletonMainImage = styled(SkeletonPulse)`
-  width: 100%;
-  height: 200px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-`;
-
-const SkeletonThumbnails = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const SkeletonThumbnail = styled(SkeletonPulse)`
-  width: 60px;
-  height: 45px;
-  border-radius: 4px;
-`;
-
-const SkeletonInfoSection = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SkeletonTitle = styled(SkeletonPulse)`
-  width: 70%;
-  height: 24px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonSubtitle = styled(SkeletonPulse)`
-  width: 40%;
-  height: 16px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonRating = styled(SkeletonPulse)`
-  width: 30%;
-  height: 16px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-`;
-
-const SkeletonPricing = styled(SkeletonPulse)`
-  width: 25%;
-  height: 20px;
-  margin: 15px 0;
-  border-radius: 4px;
-`;
-
-const SkeletonDescription = styled(SkeletonPulse)`
-  width: 100%;
-  height: 80px;
-  margin-bottom: 25px;
-  border-radius: 4px;
-`;
-
-const SkeletonButton = styled(SkeletonPulse)`
-  width: 150px;
-  height: 42px;
-  border-radius: 30px;
-`;
-
-const SkeletonTabs = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  overflow-x: auto;
-`;
-
-const SkeletonTab = styled(SkeletonPulse)`
-  width: 100px;
-  height: 36px;
-  border-radius: 4px;
-  flex-shrink: 0;
-`;
-
-const SkeletonContent = styled(SkeletonPulse)`
-  width: 100%;
-  height: 300px;
-  border-radius: 8px;
-`;
-
-// Skeleton Loader Component
-const SkeletonLoader = () => (
-  <SkeletonContainer>
-    <SkeletonProductCard>
-      <SkeletonImageSection>
-        <SkeletonMainImage />
-        <SkeletonThumbnails>
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-          <SkeletonThumbnail />
-        </SkeletonThumbnails>
-      </SkeletonImageSection>
-      <SkeletonInfoSection>
-        <SkeletonTitle />
-        <SkeletonSubtitle />
-        <SkeletonRating />
-        <SkeletonSubtitle />
-        <SkeletonPricing />
-        <SkeletonDescription />
-        <SkeletonButton />
-      </SkeletonInfoSection>
-    </SkeletonProductCard>
-    
-    <SkeletonTabs>
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-      <SkeletonTab />
-    </SkeletonTabs>
-    
-    <SkeletonContent />
-  </SkeletonContainer>
-);
 
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
@@ -827,10 +716,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-      {loading ? (
-        <SkeletonLoader />
-      ) : (
-        <>
+     
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -944,8 +830,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
           {sectionsVisible.quicksoftwareReviews && <QuickSmartSoftwareReviews />}
           {sectionsVisible.softwareDemo && <QuickGetSoftwareCompanyDemo />}
           {sectionsVisible.dropdown && <QuickDropdwon />}
-        </>
-      )}
+       
     </Container>
   );
 };
