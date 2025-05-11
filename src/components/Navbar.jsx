@@ -3,7 +3,7 @@ import { X, User, LogOut, Settings, UserCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authAPI } from '../services/api';
 import AuthContext from '../context/AuthContext';
-import footerLogo from '../assets/header.svg';
+import selectease from '../assets/selectease.svg';
 import './Navbar.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
@@ -58,7 +58,7 @@ const Navbar = () => {
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
           <Link to="/" className="navbar-logo">
-            <img src={footerLogo} alt="Select Ease" />
+            <img src={selectease} alt="Select Ease" />
           </Link>
 {/* 
           <div className="nav-links">

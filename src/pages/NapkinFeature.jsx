@@ -67,73 +67,61 @@ const FeatureText = styled.span`
 
 // Mock data structure for dynamic content
 const mockFeaturesData = {
-  categories: [
-    {
-      id: 1,
-      name: "Core Features",
-      features: [
-        "Automates workflows",
-        "Real-time data sync",
-        "Error handling",
-      ]
-    },
-    {
-      id: 2,
-      name: "Advanced Features",
-      features: [
-        "AI decision engine",
-        "Multi-step workflows",
-        "Event-based triggers",
-      ]
-    },
-    {
-      id: 3,
-      name: "Integrations",
-      features: [
-        "Connects with CRMs",
-        "Data warehouses",
-        "Cloud platforms",
-        "Cross-Platform Compatibility",
-        "Cross-Platform Compatibility",
-        "Cross-Platform Compatibility",
-      ]
-    },
-    {
-      id: 4,
-      name: "Customization",
-      features: [
-        "Basic UI and workflow customization",
-      ]
-    },
-    {
-      id: 5,
-      name: "AI Features",
-      features: [
-        "NLP",
-        "Predictive failure detection",
-        "Anomaly alerts with self-learning",
-      ]
-    },
-    {
-      id: 6,
-      name: "System Management & Support",
-      features: [
-        "Cloud-based",
-        "API support",
-        "Hybrid deployment",
-      ]
-    },
-    {
-      id: 7,
-      name: "Security & Compliance",
-      features: [
-        "GDPR-compliant with robust data security features",
-      ]
-    }
-  ]
-};
+    categories: [
+        {
+          id: 1,
+          name: 'Core Features',
+          features: [
+            'Transforms text into visuals like charts, diagrams, and flowcharts',
+            'Fully editable visuals with customizable content and style Napkin AI',
+            'Exports visuals in multiple formats: PNG, PDF, SVG',
+          ],
+        },
+        {
+          id: 2,
+          name: 'Advanced Features',
+          features: [
+            'AI-powered infographic creation',
+            'Smart chart and graph generation Outright CRM',
+            'One-click branding and customization',
+          ],
+        },
+        {
+          id: 3,
+          name: 'Integrations',
+          features: [
+            'Currently, Napkin AI does not offer a public API but is exploring options to introduce one in the future.',
+          ],
+        },
+        {
+          id: 4,
+          name: 'Customization',
+          features: [
+            'Adjust icons, colors, fonts, and connectors',
+            'Offers a range of tools for personalization',
+          ],
+        },
+        {
+          id: 5,
+          name: 'AI Features',
+          features: [
+            'Natural Language Processing (NLP)',
+            'Generative AI for visual creation',
+          ],
+        },
+        {
+          id: 6,
+          name: 'System Management & Support',
+          features: [
+            'Cloud-based',
+            'API support',
+            'hybrid deployment.',
+          ],
+        },
+      ],
+    };
 
-const QuickSmartFeature = ({ featuresData = mockFeaturesData }) => {
+const  NapkinFeature = ({ featuresData = mockFeaturesData }) => {
   return (
     <Container>
       <FeatureSection>
@@ -157,4 +145,4 @@ const QuickSmartFeature = ({ featuresData = mockFeaturesData }) => {
   );
 };
 
-export default QuickSmartFeature;
+export default NapkinFeature;

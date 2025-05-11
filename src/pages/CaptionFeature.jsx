@@ -67,73 +67,71 @@ const FeatureText = styled.span`
 
 // Mock data structure for dynamic content
 const mockFeaturesData = {
-  categories: [
-    {
-      id: 1,
-      name: "Core Features",
-      features: [
-        "Automates workflows",
-        "Real-time data sync",
-        "Error handling",
-      ]
-    },
-    {
-      id: 2,
-      name: "Advanced Features",
-      features: [
-        "AI decision engine",
-        "Multi-step workflows",
-        "Event-based triggers",
-      ]
-    },
-    {
-      id: 3,
-      name: "Integrations",
-      features: [
-        "Connects with CRMs",
-        "Data warehouses",
-        "Cloud platforms",
-        "Cross-Platform Compatibility",
-        "Cross-Platform Compatibility",
-        "Cross-Platform Compatibility",
-      ]
-    },
-    {
-      id: 4,
-      name: "Customization",
-      features: [
-        "Basic UI and workflow customization",
-      ]
-    },
-    {
-      id: 5,
-      name: "AI Features",
-      features: [
-        "NLP",
-        "Predictive failure detection",
-        "Anomaly alerts with self-learning",
-      ]
-    },
-    {
-      id: 6,
-      name: "System Management & Support",
-      features: [
-        "Cloud-based",
-        "API support",
-        "Hybrid deployment",
-      ]
-    },
-    {
-      id: 7,
-      name: "Security & Compliance",
-      features: [
-        "GDPR-compliant with robust data security features",
-      ]
-    }
-  ]
-};
+    categories: [
+      {
+        id: 1,
+        name: 'Core Features',
+        features: [
+          'AI video editing',
+          'Automatic subtitles',
+          'Eye contact correction',
+        ],
+      },
+      {
+        id: 2,
+        name: 'Advanced Features',
+        features: [
+          'AI avatar generator',
+          'AI clips generator',
+          'Video translator',
+        ],
+      },
+      {
+        id: 3,
+        name: 'Integrations',
+        features: [
+          'API support for workflow integration',
+        ],
+      },
+      {
+        id: 4,
+        name: 'Customizations',
+        features: [
+          'Subtitle styling',
+          'Avatar personalization',
+          'Editing preferences',
+        ],
+      },
+      {
+        id: 5,
+        name: 'AI Features',
+        features: [
+          'NLP for transcription',
+          'AI-driven editing',
+          'AI avatars',
+          'lip-sync translation',
+        ],
+      },
+      {
+        id: 6,
+        name: 'System Management & Support',
+        features: [
+          'Cloud-based',
+          'API support',
+          'hybrid deployment.',
+        ],
+      },
+      {
+        id: 7,
+        name: 'Security & Compliance',
+        features: [
+          'GDPR-compliant with robust data security features',
+        ],
+      },
+    ],
+  };
 
-const QuickSmartFeature = ({ featuresData = mockFeaturesData }) => {
+const CaptionFeature = ({ featuresData = mockFeaturesData }) => {
   return (
     <Container>
       <FeatureSection>
@@ -157,4 +155,4 @@ const QuickSmartFeature = ({ featuresData = mockFeaturesData }) => {
   );
 };
 
-export default QuickSmartFeature;
+export default CaptionFeature;

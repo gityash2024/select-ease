@@ -223,7 +223,7 @@ const Dot = styled(motion.div)`
   z-index: 2;
 `;
 
-// const CategorySliderSection = styled.div`
+// const CategorySliderSectionSection = styled.div`
 //   padding-top: 60px;
 //   padding-bottom:50px;  
 //   background-color: white;
@@ -1716,7 +1716,7 @@ const Home = () => {
             Find the <BoldSpan>Best AI Tools</BoldSpan> with <BoldSpan>Expert Reviews</BoldSpan> and <BoldSpan>Comparisons</BoldSpan>.
           </Title>
 
-          <SearchContainer
+          {/* <SearchContainer
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -1744,7 +1744,7 @@ const Home = () => {
                 ))}
               </Dropdown>
             )}
-          </SearchContainer>
+          </SearchContainer> */}
 
           <ImagesSection
             initial={{ opacity: 0, y: 20 }}
@@ -2383,7 +2383,7 @@ const Home = () => {
             </InputField>
           </InputGroup>
 
-          <NextButton type="submit">Next</NextButton>
+          {/* <NextButton type="submit">Next</NextButton> */}
 
           <LoginLink>
             Already have an account? <span>Sign In</span>
@@ -2549,13 +2549,13 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 2.9 }}
               >
-                <input type="email" placeholder="Your work email address" />
-                <motion.button
+                {/* <input type="email" placeholder="Your work email address" /> */}
+                {/* <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Join the waitlist
-                </motion.button>
+                </motion.button> */}
               </motion.div>
             </div>
           </WaitlistBanner>

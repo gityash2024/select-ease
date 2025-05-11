@@ -1,7 +1,8 @@
+
 import React from 'react';
 import styled from 'styled-components';
-import plus from '../assets/plus.png';
-import minus from '../assets/minus.png';
+import plus from '../assets/plus.svg';
+import minus from '../assets/minus.svg';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -76,7 +77,6 @@ const ReviewAuthor = styled.div`
   margin-left: 32px;
 `;
 
-// Mock data structure for dynamic content
 const mockProsConsData = {
   pros: [
     {
@@ -120,7 +120,7 @@ const mockProsConsData = {
   ]
 };
 
-const IndividualCompanyName = ({ prosConsData = mockProsConsData }) => {
+const CaptionSpecification = ({ prosConsData = mockProsConsData }) => {
   return (
     <Container>
       <ProsConsSection>
@@ -156,4 +156,4 @@ const IndividualCompanyName = ({ prosConsData = mockProsConsData }) => {
   );
 };
 
-export default IndividualCompanyName;
+export default CaptionSpecification;
