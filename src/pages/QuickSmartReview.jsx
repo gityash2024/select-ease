@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import IndividualFeature from './IndividualFeature';
-import IndividualRating from './individualRating';
-import Specifications from './Specifications';
-import SoftwareReviews from './SoftwareReviews';
+import QuickSmartFeature from './QuickSmartFeature';
+import QuickSmartRating from './QuickSmartRating';
+import QuickSmartSpecification from './QuickSmartSpecification';
+import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
 import GetSoftwareCompanyDemo from './GetSoftwareCompanyDemo';
 import Dropdwonindividual from './Dropdwonindividual';
-
+// import image40 from '../src/assets/image40.png';
+// import image41 from './src/assets/image41.png';
+// import image42 from './src/assets/image42.png';
+// import image43 from './src/assets/image43.png';
+// import image44 from './src/assets/image44.png';
 // Animations
 const fadeIn = keyframes`
   from {
@@ -672,46 +676,47 @@ const FAQContent = () => (
 
 // Mocked data structure for dynamic content
 const mockProductData = {
-  id: 1,
-  title: "Software Rating",
-  company: "Software Company",
-  rating: 4.3,
-  reviewCount: 26,
-  pricing: "₹ 9999",
-  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
-  images: [
-    { id: 1, url: "/api/placeholder/300/200", alt: "Product Image 1" },
-    { id: 2, url: "/api/placeholder/300/200", alt: "Product Image 2" },
-    { id: 3, url: "/api/placeholder/300/200", alt: "Product Image 3" },
-    { id: 4, url: "/api/placeholder/300/200", alt: "Product Image 4" },
-    { id: 5, url: "/api/placeholder/300/200", alt: "Product Image 5" }
-  ],
-  overview: {
-    softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
-    companyDetails: {
-      brandName: "Software Company",
-      information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-      founded: "2002",
-      founder: "Tito Rossmanith",
-      companySize: "20-100 employees",
-      otherProducts: "Software Company+1"
+    id: 1,
+    title: "QuickSmart.ai",
+    company: "AI-Powered Assistants",
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+    ],
+    overview: {
+      softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
+      companyDetails: {
+        brandName: "QuickSmart.ai",
+        information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
+        founded: "2020",
+        founder: "Tito Rossmanith",
+        companySize: "50-200 employees",
+        otherProducts: "QuickSmart Insights, QuickSmart Analytics"
+      }
     }
-  }
-};
+  };
 
 // Main Component with Dynamic Content
-const IndividualReview = ({ product = mockProductData }) => {
+const QuickSmartReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
-    individualFeature: false,
-    individualRating: false,
-    specifications: false,
-    softwareReviews: false,
-    softwareDemo: false,
-    dropdown: false
+  quickFeature: false,
+  individualRating: false,  // This was quickRating but you check for individualRating
+  specifications: false,    // This was quickspecifications but you check for specifications
+  softwareReviews: false,   // This was quicksoftwareReviews but you check for softwareReviews
+  softwareDemo: false,
+  dropdown: false
+
   });
 
   // Simulate initial loading
@@ -730,9 +735,9 @@ const IndividualReview = ({ product = mockProductData }) => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       
-      // Show components sequentially based on scroll position
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.individualFeature) {
-        setSectionsVisible(prev => ({...prev, individualFeature: true}));
+      // Show components sequentially based on scroll position  
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.quickFeature) {
+        setSectionsVisible(prev => ({...prev, quickFeature: true}));
       }
       
       if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.individualRating) {
@@ -934,16 +939,17 @@ const IndividualReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.individualFeature && <IndividualFeature />}
-          {sectionsVisible.individualRating && <IndividualRating />}
-          {sectionsVisible.specifications && <Specifications />}
-          {sectionsVisible.softwareReviews && <SoftwareReviews />}
-          {sectionsVisible.softwareDemo && <GetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <Dropdwonindividual />}
+          {sectionsVisible.quickFeature && <QuickSmartFeature />}
+{sectionsVisible.individualRating && <QuickSmartRating />}
+{sectionsVisible.specifications && <QuickSmartSpecification />}
+{sectionsVisible.softwareReviews && <QuickSmartSoftwareReviews />}
+{sectionsVisible.softwareDemo && <GetSoftwareCompanyDemo />}
+{sectionsVisible.dropdown && <Dropdwonindividual />}
+
         </>
       )}
     </Container>
   );
 };
 
-export default IndividualReview;
+export default QuickSmartReview;

@@ -60,7 +60,7 @@ const Navbar = () => {
           <Link to="/" className="navbar-logo">
             <img src={footerLogo} alt="Select Ease" />
           </Link>
-
+{/* 
           <div className="nav-links">
   <NavLink to="/about-us" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About Us</NavLink>
   <NavLink to="/categories" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Categories</NavLink>
@@ -74,11 +74,11 @@ const Navbar = () => {
   <NavLink to="/individual-review" className={({ isActive, isPending }) =>
     isPending ? "nav-link" : isActive || location.pathname.startsWith('/individual-review') ? "nav-link active" : "nav-link"
   }>Review</NavLink>
-</div>
+</div> */}
           <div className="nav-actions">
-            <div className="search-box">
+            {/* <div className="search-box">
               <input type="text" placeholder="Search..." />
-            </div>
+            </div> */}
             {user ? (
               <div className="profile-section" onMouseEnter={() => setShowProfileDropdown(true)} onMouseLeave={() => setShowProfileDropdown(false)}>
                 <button className="profile-btn">

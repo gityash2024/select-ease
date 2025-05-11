@@ -1869,8 +1869,8 @@ const Home = () => {
           {index === 2 && (
             <>
               <div className="badge-container">
-                {/* <div className="badge purple">H</div>
-                <div className="badge orange">A</div> */}
+                <div className="badge purple">H</div>
+                <div className="badge orange">A</div>
               </div>
               <div className="buyer-badge">Buyer's Choice</div>
             </>
@@ -2038,13 +2038,13 @@ const Home = () => {
             <SectionTitle color="white">
               Top {Math.min(8, products.length)} Most Reviewed Software of {new Date().toLocaleString('default', { month: 'long' })} {new Date().getFullYear()}
             </SectionTitle>
-            <ReviewAllButton
+            {/* <ReviewAllButton
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/products')}
             >
               All Review
-            </ReviewAllButton>
+            </ReviewAllButton> */}
           </ReviewHeading>
           
           <ReviewCardsGrid
@@ -2074,19 +2074,19 @@ const Home = () => {
                     {renderStars(review.rating || 5)}
                     <span className="rating-count">({review.rating_count || 1156})</span>
                   </div>
-                  <a href="#" className="read-more" onClick={(e) => {
+                  {/* <a href="#" className="read-more" onClick={(e) => {
                     e.preventDefault();
                     navigate(`/products/${review.product_id}`);
                   }}>
                     Read More <span>→</span>
-                  </a>
+                  </a> */}
                 </SoftwareReviewCard>
               );
             })}
           </ReviewCardsGrid>
         </ContentWrapper>
       </ReviewsWrapper>
-
+{/* 
       <ExploreSection
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -2094,7 +2094,6 @@ const Home = () => {
     >
       <SectionTitle>Explore Products by Services</SectionTitle>
       <ProductGrid>
-        {/* Generate 6 Product Cards */}
         {[...Array(6)].map((_, index) => (
           <ProductCard key={index}>
             <CardTitle>Software & App</CardTitle>
@@ -2105,7 +2104,7 @@ const Home = () => {
           </ProductCard>
         ))}
       </ProductGrid>
-    </ExploreSection>
+    </ExploreSection> */}
 
       <Section>
         <ContentWrapper
@@ -2148,12 +2147,13 @@ const Home = () => {
                 <CardContent>
                   <h3>{product.name}</h3>
                   <p>{product.description?.substring(0, 50) || "Explore this product"}{product.description?.length > 50 ? "..." : ""}</p>
-                  <a href="#" onClick={(e) => {
+                  {/* <a href="#" onClick={(e) => {
                     e.preventDefault();
                     navigate(`/products/${product.id}`);
                   }}>
-                    View Product <ArrowRight size={14} />
-                  </a>
+                    View Product 
+                    <ArrowRight size={14} />
+                  </a> */}
                 </CardContent>
               </Card>
             ))}
@@ -2301,7 +2301,7 @@ const Home = () => {
                   </div>
                 </FeatureItem>
               </FeatureList>
-              <ExploreButton
+              {/* <ExploreButton
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 10 }}
@@ -2310,7 +2310,7 @@ const Home = () => {
                 onClick={() => navigate('/products')}
               >
                 Explore All Tools
-              </ExploreButton>
+              </ExploreButton> */}
             </div>
 
             <motion.img 
@@ -2501,12 +2501,12 @@ const Home = () => {
                 <CardContent>
                   <h3>{blog.title}</h3>
                   <p>{blog.summary?.substring(0, 80) || "Lorem ipsum dolor sit amet consectetur."}{blog.summary?.length > 80 ? "..." : ""}</p>
-                  <a href="#" onClick={(e) => {
+                  {/* <a href="#" onClick={(e) => {
                     e.preventDefault();
                     navigate(`/blog-details/${blog.id}`);
                   }}>
                     Read More <ArrowRight size={14} />
-                  </a>
+                  </a> */}
                 </CardContent>
               </Card>
             ))}

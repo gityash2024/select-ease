@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import IndividualFeature from './IndividualFeature';
-import IndividualRating from './individualRating';
-import Specifications from './Specifications';
-import SoftwareReviews from './SoftwareReviews';
+import ScogoFeature from './ScogoFeature';
+import QuickSmartRating from './ScogoRating';
+import QuickSmartSpecification from './ScogoSpecification';
+import QuickSmartSoftwareReviews from './ScogoSoftwareReviews';
 import GetSoftwareCompanyDemo from './GetSoftwareCompanyDemo';
 import Dropdwonindividual from './Dropdwonindividual';
-
+// import image52 from '../src/assets/image52.png';
+// import image53 from './src/assets/image53.png';
+// import image54 from './src/assets/image54.png';
+// import image55 from './src/assets/image55.png';
+// import image56 from './src/assets/image56.png'; 
 // Animations
 const fadeIn = keyframes`
   from {
@@ -599,7 +603,7 @@ const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
-        <SectionTitle>Software Overview</SectionTitle>
+        <SectionTitle>Lowtouch.ai</SectionTitle>
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -672,44 +676,44 @@ const FAQContent = () => (
 
 // Mocked data structure for dynamic content
 const mockProductData = {
-  id: 1,
-  title: "Software Rating",
-  company: "Software Company",
-  rating: 4.3,
-  reviewCount: 26,
-  pricing: "₹ 9999",
-  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
-  images: [
-    { id: 1, url: "/api/placeholder/300/200", alt: "Product Image 1" },
-    { id: 2, url: "/api/placeholder/300/200", alt: "Product Image 2" },
-    { id: 3, url: "/api/placeholder/300/200", alt: "Product Image 3" },
-    { id: 4, url: "/api/placeholder/300/200", alt: "Product Image 4" },
-    { id: 5, url: "/api/placeholder/300/200", alt: "Product Image 5" }
-  ],
-  overview: {
-    softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
-    companyDetails: {
-      brandName: "Software Company",
-      information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-      founded: "2002",
-      founder: "Tito Rossmanith",
-      companySize: "20-100 employees",
-      otherProducts: "Software Company+1"
+    id: 1,
+    title: "Lowtouch.ai",
+    company: "AI Customer Support Platform",
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+    ],
+    overview: {
+      softwareOverview: "Scogo.ai is on a mission to build and deliver AI solutions as easy and cost-effective as UPI, empowering businesses to win customers and reach new markets.",
+      companyDetails: {
+        brandName: "Lowtouch.ai",
+        information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
+        founded: "August 2024",
+        founder: "Rejith Krishnan",
+        companySize: "51-200 employees",
+        otherProducts: "QuickSmart Insights, QuickSmart Analytics"
+      }
     }
-  }
-};
+  };
 
 // Main Component with Dynamic Content
-const IndividualReview = ({ product = mockProductData }) => {
+const LowtouchReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
-    individualFeature: false,
-    individualRating: false,
-    specifications: false,
-    softwareReviews: false,
+    quickFeature: false,
+    quickRating: false,
+    quickspecifications: false,
+    quicksoftwareReviews: false,
     softwareDemo: false,
     dropdown: false
   });
@@ -730,9 +734,9 @@ const IndividualReview = ({ product = mockProductData }) => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       
-      // Show components sequentially based on scroll position
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.individualFeature) {
-        setSectionsVisible(prev => ({...prev, individualFeature: true}));
+      // Show components sequentially based on scroll position  
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.quickFeature) {
+        setSectionsVisible(prev => ({...prev, quickFeature: true}));
       }
       
       if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.individualRating) {
@@ -934,16 +938,16 @@ const IndividualReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.individualFeature && <IndividualFeature />}
-          {sectionsVisible.individualRating && <IndividualRating />}
-          {sectionsVisible.specifications && <Specifications />}
-          {sectionsVisible.softwareReviews && <SoftwareReviews />}
-          {sectionsVisible.softwareDemo && <GetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <Dropdwonindividual />}
+          {sectionsVisible.quickFeature && <QuickSmartFeature />}
+          {sectionsVisible.quickRating && <QuickSmartRating />}
+          {sectionsVisible.quickspecifications && <QuickSmartSpecification />}
+          {sectionsVisible.quicksoftwareReviews && <QuickSmartSoftwareReviews />}
+          {sectionsVisible.softwareDemo && <QuickGetSoftwareCompanyDemo />}
+          {sectionsVisible.dropdown && <QuickDropdwon />}
         </>
       )}
     </Container>
   );
 };
 
-export default IndividualReview;
+export default LowtouchReview;
