@@ -1267,6 +1267,7 @@ const ProductsSection = styled(motion.section)`
   padding: 40px;
   max-width: 1200px;
   margin: 0 auto;
+  overflow: hidden; // Add this to ensure the slider doesn't overflow
 `;
 
 const ProductsTitle = styled.h2`
@@ -1569,6 +1570,41 @@ const CategoryButton = styled.button`
   }
 `;
 
+// Add these new styled components for the slider functionality
+const SliderContainer = styled.div`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const SliderWrapper = styled.div`
+  display: flex;
+  transition: transform 0.3s ease;
+  transform: translateX(${props => `-${props.translateValue}%`});
+`;
+
+const SliderControls = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 12px;
+`;
+
+const SliderDot = styled.div`
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: ${props => props.active ? '#026283' : '#E5E7EB'};
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+`;
+
+const ProductCardWrapper = styled.div`
+  flex: 0 0 ${props => `${100 / props.slidesPerView}%`};
+  padding: 0 10px;
+  box-sizing: border-box;
+`;
+
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -1580,6 +1616,9 @@ const Home = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownItems, setDropdownItems] = useState([]);
   const [sliderStartIndex, setSliderStartIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(3);
+  const totalSlides = 6; // Total number of products in the slider
 
   const handleSliderPrev = () => {
     setSliderStartIndex(Math.max(0, sliderStartIndex - 1));
@@ -1589,7 +1628,21 @@ const Home = () => {
     setSliderStartIndex(Math.min(categories.length - 1, sliderStartIndex + 1));
   };
   
-
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSlidesPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setSlidesPerView(2);
+      } else {
+        setSlidesPerView(3);
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1857,62 +1910,74 @@ const Home = () => {
   transition={{ duration: 0.5 }}
 >
   <ProductsTitle>Recently Visited Products</ProductsTitle>
-  <ProductGrid>
-    {[1, 2, 3].map((item, index) => (
-      <ProductCard key={index} onClick={() => navigate(`/products/${index}`)}>
-        <ProductImage>
-          {/* Replace with actual product images */}
-          <img 
-            src={index === 0 ? categories_1 : index === 1 ? categories_2 : categories_3}
-            alt={`Product ${index + 1}`} 
-          />
-          {index === 2 && (
-            <>
-              <div className="badge-container">
-                <div className="badge purple">H</div>
-                <div className="badge orange">A</div>
-              </div>
-              <div className="buyer-badge">Buyer's Choice</div>
-            </>
-          )}
-        </ProductImage>
-        <ProductContent>
-          <ProductHeader>
-            <div>
-              <ProductTitle>Software Rating</ProductTitle>
-              <ProductCompany>By Software Company</ProductCompany>
-            </div>
-          </ProductHeader>
-          <RatingContainer>
-            <Rating>
-              <span>5.0</span>
-              <Star size={16} fill="#FFD700" color="#FFD700" />
-            </Rating>
-            <ActionButton>Read reviews</ActionButton>
-            <ActionButton>Features</ActionButton>
-          </RatingContainer>
-          <ProductDescription>
-            Lorem ipsum dolor sit amet consectetur. Semper ornare viverra volutpat.
-          </ProductDescription>
-          <PriceSection>
-            <PriceContainer>
-              <PriceLabel>Starting at</PriceLabel>
-              <Price>₹4,999</Price>
-            </PriceContainer>
-            <BuyButton>Buy Now</BuyButton>
-          </PriceSection>
-        </ProductContent>
-      </ProductCard>
-    ))}
-  </ProductGrid>
+  <SliderContainer>
+    <SliderWrapper translateValue={currentSlide * 100}>
+      {[1, 2, 3, 4, 5, 6].map((item, index) => (
+        <ProductCardWrapper key={index} slidesPerView={slidesPerView}>
+          <ProductCard onClick={() => navigate(`/products/${index}`)}>
+            <ProductImage>
+              <img 
+                src={index % 3 === 0 ? categories_1 : index % 3 === 1 ? categories_2 : categories_3}
+                alt={`Product ${index + 1}`} 
+              />
+              {index % 3 === 2 && (
+                <>
+                  <div className="badge-container">
+                    <div className="badge purple">H</div>
+                    <div className="badge orange">A</div>
+                  </div>
+                  <div className="buyer-badge">Buyer's Choice</div>
+                </>
+              )}
+            </ProductImage>
+            <ProductContent>
+              <ProductHeader>
+                <div>
+                  <ProductTitle>Software Rating</ProductTitle>
+                  <ProductCompany>By Software Company</ProductCompany>
+                </div>
+              </ProductHeader>
+              <RatingContainer>
+                <Rating>
+                  <span>5.0</span>
+                  <Star size={16} fill="#FFD700" color="#FFD700" />
+                </Rating>
+                <ActionButton>Read reviews</ActionButton>
+                <ActionButton>Features</ActionButton>
+              </RatingContainer>
+              <ProductDescription>
+                Lorem ipsum dolor sit amet consectetur. Semper ornare viverra volutpat.
+              </ProductDescription>
+              <PriceSection>
+                <PriceContainer>
+                  <PriceLabel>Starting at</PriceLabel>
+                  <Price>₹4,999</Price>
+                </PriceContainer>
+                <BuyButton>Buy Now</BuyButton>
+              </PriceSection>
+            </ProductContent>
+          </ProductCard>
+        </ProductCardWrapper>
+      ))}
+    </SliderWrapper>
+    <SliderControls>
+      {Array.from({ length: Math.ceil(6 / slidesPerView) }).map((_, index) => (
+        <SliderDot 
+          key={index} 
+          active={currentSlide === index} 
+          onClick={() => setCurrentSlide(index)}
+        />
+      ))}
+    </SliderControls>
+  </SliderContainer>
   <CategoryMessage>
-    <MessageText>
+    {/* <MessageText>
       You have only visited <strong>three product(s)</strong>.<br />
       There are over <strong>60+ categories</strong> for u to explore.
     </MessageText>
     <ViewAllButton onClick={() => navigate('/categories')}>
       View All Categories
-    </ViewAllButton>
+    </ViewAllButton> */}
   </CategoryMessage>
 </ProductsSection>
 
