@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { X, User, LogOut, Settings, UserCircle } from 'lucide-react';
+import { X, User, LogOut, Settings, UserCircle, Menu } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authAPI } from '../services/api';
 import AuthContext from '../context/AuthContext';
 import selectease from '../assets/selectease.svg';
 import './Navbar.css';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -13,9 +13,12 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { setIsLoading, setAuthState } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const modalRef = useRef(null);
+  const profileRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
@@ -24,6 +27,10 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowLogoutModal(false);
+      }
+      
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfileDropdown(false);
       }
     };
     
@@ -35,12 +42,18 @@ const Navbar = () => {
     };
   }, []);
 
+  // Close mobile menu when location changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
     setShowProfileDropdown(false);
     setShowLogoutModal(false);
+    setIsMobileMenuOpen(false);
     
     if (setAuthState) {
       setAuthState({
@@ -53,35 +66,47 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <>
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
+          {/* Hamburger Menu Button */}
+          <div className="hamburger-menu" onClick={toggleMobileMenu}>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+          </div>
+          
           <Link to="/" className="navbar-logo">
             <img src={selectease} alt="Select Ease" />
           </Link>
-{/* 
-          <div className="nav-links">
-  <NavLink to="/about-us" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About Us</NavLink>
-  <NavLink to="/categories" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Categories</NavLink>
-  <NavLink to="/products" className={({ isActive, isPending }) => 
-    isPending ? "nav-link" : isActive || location.pathname.startsWith('/products/') ? "nav-link active" : "nav-link"
-  }>Products</NavLink>
-  <NavLink to="/reviews" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Write a Review</NavLink>
-  <NavLink to="/blogs" className={({ isActive, isPending }) =>
-    isPending ? "nav-link" : isActive || location.pathname.startsWith('/blog-details') ? "nav-link active" : "nav-link"
-  }>Blog</NavLink>
-  <NavLink to="/individual-review" className={({ isActive, isPending }) =>
-    isPending ? "nav-link" : isActive || location.pathname.startsWith('/individual-review') ? "nav-link active" : "nav-link"
-  }>Review</NavLink>
-</div> */}
+
+          {/* <div className="nav-links">
+            <NavLink to="/about-us" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About Us</NavLink>
+            <NavLink to="/categories" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Categories</NavLink>
+            <NavLink to="/products" className={({ isActive, isPending }) => 
+              isPending ? "nav-link" : isActive || location.pathname.startsWith('/products/') ? "nav-link active" : "nav-link"
+            }>Products</NavLink>
+            <NavLink to="/reviews" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Write a Review</NavLink>
+            <NavLink to="/blogs" className={({ isActive, isPending }) =>
+              isPending ? "nav-link" : isActive || location.pathname.startsWith('/blog-details') ? "nav-link active" : "nav-link"
+            }>Blog</NavLink>
+            <NavLink to="/individual-review" className={({ isActive, isPending }) =>
+              isPending ? "nav-link" : isActive || location.pathname.startsWith('/individual-review') ? "nav-link active" : "nav-link"
+            }>Review</NavLink>
+          </div> */}
+          
           <div className="nav-actions">
             {/* <div className="search-box">
               <input type="text" placeholder="Search..." />
             </div> */}
             {user ? (
-              <div className="profile-section" onMouseEnter={() => setShowProfileDropdown(true)} onMouseLeave={() => setShowProfileDropdown(false)}>
-                <button className="profile-btn">
+              <div className="profile-section" ref={profileRef}>
+                <button className="profile-btn" onClick={() => setShowProfileDropdown(!showProfileDropdown)}>
                   <UserCircle size={24} />
                 </button>
                 {showProfileDropdown && (
@@ -114,6 +139,34 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <Link to="/" className="navbar-logo" onClick={() => setIsMobileMenuOpen(false)}>
+            <img src={selectease} alt="Select Ease" />
+          </Link>
+          <button onClick={() => setIsMobileMenuOpen(false)} className="modal-close">
+            <X size={24} />
+          </button>
+        </div>
+        
+        <div className="mobile-nav-actions">
+          {user ? (
+            <button className="profile-menu-item" onClick={() => setShowLogoutModal(true)}>
+              <LogOut size={16} />
+              <span>Logout ({user.firstName} {user.lastName})</span>
+            </button>
+          ) : (
+            <button onClick={() => navigate('/login')} className="contact-btn-2">
+              Log In / Sign Up
+            </button>
+          )}
+          <button onClick={() => navigate('/contact')} className="contact-btn-2">
+            Contact Us
+          </button>
+        </div>
+      </div>
 
       {showLogoutModal && (
         <div className="modal-overlay">

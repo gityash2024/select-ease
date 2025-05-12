@@ -3,8 +3,9 @@ import './Contact.css';
 import hero from '../assets/Hero.png';
 import map from '../assets/map.png';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { Instagram, MapPin, Phone, Mail } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Instagram, MapPin, Phone, Mail, CheckCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ContactInfoSection = styled(motion.div)`
   display: flex;
@@ -64,8 +65,31 @@ const CardText = styled.p`
   margin: 4px 0;
 `;
 
+const SuccessToast = ({ message }) => (
+  <motion.div 
+    className="toast"
+    initial={{ x: 100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: 100, opacity: 0 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <CheckCircle size={18} />
+      <span>{message}</span>
+    </div>
+  </motion.div>
+);
+
 const Contact = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [showToast, setShowToast] = useState(false);
 
   const faqItems = [
     {
@@ -92,6 +116,61 @@ const Contact = () => {
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+    
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (validateForm()) {
+      // In a real app, here you would send data to backend
+      console.log('Form submitted:', formData);
+      
+      // Show success toast using react-hot-toast library
+      toast.success('Message sent successfully!');
+      
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        message: ''
+      });
+    }
   };
 
   const fadeIn = {
@@ -156,24 +235,55 @@ const Contact = () => {
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             <h2>Get in Touch</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="input-row">
                 <div className="input-group">
                   <label className="input-label">First Name</label>
-                  <input type="text" placeholder="First Name" />
+                  <input 
+                    type="text" 
+                    name="firstName"
+                    placeholder="First Name" 
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className={errors.firstName ? 'input-error' : ''}
+                  />
+                  {errors.firstName && <div className="error-message">{errors.firstName}</div>}
                 </div>
                 <div className="input-group">
                   <label className="input-label">Last Name</label>
-                  <input type="text" placeholder="Last Name" />
+                  <input 
+                    type="text" 
+                    name="lastName"
+                    placeholder="Last Name" 
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className={errors.lastName ? 'input-error' : ''}
+                  />
+                  {errors.lastName && <div className="error-message">{errors.lastName}</div>}
                 </div>
               </div>
               <div className="input-group">
                 <label className="input-label">Email</label>
-                <input type="email" placeholder="Email" />
+                <input 
+                  type="email" 
+                  name="email"
+                  placeholder="Email" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={errors.email ? 'input-error' : ''}
+                />
+                {errors.email && <div className="error-message">{errors.email}</div>}
               </div>
               <div className="contact-input-group">
                 <label className="input-label">Message</label>
-                <textarea placeholder="Message"></textarea>
+                <textarea 
+                  name="message"
+                  placeholder="Message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className={errors.message ? 'input-error' : ''}
+                ></textarea>
+                {errors.message && <div className="error-message">{errors.message}</div>}
               </div>
               <div className="submit-button-container">
                 <button type="submit">Submit</button>
@@ -321,6 +431,15 @@ const Contact = () => {
           </motion.div>
         </motion.div>
       </motion.div>
+
+      {/* Toast container for success messages */}
+      <AnimatePresence>
+        {showToast && (
+          <div className="toast-container">
+            <SuccessToast message="Your message has been sent successfully!" />
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

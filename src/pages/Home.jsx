@@ -48,7 +48,7 @@ import { ArrowRight, Star } from 'lucide-react';
 
 const Section = styled.section`
   width: 100%;
-  padding: ${props => props.padding || '20px 0'};
+  padding: ${props => props.padding || '15px 0'};
   background: ${props => props.background || 'white'};
 `;
 
@@ -373,6 +373,22 @@ const UniqueCategoryLists = styled.div`
     gap: 10px;
     margin-bottom: 10px;
   }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
 `;
 
 const UniqueCategoryTab = styled.div`
@@ -414,7 +430,8 @@ const UniqueSoftwareGrid = styled.div`
   }
   
   @media (max-width: 576px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 `;
 
@@ -481,30 +498,37 @@ const UniqueSoftwareName = styled.div`
   color: #333;
 `;
 
+// Update UniqueContentWrapper to have max-width and center alignment
 const UniqueContentWrapper = styled(motion.div)`
   background-color: white;
-  padding: 40px;
-  margin: 20px 0;
+  padding: 15px 40px;
+  margin: 15px auto;
+  max-width: 1200px;
   
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 15px 20px;
   }
 `;
 
+// Update UniqueSectionTitle to match ProductsTitle styling
 const UniqueSectionTitle = styled(motion.h2)`
-  font-size: 2rem;
+  font-size: 28px;
+  font-weight: 500;
   color: #333;
+  margin-bottom: 24px;
   text-align: left;
   
-  @media (max-width: 576px) {
-    font-size: 1.5rem;
+  @media (max-width: 768px) {
+    font-size: 22px;
+    margin-bottom: 16px;
   }
 `;
 
 const ReviewsWrapper = styled(motion.section)`
   background-color: #003750;
   position: relative;
-  padding: 80px 0;
+  padding: 40px 0;
+  margin: 15px 0;
   
   &:after {
     content: '';
@@ -533,14 +557,20 @@ const ReviewHeading = styled(motion.div)`
   }
 `;
 
+// Update SectionTitle to match ProductsTitle styling
 const SectionTitle = styled(motion.h2)`
-  color: ${props => props.color || '#111827'};
-  font-size: 42px;
-  font-weight: 700;
+  color: ${props => props.color || '#333'};
+  font-size: 28px;
+  font-weight: 500;
   line-height: 1.2;
   max-width: 600px;
-  margin: 0 0 32px 0;
+  margin: 0 0 24px 0;
   padding: ${props => props.padding || '0'};
+  
+  @media (max-width: 768px) {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
 `;
 
 const ReviewAllButton = styled(motion.button)`
@@ -729,7 +759,8 @@ const VsText = styled.div`
 const HowItWorksSection = styled(motion.section)`
   background: #003750;
   color: white;
-  padding: 40px 0;
+  padding: 30px 0;
+  margin: 15px 0;
 `;
 
 const Content = styled(motion.div)`
@@ -805,15 +836,23 @@ const ExploreButton = styled(motion.button)`
 const RegisterSection = styled(motion.section)`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
+  min-height: auto;
   background: white;
   padding: 40px 60px;
   gap: 40px;
   box-sizing: border-box;
+  max-width: 1200px;
+  margin: 15px auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     grid-template-columns: 1fr;
+    padding: 30px;
+    gap: 30px;
+  }
+  
+  @media (max-width: 768px) {
     padding: 20px;
+    gap: 20px;
   }
 `;
 
@@ -829,21 +868,42 @@ const TextSection = styled.div`
     font-size: 40px;
     font-weight: 500;
     margin-bottom: 12px;
-    font-family:Outfit;
+    font-family: Outfit;
   }
 
   p {
     font-size: 24px;
     color: #555;
-    font-family:Outfit;
+    font-family: Outfit;
     font-weight: 300;
   }
 
   span {
-    color:#026283;
+    color: #026283;
     font-weight: 500;
-    font-family:Outfit;
+    font-family: Outfit;
+  }
+  
+  @media (max-width: 992px) {
+    padding: 20px 0;
     
+    h2 {
+      font-size: 32px;
+    }
+    
+    p {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    h2 {
+      font-size: 28px;
+    }
+    
+    p {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -855,6 +915,10 @@ const FormSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const RegisterForm = styled.form`
@@ -871,6 +935,11 @@ const Titles = styled.h2`
 const InputGroup = styled.div`
   display: flex;
   gap: 15px;
+  
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 5px;
+  }
 `;
 
 const InputField = styled.div`
@@ -885,7 +954,7 @@ const InputField = styled.div`
   }
 
   input {
-    width: 245px;
+    width: 100%;
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -899,6 +968,13 @@ const InputField = styled.div`
 
     &::placeholder {
       color: #a8b3c1;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    input {
+      padding: 10px;
+      font-size: 0.9rem;
     }
   }
 `;
@@ -938,9 +1014,10 @@ const TermsText = styled.p`
 `;
 
 const TestimonialsSection = styled(motion.section)`
-  padding: 60px 20px;
+  padding: 30px 20px;
   background: white;
   text-align: center;
+  margin: 15px 0;
 `;
 
 const TestimonialDivider = styled.div`
@@ -1321,10 +1398,14 @@ const RatingCount = styled.span`
 
 // Recently Visited Products Section
 const ProductsSection = styled(motion.section)`
-  padding: 40px;
+  padding: 15px 40px;
   max-width: 1200px;
-  margin: 0 auto;
-  overflow: hidden; // Add this to ensure the slider doesn't overflow
+  margin: 15px auto;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 15px 20px;
+  }
 `;
 
 const ProductsTitle = styled.h2`
@@ -1332,34 +1413,12 @@ const ProductsTitle = styled.h2`
   font-weight: 500;
   color: #333;
   margin-bottom: 24px;
+  
+  @media (max-width: 768px) {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
 `;
-
-// const ProductGrid = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 24px;
-  
-//   @media (max-width: 1024px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-  
-//   @media (max-width: 640px) {
-//     grid-template-columns: 1fr;
-//   }
-// `;
-
-// const ProductCard = styled.div`
-//   border: 1px solid #eee;
-//   border-radius: 8px;
-//   overflow: hidden;
-//   transition: transform 0.2s, box-shadow 0.2s;
-//   background: white;
-  
-//   &:hover {
-//     transform: translateY(-5px);
-//     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-//   }
-// `;
 
 const ProductImage = styled.div`
   height: 200px;
@@ -1561,10 +1620,17 @@ const CategorySliderSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 40px;
+  padding: 15px 40px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 15px auto;
   background: white;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+    gap: 16px;
+  }
 `;
 
 const CategoryTitle = styled.h2`
@@ -1572,11 +1638,28 @@ const CategoryTitle = styled.h2`
   font-weight: 500;
   color: #333;
   margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const CategorySliderContainer = styled.div`
   display: flex;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    
+    /* Hide scrollbar */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 `;
 
 const SliderArrowButton = styled.button`
@@ -1596,11 +1679,22 @@ const SliderArrowButton = styled.button`
   &:hover {
     background-color: #555;
   }
+  
+  @media (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
 `;
 
 const CategoryList = styled.div`
   display: flex;
   gap: 12px;
+  
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 const CategoryButton = styled.button`
@@ -1612,12 +1706,14 @@ const CategoryButton = styled.button`
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  white-space: nowrap;
   
   .circle {
     width: 24px;
     height: 24px;
     border-radius: 50%;
     background-color: ${props => props.color || '#026283'};
+    flex-shrink: 0;
   }
   
   span {
@@ -1625,25 +1721,42 @@ const CategoryButton = styled.button`
     font-weight: 400;
     color: #333;
   }
+  
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    
+    .circle {
+      width: 20px;
+      height: 20px;
+    }
+    
+    span {
+      font-size: 14px;
+    }
+  }
 `;
 
 // Add these new styled components for the slider functionality
 const SliderContainer = styled.div`
   position: relative;
   width: 100%;
-  
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
 `;
 
 const SliderWrapper = styled.div`
   display: flex;
   transition: transform 0.3s ease;
   transform: translateX(${props => `-${props.translateValue}%`});
-  
 `;
 
 const SliderControls = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 30px;
   gap: 12px;
 `;
@@ -1655,6 +1768,11 @@ const SliderDot = styled.div`
   background-color: ${props => props.active ? '#026283' : '#E5E7EB'};
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
+  @media (max-width: 768px) {
+    width: 24px;
+    height: 6px;
+  }
 `;
 
 const ProductCardWrapper = styled.div`
@@ -1680,13 +1798,50 @@ const Home = () => {
   const [loadingCategory, setLoadingCategory] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const totalSlides = 6; // Total number of products in the slider
+  
+  // Featured Categories data
+  const categoryData = [
+    { name: "Software Category", color: "#026283" },
+    { name: "Hardware Category", color: "#FF8C00" },
+    { name: "Cloud Services", color: "#8BC34A" },
+    { name: "AI Tools", color: "#9C27B0" },
+    { name: "Development", color: "#F44336" },
+    { name: "Analytics", color: "#2196F3" }
+  ];
 
+  // Handle slider previous for Featured Categories
   const handleSliderPrev = () => {
-    setSliderStartIndex(Math.max(0, sliderStartIndex - 1));
+    // If at start, loop to the end
+    if (sliderStartIndex <= 0) {
+      setSliderStartIndex(Math.floor((categoryData.length - 3) / 3) * 3);
+    } else {
+      setSliderStartIndex(Math.max(0, sliderStartIndex - 3));
+    }
   };
 
+  // Handle slider next for Featured Categories
   const handleSliderNext = () => {
-    setSliderStartIndex(Math.min(categories.length - 1, sliderStartIndex + 1));
+    // If at the end or near end, loop back to start
+    if (sliderStartIndex + 3 >= categoryData.length) {
+      setSliderStartIndex(0);
+    } else {
+      setSliderStartIndex(sliderStartIndex + 3);
+    }
+  };
+  
+  // Handle slider navigation for Recently Visited Products
+  const handleProductSlide = (index) => {
+    setCurrentSlide(index);
+  };
+  
+  const handlePrevSlide = () => {
+    const newSlide = currentSlide === 0 ? Math.ceil(6 / slidesPerView) - 1 : currentSlide - 1;
+    setCurrentSlide(newSlide);
+  };
+  
+  const handleNextSlide = () => {
+    const newSlide = currentSlide === Math.ceil(6 / slidesPerView) - 1 ? 0 : currentSlide + 1;
+    setCurrentSlide(newSlide);
   };
   
   useEffect(() => {
@@ -1737,7 +1892,7 @@ const Home = () => {
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      navigate(`/products?search=${searchTerm}`);
+      // navigate(`/products?search=${searchTerm}`);
     }
   };
 
@@ -1980,15 +2135,11 @@ const Home = () => {
       <span>&#10094;</span>
     </SliderArrowButton>
     <CategoryList>
-      {[
-        { name: "Software Category", color: "#026283" },
-        { name: "Software Category", color: "#FF8C00" },
-        { name: "Software Category", color: "#8BC34A" }
-      ].map((category, index) => (
+      {categoryData.slice(sliderStartIndex, sliderStartIndex + 3).map((category, index) => (
         <CategoryButton 
           key={index} 
           color={category.color}
-          onClick={() => navigate(`/categories/${index}`)}
+          // onClick={() => navigate(`/categories/${sliderStartIndex + index}`)}
         >
           <div className="circle" style={{ backgroundColor: category.color }}></div>
           <span>{category.name}</span>
@@ -2008,23 +2159,15 @@ const Home = () => {
 >
   <ProductsTitle>Recently Visited Products</ProductsTitle>
   <SliderContainer>
-    <SliderWrapper translateValue={currentSlide * 100}>
+    <SliderWrapper translateValue={currentSlide * (100 / slidesPerView) * slidesPerView}>
       {[1, 2, 3, 4, 5, 6].map((item, index) => (
         <ProductCardWrapper key={index} slidesPerView={slidesPerView}>
-          <ProductCard onClick={() => navigate(`/products/${index}`)}>
+          <ProductCard >
             <ProductImage>
               <img 
                 src={index % 3 === 0 ? categories_1 : index % 3 === 1 ? categories_2 : categories_3}
                 alt={`Product ${index + 1}`} 
               />
-              {index % 3 === 2 && (
-                <>
-                  <div className="badge-container">
-                    
-                  </div>
-                  <div className="buyer-badge">Buyer's Choice</div>
-                </>
-              )}
             </ProductImage>
             <ProductContent>
               <ProductHeader>
@@ -2057,13 +2200,15 @@ const Home = () => {
       ))}
     </SliderWrapper>
     <SliderControls>
+     
       {Array.from({ length: Math.ceil(6 / slidesPerView) }).map((_, index) => (
         <SliderDot 
           key={index} 
           active={currentSlide === index} 
-          onClick={() => setCurrentSlide(index)}
+          onClick={() => handleProductSlide(index)}
         />
       ))}
+     
     </SliderControls>
   </SliderContainer>
   <CategoryMessage>
@@ -2199,7 +2344,7 @@ const Home = () => {
               <UniqueSoftwareCard 
                 key={i} 
                 whileHover={{ scale: 1.03 }}
-                onClick={() => navigate(`/products/software-${i+1}`)}
+                // onClick={() => navigate(`/products/software-${i+1}`)}
               >
                 <UniqueSoftwareIcon bg={software.color}>
                   <span style={{ fontSize: '24px' }}>{software.icon}</span>
@@ -2257,7 +2402,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 1.1 + (index * 0.1) }}
-                  onClick={() => navigate(`/products/${review.product_id}`)}
+                  // onClick={() => navigate(`/products/${review.product_id}`)}
                 >
                   <div className="quote-icon">❝</div>
                   <p className="quote-text">
@@ -2330,7 +2475,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.8 + (i * 0.1) }}
-                onClick={() => navigate(`/products/${product.id}`)}
+                // onClick={() => navigate(`/products/${product.id}`)}
               >
                 <CardImage 
                   src={product.image_url || product.logo || [product_1, product_2, product_3, product_4][i % 4]} 
@@ -2383,10 +2528,10 @@ const Home = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: 1.4 + (i * 0.1) }}
-                    onClick={() => {
-                      const ids = [products[idx1].id, products[idx2].id].join(',');
-                      navigate(`/comparison?products=${ids}`);
-                    }}
+                    // onClick={() => {
+                    //   const ids = [products[idx1].id, products[idx2].id].join(',');
+                    //   navigate(`/comparison?products=${ids}`);
+                    // }}
                   >
                     <CompanyGroup>
                       <img src={products[idx1].logo || products[idx1].image_url || [Comparison_1, Comparison_3, Comparison_5, Comparison_7][i % 4]} alt={products[idx1].name} />
@@ -2601,7 +2746,7 @@ const Home = () => {
           transition={{ duration: 0.5, delay: 2.1 }}
         >
           <SectionTitle 
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: 'left' }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 2.2 }}
@@ -2684,7 +2829,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 2.5 + (i * 0.1) }}
-                onClick={() => navigate(`/blog-details/${blog.id}`)}
+                // onClick={() => navigate(`/blog-details/${blog.id}`)}
               >
                 <CardImage 
                   src={blog.image_url || [categories_1, categories_2, categories_3][i % 3]} 
