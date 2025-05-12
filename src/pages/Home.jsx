@@ -90,6 +90,7 @@ const ContentWrapper = styled(motion.div)`
 const Container = styled(motion.div)`
   width: 100%;
   overflow-x: hidden;
+ 
 `;
 
 const Title = styled(motion.h1)`
@@ -198,8 +199,10 @@ const ImageWrapper = styled(motion.div)`
   }
 
   .python {
-    left:-80%;
+    left: -80%;
     transform: translateX(-50%);
+    
+  
   }
 
   .oracle {
@@ -210,7 +213,8 @@ const ImageWrapper = styled(motion.div)`
   .boat {
     left: 180%;
     transform: translateX(-50%);
-  }
+    
+    }
 `;
 
 const Dot = styled(motion.div)`
@@ -221,6 +225,8 @@ const Dot = styled(motion.div)`
   background: ${props => props.color};
   ${props => props.position};
   z-index: 2;
+  
+ 
 `;
 
 // const CategorySliderSectionSection = styled.div`
@@ -350,14 +356,27 @@ const UniqueDiscoveryContainer = styled(motion.div)`
   gap: 40px;
   margin-top: 30px;
   align-items: flex-start;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const UniqueCategoryLists = styled.div`
   min-width: 220px;
+  
+  @media (max-width: 768px) {
+    min-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
 `;
 
 const UniqueCategoryTab = styled.div`
-  color:black;
+  color: black;
   padding: 10px 20px;
   border-radius: 30px;
   margin-bottom: 10px;
@@ -365,21 +384,38 @@ const UniqueCategoryTab = styled.div`
   border: ${(props) => (props.active ? '2px solid #026283' : 'none')};
   background-color: ${(props) => (props.active ? '#E8FFFF' : 'transparent')};
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #f0f0f0;
-    border-color: #ccc;
-    font-weight: 600;
-    color: #333;
+    background-color: ${(props) => (props.active ? '#E8FFFF' : '#f0f0f0')};
+    border-color: #026283;
+    transform: translateX(5px);
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 `;
 
 const UniqueSoftwareGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   flex: 1;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const UniqueSoftwareCard = styled(motion.div)`
@@ -388,10 +424,16 @@ const UniqueSoftwareCard = styled(motion.div)`
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 576px) {
+    padding: 15px;
   }
 `;
 
@@ -401,6 +443,14 @@ const UniqueSoftwareIcon = styled.div`
   margin: 0 auto 15px;
   border-radius: 50%;
   background-color: ${(props) => props.bg || '#ccc'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  
+  ${UniqueSoftwareCard}:hover & {
+    transform: scale(1.1);
+  }
 `;
 
 const UniqueRatingStars = styled.div`
@@ -435,13 +485,20 @@ const UniqueContentWrapper = styled(motion.div)`
   background-color: white;
   padding: 40px;
   margin: 20px 0;
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const UniqueSectionTitle = styled(motion.h2)`
   font-size: 2rem;
   color: #333;
- 
   text-align: left;
+  
+  @media (max-width: 576px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const ReviewsWrapper = styled(motion.section)`
@@ -1574,13 +1631,14 @@ const CategoryButton = styled.button`
 const SliderContainer = styled.div`
   position: relative;
   width: 100%;
-  overflow: hidden;
+  
 `;
 
 const SliderWrapper = styled.div`
   display: flex;
   transition: transform 0.3s ease;
   transform: translateX(${props => `-${props.translateValue}%`});
+  
 `;
 
 const SliderControls = styled.div`
@@ -1618,6 +1676,9 @@ const Home = () => {
   const [sliderStartIndex, setSliderStartIndex] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slidesPerView, setSlidesPerView] = useState(3);
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [loadingCategory, setLoadingCategory] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const totalSlides = 6; // Total number of products in the slider
 
   const handleSliderPrev = () => {
@@ -1632,14 +1693,17 @@ const Home = () => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setSlidesPerView(1);
+        setIsMobile(true);
       } else if (window.innerWidth < 1024) {
         setSlidesPerView(2);
+        setIsMobile(false);
       } else {
         setSlidesPerView(3);
+        setIsMobile(false);
       }
     };
     
-    handleResize();
+    handleResize(); // Call once on component mount
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -1740,6 +1804,39 @@ const Home = () => {
       </LoadingContainer>
     );
   }
+
+  // Software categories data
+  const softwareCategories = [
+    'HR Software', 
+    'Accounting Software', 
+    'CRM Software', 
+    'ERP Software', 
+    'Project Management Software', 
+    'Marketing Software'
+  ];
+  
+  // Software data for each category (same data for all categories in this example)
+  const softwareData = [
+    { color: '#77DD77', name: 'BambooHR', rating: '5.0', reviews: 144, icon: '👥' },
+    { color: '#FFB347', name: 'Workday', rating: '5.0', reviews: 144, icon: '📊' },
+    { color: '#779ECB', name: 'Zenefits', rating: '5.0', reviews: 144, icon: '🏢' },
+    { color: '#FF6961', name: 'Gusto', rating: '5.0', reviews: 144, icon: '💼' },
+    { color: '#FFD700', name: 'Rippling', rating: '5.0', reviews: 144, icon: '💰' },
+    { color: '#B19CD9', name: 'ADP Workforce', rating: '5.0', reviews: 144, icon: '👔' },
+  ];
+  
+  // Handler for category tab click
+  const handleCategoryClick = (index) => {
+    if (index === activeCategory) return;
+    
+    setLoadingCategory(true);
+    
+    // Simulate loading data for the new category
+    setTimeout(() => {
+      setActiveCategory(index);
+      setLoadingCategory(false);
+    }, 500); // Simulate a short loading time
+  };
 
   return (
 
@@ -1923,8 +2020,7 @@ const Home = () => {
               {index % 3 === 2 && (
                 <>
                   <div className="badge-container">
-                    <div className="badge purple">H</div>
-                    <div className="badge orange">A</div>
+                    
                   </div>
                   <div className="buyer-badge">Buyer's Choice</div>
                 </>
@@ -2056,34 +2152,66 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        {/* Sidebar Category List */}
+        {/* Sidebar Category List - Updated for responsive design */}
         <UniqueCategoryLists>
-          {['HR Software', 'Accounting Software', 'CRM Software', 'ERP Software', 'ERP Software', 'ERP Software'].map((cat, idx) => (
-            <UniqueCategoryTab key={idx} active={idx === 0}>
-              {cat}
-            </UniqueCategoryTab>
-          ))}
+          {isMobile ? (
+            <select 
+              style={{ 
+                width: '100%', 
+                padding: '10px', 
+                borderRadius: '8px', 
+                border: '1px solid #ddd',
+                backgroundColor: '#f9f9f9'
+              }}
+              value={activeCategory}
+              onChange={(e) => handleCategoryClick(parseInt(e.target.value))}
+            >
+              {softwareCategories.map((cat, idx) => (
+                <option key={idx} value={idx}>{cat}</option>
+              ))}
+            </select>
+          ) : (
+            softwareCategories.map((cat, idx) => (
+              <UniqueCategoryTab 
+                key={idx} 
+                active={idx === activeCategory}
+                onClick={() => handleCategoryClick(idx)}
+              >
+                {cat}
+              </UniqueCategoryTab>
+            ))
+          )}
         </UniqueCategoryLists>
 
         {/* Software Cards */}
         <UniqueSoftwareGrid>
-          {[
-            { color: '#77DD77' },
-            { color: '#FFB347' },
-            { color: '#779ECB' },
-            { color: '#FF6961' },
-            { color: '#FFD700' },
-            { color: '#B19CD9' },
-          ].map((software, i) => (
-            <UniqueSoftwareCard key={i} whileHover={{ scale: 1.03 }}>
-              <UniqueSoftwareIcon bg={software.color} />
-              <UniqueRatingStars>
-                <UniqueRatingBadge>5.0 ★</UniqueRatingBadge>
-                <UniqueReviewCount>(144 Reviews)</UniqueReviewCount>
-              </UniqueRatingStars>
-              <UniqueSoftwareName>Name of Software</UniqueSoftwareName>
-            </UniqueSoftwareCard>
-          ))}
+          {loadingCategory ? (
+            // Show skeleton loading UI when changing categories
+            Array(6).fill(0).map((_, i) => (
+              <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
+                <UniqueSoftwareIcon bg="#eee" />
+                <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
+                <div style={{ width: '60%', height: '14px', background: '#eee', margin: '0 auto', borderRadius: '4px' }} />
+              </UniqueSoftwareCard>
+            ))
+          ) : (
+            softwareData.map((software, i) => (
+              <UniqueSoftwareCard 
+                key={i} 
+                whileHover={{ scale: 1.03 }}
+                onClick={() => navigate(`/products/software-${i+1}`)}
+              >
+                <UniqueSoftwareIcon bg={software.color}>
+                  <span style={{ fontSize: '24px' }}>{software.icon}</span>
+                </UniqueSoftwareIcon>
+                <UniqueRatingStars>
+                  <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
+                  <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
+                </UniqueRatingStars>
+                <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
+              </UniqueSoftwareCard>
+            ))
+          )}
         </UniqueSoftwareGrid>
       </UniqueDiscoveryContainer>
     </UniqueContentWrapper>
