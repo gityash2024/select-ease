@@ -605,7 +605,7 @@ const CaptionReview = ({ product = mockProductData }) => {
     captionspecifications: false,
     captionsoftwareReviews: false,
     captionsoftwareDemo: false,
-    captiondropdwon: false
+    CaptionDropdwon: false
   });
 
   // Simulate initial loading
@@ -625,28 +625,28 @@ const CaptionReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.captionFeature) {
-        setSectionsVisible(prev => ({...prev, captionFeature: true}));
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.CaptionFeature) {
+        setSectionsVisible(prev => ({...prev, CaptionFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.captionRating) {
-        setSectionsVisible(prev => ({...prev, captionRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.CaptionRating) {
+        setSectionsVisible(prev => ({...prev, CaptionRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.captionspecifications) {
-        setSectionsVisible(prev => ({...prev, captionspecifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.CaptionSpecifications) {
+        setSectionsVisible(prev => ({...prev, CaptionSpecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.captionsoftwareReviews) {
-        setSectionsVisible(prev => ({...prev, captionsoftwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.CaptionSoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, CaptionSoftwareReviews: true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.captionsoftwareDemo) {
-        setSectionsVisible(prev => ({...prev, captionsoftwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.CaptionGetSoftwareDemo) {
+        setSectionsVisible(prev => ({...prev, CaptionGetSoftwareDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.captiondropdown) {
-        setSectionsVisible(prev => ({...prev, captiondropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.CaptionDropdwon) {
+        setSectionsVisible(prev => ({...prev, CaptionDropdwon: true}));
       }
     };
     
@@ -823,12 +823,12 @@ const CaptionReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.captionFeature && <CaptionFeature />}
-          {sectionsVisible.captionRating && <CaptionRating />}
-          {sectionsVisible.captionspecifications && <CaptionSpecification />}
-          {sectionsVisible.captionsoftwareReviews && <CaptionSoftwareReviews />}
-          {sectionsVisible.captionsoftwareDemo && <CaptionGetSoftwareCompanyDemo />}
-          {sectionsVisible.captiondropdwon && <CaptionDropdwon />}
+          {sectionsVisible.CaptionFeature && <CaptionFeature />}
+          {sectionsVisible.CaptionRating && <CaptionRating />}
+          {sectionsVisible.CaptionSpecifications && <CaptionSpecification />}
+          {sectionsVisible.CaptionSoftwareReviews && <CaptionSoftwareReviews />}
+          {sectionsVisible.CaptionGetSoftwareCompanyDemo && <CaptionGetSoftwareCompanyDemo />}
+          {sectionsVisible.CaptionDropdwon && <CaptionDropdwon />}
         
     </Container>
   );
