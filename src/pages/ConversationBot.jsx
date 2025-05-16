@@ -72,6 +72,7 @@ const HeroSection = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
   max-width: 1200px;
   width: 100%;
   gap: 20px;

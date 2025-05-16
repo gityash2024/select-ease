@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import napkinlogo2 from '../assets/napkinlogo2.png'
-import invideologo from '../assets/invideologo.png'
-import captionslogo from '../assets/captionslogo.png'
-import amplifylogo from '../assets/amplifylogo.png'
+
+import zrikalogo from '../assets/zrikalogo.png'
+
 import hero from '../assets/Hero.png';
 
 // ─── Styled Components ─────────────────────────────────────────────────────────
@@ -77,6 +76,7 @@ const ContentContainer = styled.div`
   width: 100%;
   gap: 20px;
   padding: 0 16px 40px;
+
 
   @media(min-width: 769px) {
     flex-direction: row;
@@ -305,7 +305,7 @@ const Button = styled.button`
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-const FeaturedCategories = () => {
+const DocumentationAi = () => {
   const [ratingFilters, setRatingFilters] = useState([]);
   const [deviceFilters, setDeviceFilters] = useState([]);
   const [sortFilters, setSortFilters] = useState([]);
@@ -317,43 +317,16 @@ const FeaturedCategories = () => {
 
   const products = [
     {
-        id: 1,
-        logo: napkinlogo2,
-        title: 'Napkin.ai',
-        sub: 'AI-Powered Assistants',
-        rating: 4.3,
-        reviews: 26,
-        badge: 'Highly Recommended',
-        description: 'Napkin.ai is an innovative platform that transforms text into compelling visuals, such as diagrams, charts, and flowcharts, enhancing business storytelling and communication.',
-      },
-      {
-        id: 2,
-        logo: captionslogo,
-        title: 'Caption.ai',
-        sub: 'AI Video Editing & Creation',
-        rating: 4.3,
-        reviews: 26,
-        description: 'Captions.ai is an AI-powered creative studio offering advanced video editing and content creation tools that automate workflows, enhance user engagement, and support multilingual content.',
-      },
-      {
-        id: 3,
-        logo: invideologo,
-        title: 'Invideo.ai',
-        sub: 'By Software Company',
-        rating: 4.3,
-        reviews: 26,
-        badge: "Buyer’s Choice",
-        description: 'InVideo offers a user-friendly interface that allows users to transform scripts, text, or visual content into engaging videos with just a few clicks. Its AI-powered tools generate scripts, visuals, and voiceovers, streamlining the video creation process.',
-      },
-      {
-        id: 4,
-        logo:amplifylogo,
-        title: 'Ampmplify.ai',
-        sub: 'Social Media Content Generation',
-        rating: 4.3,
-        reviews: 26,
-        description: 'Ampmplify.ai is a hyper-personalized AI copilot designed for LinkedIn creators. It transforms users’ expertise into viral content by learning their unique voice, understanding their audience, and enhancing their LinkedIn impact while maintaining authenticity.',
-      },
+      id: 1,
+      logo: zrikalogo,
+      title: 'Zrika.ai',
+      sub: 'Financial Technology (Fintech) Services',
+      rating: 4.3,
+      reviews: 26,
+      badge: 'Highly Recommended',
+      description: 'Zrika is a fintech software firm delivering innovative, secure, and scalable solutions in Payments, Solutions, and Value Plus, empowering partners to bridge legacy systems with modern digital needs.',
+    },
+    
   ];
 
   const toggle = (section) =>
@@ -374,12 +347,11 @@ const FeaturedCategories = () => {
   return (
     <PageWrapper>
       <HeroSection>
-        <h1>Ai powered creative tools</h1>
+      <h1>Documentation AI</h1>
         <p>
-          Unleash your imagination with AI-powered creative tools designed to
-          generate art, videos, music, and content at scale. These tools assist
-          designers, marketers, and creators in ideation, editing, and producing
-          professional-grade assets in minutes.
+          Revolutionize how teams handle documentation. These tools use AI to summarize, generate, and
+          organize documents, meeting notes, and knowledge bases — ensuring clarity, consistency, and faster
+          workflows across projects and teams.
         </p>
       </HeroSection>
 
@@ -463,7 +435,7 @@ const FeaturedCategories = () => {
 
         <MainContent>
           <ContentHeader>
-            <h2>Ai powered creative tools</h2>
+            <h2>Documentation AI</h2>
             <p>
               Showing 1 – {displayed.length} of {products.length} products
             </p>
@@ -498,4 +470,4 @@ const FeaturedCategories = () => {
   );
 };
 
-export default FeaturedCategories;
+export default DocumentationAi;

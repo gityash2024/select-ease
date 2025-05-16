@@ -115,6 +115,10 @@ import CaptionDropdwon from './pages/CaptionDropdwon';
 
 import FeaturedCategories from './pages/FeaturedCategories';
 import ConversationBot from './pages/ConversationBot';
+import SalesAutomation from './pages/SalesAutomation';
+import DocumentationAi from './pages/DocumentationAi';
+
+
 
 
 // Global scroll to top button  
@@ -368,6 +372,8 @@ function App() {
             <Route path='ammplify-dropdown' element={<AmmplifyDropdown />} />
             <Route path='featured-categories'element={<FeaturedCategories />} />
             <Route path='conversation-bot'element={<ConversationBot />} />
+            <Route path='sale-automation'element={<SalesAutomation />} />
+            <Route path='documentation-ai'element={<DocumentationAi />} />
 
 
 
