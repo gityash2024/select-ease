@@ -6,7 +6,7 @@ import HiavaRating from './HiavaRating';
 import HiavaSpecification from './HiavaSpecification';
 import HiavaSoftwareReviews from './HiavaSoftwareReviews';
 import HiavaGetSoftwareCompanyDemo from './HiavaGetSoftwareCompanyDemo';
-import HiavaDropdwon from './HiavaDropdwon';
+import HiavaDropdwon from './HiavaDropdown';
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';

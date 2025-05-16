@@ -216,7 +216,7 @@ const mockFaqData = [
     }
 ];
 
-const InVideoDropdwon = ({ faqData = mockFaqData }) => {
+const InVideoDropdown = ({ faqData = mockFaqData }) => {
   // State to track which FAQ items are open
   const [openFaqs, setOpenFaqs] = useState({});
 
@@ -265,4 +265,4 @@ const InVideoDropdwon = ({ faqData = mockFaqData }) => {
   );
 };
 
-export default InVideoDropdwon;
+export default InVideoDropdown;

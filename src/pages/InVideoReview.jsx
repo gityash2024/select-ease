@@ -6,7 +6,7 @@ import InVideoRating from './InVideoRating';
 import InVideoSpecification from './InVideoSpecification';
 import InVideoSoftwareReviews from './InVideoSoftwareReviews';
 import InVideoGetSoftwareCompanyDemo from './InVideoGetSoftwareCompanyDemo';
-import InVideoDropdwon from './InVideoDropdwon';
+import InVideoDropdwon from './InVideoDropdown';
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';

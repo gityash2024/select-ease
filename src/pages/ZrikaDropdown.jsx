@@ -216,7 +216,7 @@ const mockFaqData = [
     }
 ];
 
-const ZrikaDropdwon = ({ faqData = mockFaqData }) => {
+const ZrikaDropdown = ({ faqData = mockFaqData }) => {
   // State to track which FAQ items are open
   const [openFaqs, setOpenFaqs] = useState({});
 
@@ -265,4 +265,4 @@ const ZrikaDropdwon = ({ faqData = mockFaqData }) => {
   );
 };
 
-export default ZrikaDropdwon;
+export default ZrikaDropdown;

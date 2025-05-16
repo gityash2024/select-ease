@@ -6,7 +6,7 @@ import AmmplifyRating from './AmmplifyRating';
 import AmmplifySpecification from './AmmplifySpecification';
 import AmmplifySoftwareReviews from './AmmplifySoftwareReviews';
 import AmmplifyGetSoftwareCompanyDemo from './AmmplifyGetSoftwareCompanyDemo';
-import AmmplifyDropdwon from './AmmplifyDropdwon';
+import AmmplifyDropdwon from './AmmplifyDropdown';
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';

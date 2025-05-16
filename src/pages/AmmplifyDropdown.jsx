@@ -216,7 +216,7 @@ const mockFaqData = [
     }
 ];
 
-const AmmplifyDropdwon = ({ faqData = mockFaqData }) => {
+const AmmplifyDropdown = ({ faqData = mockFaqData }) => {
   // State to track which FAQ items are open
   const [openFaqs, setOpenFaqs] = useState({});
 
@@ -265,4 +265,4 @@ const AmmplifyDropdwon = ({ faqData = mockFaqData }) => {
   );
 };
 
-export default AmmplifyDropdwon;
+export default AmmplifyDropdown;

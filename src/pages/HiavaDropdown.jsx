@@ -216,7 +216,7 @@ const mockFaqData = [
     }
 ];
 
-const HiavaDropdwon = ({ faqData = mockFaqData }) => {
+const HiavaDropdown = ({ faqData = mockFaqData }) => {
   // State to track which FAQ items are open
   const [openFaqs, setOpenFaqs] = useState({});
 
@@ -265,4 +265,4 @@ const HiavaDropdwon = ({ faqData = mockFaqData }) => {
   );
 };
 
-export default HiavaDropdwon;
+export default HiavaDropdown;

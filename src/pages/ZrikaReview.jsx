@@ -6,7 +6,7 @@ import ZrikaRating from './ZrikaRating';
 import ZrikaSpecification from './ZrikaSpecification';
 import ZrikaSoftwareReviews from './ZrikaSoftwareReviews';
 import ZrikaGetSoftwareCompanyDemo from './ZrikaGetSoftwareCompanyDemo';
-import ZrikaDropdwon from './ZrikaDropdwon';
+import ZrikaDropdwon from './ZrikaDropdown';
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';

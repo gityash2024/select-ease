@@ -303,6 +303,97 @@ const CompareButton = styled.button`
     }
   }
 `;
+// Demo Section Component (from your existing code)
+const SectionContainer = styled.section`
+  background-color: #003750;
+  padding: 60px 20px;
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+  margin: 0; /* Ensure no margin interferes with adjacent sections */
+`;
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  
+  @media (max-width: 992px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
+
+const ContentLeft = styled.div`
+  flex: 1;
+  color: white;
+  
+  @media (max-width: 992px) {
+    margin-bottom: 30px;
+  }
+`;
+
+const Title = styled.h2`
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-family: 'Outfit', sans-serif;
+  color: white;
+`;
+
+const Description = styled.p`
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-family: 'Outfit', sans-serif;
+  color: white;
+`;
+
+const DemoButton = styled.a`
+  display: inline-block;
+  background-color: #026283;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  
+  &:hover {
+    background-color: #01516d;
+  }
+`;
+
+const VideoContainer = styled.div`
+  flex: 1.2;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  aspect-ratio: 16/9;
+  
+  @media (max-width: 992px) {
+    width: 100%;
+    max-width: 600px;
+  }
+`;
+
+const ResponsiveIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
 
 // Specifications Component
 const Specifications = () => {
@@ -521,98 +612,6 @@ const SoftwareComparison = () => {
     </ComparisonContainer>
   );
 };
-
-// Demo Section Component (from your existing code)
-const SectionContainer = styled.section`
-  background-color: #003750;
-  padding: 60px 20px;
-  width: 100%;
-  font-family: 'Outfit', sans-serif;
-  margin: 0; /* Ensure no margin interferes with adjacent sections */
-`;
-
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  
-  @media (max-width: 992px) {
-    flex-direction: column;
-    text-align: center;
-  }
-`;
-
-const ContentLeft = styled.div`
-  flex: 1;
-  color: white;
-  
-  @media (max-width: 992px) {
-    margin-bottom: 30px;
-  }
-`;
-
-const Title = styled.h2`
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  font-family: 'Outfit', sans-serif;
-  color: white;
-`;
-
-const Description = styled.p`
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  font-family: 'Outfit', sans-serif;
-  color: white;
-`;
-
-const DemoButton = styled.a`
-  display: inline-block;
-  background-color: #026283;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Outfit', sans-serif;
-  
-  &:hover {
-    background-color: #01516d;
-  }
-`;
-
-const VideoContainer = styled.div`
-  flex: 1.2;
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
-  aspect-ratio: 16/9;
-  
-  @media (max-width: 992px) {
-    width: 100%;
-    max-width: 600px;
-  }
-`;
-
-const ResponsiveIframe = styled.iframe`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-`;
 
 const InVideoGetSoftwareCompanyDemo = ({
   youtubeVideoId = "Ou-K_BAC9pY",
