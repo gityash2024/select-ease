@@ -76,6 +76,9 @@ const HeroSection = styled(motion.section)`
     bottom: 0;
     z-index: 1;
   }
+     @media (min-width: 769px) {
+    padding: 200px 0 190px;
+  }
 `;
 
 const ContentWrapper = styled(motion.div)`
@@ -103,6 +106,8 @@ const Title = styled(motion.h1)`
   margin-right: auto;
   color: black; 
   font-family: outfit;
+
+   
 `;
 
 const BoldSpan = styled.span`
@@ -360,6 +365,7 @@ const UniqueDiscoveryContainer = styled(motion.div)`
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 20px;
+
   }
 `;
 
@@ -372,6 +378,7 @@ const UniqueCategoryLists = styled.div`
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
+   
   }
   
   select {
@@ -432,6 +439,7 @@ const UniqueSoftwareGrid = styled.div`
   @media (max-width: 576px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    margin-left: 50px;
   }
 `;
 
@@ -939,6 +947,7 @@ const InputGroup = styled.div`
   @media (max-width: 576px) {
     flex-direction: column;
     gap: 5px;
+    width: 80%;
   }
 `;
 
@@ -954,7 +963,7 @@ const InputField = styled.div`
   }
 
   input {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -2279,7 +2288,7 @@ const Home = () => {
 
       
 
-      <UniqueContentWrapper
+      {/* <UniqueContentWrapper
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
@@ -2297,7 +2306,7 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        {/* Sidebar Category List - Updated for responsive design */}
+        
         <UniqueCategoryLists>
           {isMobile ? (
             <select 
@@ -2328,10 +2337,9 @@ const Home = () => {
           )}
         </UniqueCategoryLists>
 
-        {/* Software Cards */}
         <UniqueSoftwareGrid>
           {loadingCategory ? (
-            // Show skeleton loading UI when changing categories
+           
             Array(6).fill(0).map((_, i) => (
               <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
                 <UniqueSoftwareIcon bg="#eee" />
@@ -2344,7 +2352,7 @@ const Home = () => {
               <UniqueSoftwareCard 
                 key={i} 
                 whileHover={{ scale: 1.03 }}
-                // onClick={() => navigate(`/products/software-${i+1}`)}
+                onClick={() => navigate(`/products/software-${i+1}`)}
               >
                 <UniqueSoftwareIcon bg={software.color}>
                   <span style={{ fontSize: '24px' }}>{software.icon}</span>
@@ -2359,7 +2367,7 @@ const Home = () => {
           )}
         </UniqueSoftwareGrid>
       </UniqueDiscoveryContainer>
-    </UniqueContentWrapper>
+    </UniqueContentWrapper> */}
      
       <ReviewsWrapper
         backgroundImage={reviewsBg}
@@ -2668,7 +2676,7 @@ const Home = () => {
         </ContentWrapper>
       </HowItWorksSection>
 
-      <RegisterSection
+      {/* <RegisterSection
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -2721,7 +2729,7 @@ const Home = () => {
             </InputField>
           </InputGroup>
 
-          {/* <NextButton type="submit">Next</NextButton> */}
+          <NextButton type="submit">Next</NextButton>
 
           <LoginLink>
             Already have an account? <span>Sign In</span>
@@ -2733,7 +2741,7 @@ const Home = () => {
           </TermsText>
         </RegisterForm>
       </FormSection>
-    </RegisterSection>
+    </RegisterSection> */}
 
       <TestimonialsSection
         initial={{ opacity: 0, y: 20 }}

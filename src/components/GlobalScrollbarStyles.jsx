@@ -34,4 +34,5 @@ const GlobalScrollbarStyles = createGlobalStyle`
   }
 `;
 
+
 export default GlobalScrollbarStyles;
