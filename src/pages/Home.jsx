@@ -1924,17 +1924,30 @@ const Home = () => {
   const totalSlides = 6; // Total number of products in the slider
   const dropdownRef = useRef(null);
 
+  const cardsPerCategory = [4, 3, 1, 1]; // index: 0=creative, 1=bot, 2=doc, 3=sales
 
   // Featured Categories data
   const categoryData = [
-    { name: "Ai powered creative tools",
-       logo:  creativetool, },
-    { name: "Coversation BOT", 
-      logo: coversationbot, },
-    { name: "Sales Automation AI",
-       logo: salesautomation, },
-    { name: "Documentation AI", 
-      logo: documentation, },
+    { 
+      name: "AI powered creative tools",
+      logo: creativetool,
+      path: '/featured-categories'
+    },
+    { 
+      name: "Conversation BOT", 
+      logo: coversationbot,
+      path: '/conversation-bot'
+    },
+    { 
+      name: "Sales Automation AI",
+      logo: salesautomation,
+      path: '/sale-automation'
+    },
+    { 
+      name: "Documentation AI", 
+      logo: documentation,
+      path: '/documentation-ai'
+    },
   ];
 
   // Handle slider previous for Featured Categories
@@ -2034,9 +2047,7 @@ const Home = () => {
  
 
   const handleItemClick = (path) => {
-    // Navigate to the selected item's path
-    console.log('Navigating to:', path);
-    // history.push(path);
+    navigate(path);
     setShowDropdown(false);
   };
 
@@ -2440,11 +2451,9 @@ const Home = () => {
     <CategoryList>
       {categoryData.slice(sliderStartIndex, sliderStartIndex + 3).map((category, index) => (
         <CategoryButton 
-          key={index} 
-          color={category.color}
-          // onClick={() => navigate(`/categories/${sliderStartIndex + index}`)}
+          key={index}
+          onClick={() => navigate(category.path)}
         >
-          <div className="circle" style={{ backgroundColor: category.color }}></div>
           <span>{category.name}</span>
         </CategoryButton>
       ))}
@@ -2628,7 +2637,7 @@ const Home = () => {
 
         <UniqueSoftwareGrid>
   {loadingCategory ? (
-    Array(6).fill(0).map((_, i) => (
+    Array(cardsPerCategory[activeCategory]).fill(0).map((_, i) => (
       <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
         <UniqueSoftwareIcon bg="#eee" />
         <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
@@ -2636,7 +2645,7 @@ const Home = () => {
       </UniqueSoftwareCard>
     ))
   ) : (
-    softwareData.map((software, i) => (
+    softwareData.slice(0, cardsPerCategory[activeCategory]).map((software, i) => (
       <UniqueSoftwareCard 
         key={i} 
         whileHover={{ scale: 1.03 }}
