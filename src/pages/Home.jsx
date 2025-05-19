@@ -1924,6 +1924,7 @@ const Home = () => {
   const totalSlides = 6; // Total number of products in the slider
   const dropdownRef = useRef(null);
 
+  const cardsPerCategory = [4, 3, 1, 1]; // index: 0=creative, 1=bot, 2=doc, 3=sales
 
   // Featured Categories data
   const categoryData = [
@@ -2638,7 +2639,7 @@ const Home = () => {
 
         <UniqueSoftwareGrid>
   {loadingCategory ? (
-    Array(6).fill(0).map((_, i) => (
+    Array(cardsPerCategory[activeCategory]).fill(0).map((_, i) => (
       <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
         <UniqueSoftwareIcon bg="#eee" />
         <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
@@ -2646,7 +2647,7 @@ const Home = () => {
       </UniqueSoftwareCard>
     ))
   ) : (
-    softwareData.map((software, i) => (
+    softwareData.slice(0, cardsPerCategory[activeCategory]).map((software, i) => (
       <UniqueSoftwareCard 
         key={i} 
         whileHover={{ scale: 1.03 }}
