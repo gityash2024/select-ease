@@ -42,7 +42,7 @@ import GlobalScrollbarStyles from './components/GlobalScrollbarStyles';
 import ProductDetailModal from './pages/ProductDetailModal';
 import IndividualReview from './pages/IndividualReview';
 import IndividualFeature from './pages/IndividualFeature';
-import IndividualRating from './pages/individualRating';
+import IndividualRating from './pages/IndividualRating';
 import SoftwareReviews from './pages/SoftwareReviews';
 import GetSoftwareCompanyDemo from './pages/GetSoftwareCompanyDemo';
 import Specifications from './pages/Specifications';

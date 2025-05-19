@@ -25,7 +25,7 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 50px 25px;
 `;
 
 const PageContainer = styled.div`
@@ -300,6 +300,12 @@ const Description = styled.p`
   }
 `;
 
+const Buttoncontainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px; /* Optional */
+`;
+
 const CallToAction = styled.button`
   background-color: #026283;
   color: white;
@@ -311,10 +317,8 @@ const CallToAction = styled.button`
   font-weight: 500;
   transition: background-color 0.3s ease;
   width: fit-content;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(11, 11, 11, 0.1);
   font-family: 'Outfit', sans-serif;
-  margin: 0 320px ; 
-  
 
   &:hover {
     background-color: #01516d;
@@ -330,7 +334,6 @@ const CallToAction = styled.button`
     padding: 8px 18px;
   }
 `;
-
 
 const TabsContainer = styled.div`
   display: flex;
@@ -765,7 +768,9 @@ const ZrikaReview = ({ product = mockProductData }) => {
                   </PricingSection>
                   
                   <Description>{product.description}</Description>
+                  < Buttoncontainer >
                   <CallToAction>Get Free Demo</CallToAction>
+                  </Buttoncontainer>
                 </InfoSection>
               </ProductCard>
 

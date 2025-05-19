@@ -25,7 +25,7 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+ padding: 50px 25px;
 `;
 
 const PageContainer = styled.div`
