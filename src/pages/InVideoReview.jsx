@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import QuickSmartFeature from './QuickSmartFeature';
-import QuickSmartRating from './QuickSmartRating';
-import QuickSmartSpecification from './QuickSmartSpecification';
-import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
-import QuickGetSoftwareCompanyDemo from './QuickGetSoftwareCompanyDemo';
-import QuickDropdwon from './QuickDropdwon';
-// import Image41 from './src/assets/Image41.png';
-// import Image42 from './src/assets/Image42.png';
-// import Image43 from './src/assets/Image43.png';
-// import Image44 from './src/assets/Image44.png';
-// import Image45 from './src/assets/Image45.png';
+import InVideoFeature from './InVideoFeature';
+import InVideoRating from './InVideoRating';
+import InVideoSpecification from './InVideoSpecification';
+import InVideoSoftwareReviews from './InVideoSoftwareReviews';
+import InVideoGetSoftwareCompanyDemo from './InVideoGetSoftwareCompanyDemo';
+import InVideoDropdwon from './InVideoDropdown';
+// import image52 from '../src/assets/image52.png';
+// import image53 from './src/assets/image53.png';
+// import image54 from './src/assets/image54.png';
+// import image55 from './src/assets/image55.png';
+// import image56 from './src/assets/image56.png'; 
 // Animations
 const fadeIn = keyframes`
   from {
@@ -485,14 +485,12 @@ const DetailValue = styled.td`
   }
 `;
 
-
-
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
-        <SectionTitle>Software Overview</SectionTitle>
+        <SectionTitle>InVideo</SectionTitle>
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -566,8 +564,8 @@ const FAQContent = () => (
 // Mocked data structure for dynamic content
 const mockProductData = {
     id: 1,
-    title: "QuickSmart.ai",
-    company: "AI-Powered Assistants",
+    title: "InVideo",
+    company: "AI-Powered  Creative Tools / Assistants",
     rating: 4.3,
     reviewCount: 26,
     pricing: "₹ 9999",
@@ -580,20 +578,20 @@ const mockProductData = {
       { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
     ],
     overview: {
-      softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
+      softwareOverview: " InVideo offers a user-friendly interface that allows users to transform scripts, text, or visual content into engaging videos with just a few clicks. Its AI-powered tools generate scripts, visuals, and voiceovers, streamlining the video creation process. ",
       companyDetails: {
-        brandName: "QuickSmart.ai",
+        brandName: "InVideo",
         information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-        founded: "2020",
-        founder: "Tito Rossmanith",
-        companySize: "50-200 employees",
+        founded: " 2017",
+        founder: "Sanket Shah, Pankit Chedda, and Harsh Vakharia",
+        companySize: "11-50 employees",
         otherProducts: "QuickSmart Insights, QuickSmart Analytics"
       }
     }
   };
 
 // Main Component with Dynamic Content
-const QuickSmartReview = ({ product = mockProductData }) => {
+const InVideoReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -624,28 +622,28 @@ const QuickSmartReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.quickFeature) {
-        setSectionsVisible(prev => ({...prev, quickFeature: true}));
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.InVideoFeature) {
+        setSectionsVisible(prev => ({...prev, InVideoFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.quickRating) {
-        setSectionsVisible(prev => ({...prev, quickRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.InVideoRating) {
+        setSectionsVisible(prev => ({...prev, InVideoRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.quickspecifications) {
-        setSectionsVisible(prev => ({...prev, quickspecifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.InVideoSpecifications) {
+        setSectionsVisible(prev => ({...prev, InVideoSpecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.quicksoftwareReviews) {
-        setSectionsVisible(prev => ({...prev, quicksoftwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.InVideoSoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, InVideoSoftwareReviews: true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.softwareDemo) {
-        setSectionsVisible(prev => ({...prev, softwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.InVideoGetSoftwareDemo) {
+        setSectionsVisible(prev => ({...prev, InVideoGetSoftwareDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.dropdown) {
-        setSectionsVisible(prev => ({...prev, dropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.InVideoDropdwon) {
+        setSectionsVisible(prev => ({...prev, InVideoDropdwon: true}));
       }
     };
     
@@ -716,7 +714,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-     
+      
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -743,7 +741,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                         active={currentImageIndex === index}
                         onClick={() => handleThumbnailClick(index)}
                       >
-                        <img src={img.url} alt={`Thumbnail ${index + 1}`}/>
+                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -758,9 +756,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
-                    {/* <AvatarSection>
-                      <Avatar>H</Avatar>
-                    </AvatarSection> */}
+                   
                   </HeaderSection>
                   
                   <PricingSection>
@@ -824,15 +820,15 @@ const QuickSmartReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.quickFeature && <QuickSmartFeature />}
-          {sectionsVisible.quickRating && <QuickSmartRating />}
-          {sectionsVisible.quickspecifications && <QuickSmartSpecification />}
-          {sectionsVisible.quicksoftwareReviews && <QuickSmartSoftwareReviews />}
-          {sectionsVisible.softwareDemo && <QuickGetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <QuickDropdwon />}
-       
+          {sectionsVisible.InVideoFeature && <InVideoFeature />}
+          {sectionsVisible.InVideoRating&& <InVideoRating/>}
+          {sectionsVisible.InVideoSpecifications && <InVideoSpecification />}
+          {sectionsVisible.InVideoSoftwareReviews && <InVideoSoftwareReviews />}
+          {sectionsVisible.InVideoGetSoftwareCompanyDemo && <InVideoGetSoftwareCompanyDemo />}
+          {sectionsVisible.InVideoDropdwon && <InVideoDropdwon />}
+        
     </Container>
   );
 };
 
-export default QuickSmartReview;
+export default InVideoReview;

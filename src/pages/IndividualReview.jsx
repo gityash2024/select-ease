@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
 import IndividualFeature from './IndividualFeature';
-import IndividualRating from './individualRating';
+import IndividualRating from './IndividualRating';
 import Specifications from './Specifications';
 import SoftwareReviews from './SoftwareReviews';
 import GetSoftwareCompanyDemo from './GetSoftwareCompanyDemo';

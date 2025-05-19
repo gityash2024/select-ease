@@ -65,63 +65,72 @@ const FeatureText = styled.span`
   color: #333;
 `;
 
-// Mock data structure for dynamic content
-const mockFeaturesData = {
+// Updated data structure based on the image
+const updatedFeaturesData = {
     categories: [
         {
-          id: 1,
-          name: 'Core Features',
-          features: [
-            'Transforms text into visuals like charts, diagrams, and flowcharts',
-            'Fully editable visuals with customizable content and style Napkin AI',
-            'Exports visuals in multiple formats: PNG, PDF, SVG',
-          ],
+            id: 1,
+            name: 'Core Features',
+            features: [
+                'AI-powered content generation for blogs, emails, and more.',
+                'Access to 50+ customizable AI writing templates.',
+                'Interactive AI chat for real-time content creation.',
+            ],
         },
         {
-          id: 2,
-          name: 'Advanced Features',
-          features: [
-            'AI-powered infographic creation',
-            'Smart chart and graph generation Outright CRM',
-            'One-click branding and customization',
-          ],
+            id: 2,
+            name: 'Advanced Features',
+            features: [
+                'Team workspace for real-time collaboration.',
+                'Slack and Microsoft Teams integration.',
+                'Centralized content sharing and feedback system.',
+            ],
         },
         {
-          id: 3,
-          name: 'Integrations',
-          features: [
-            'Currently, Napkin AI does not offer a public API but is exploring options to introduce one in the future.',
-          ],
+            id: 3,
+            name: 'Integrations',
+            features: [
+                'Slack and Microsoft Teams',
+            ],
         },
         {
-          id: 4,
-          name: 'Customization',
-          features: [
-            'Adjust icons, colors, fonts, and connectors',
-            'Offers a range of tools for personalization',
-          ],
+            id: 4,
+            name: 'Customizations',
+            features: [
+                'Offers a wide variety of AI templates.',
+                'Supports tone and style adjustments.',
+                'Allows personalized prompt creation.',
+            ],
         },
         {
-          id: 5,
-          name: 'AI Features',
-          features: [
-            'Natural Language Processing (NLP)',
-            'Generative AI for visual creation',
-          ],
+            id: 5,
+            name: 'AI Features',
+            features: [
+                'AI understands context to draft relevant content.',
+                'Quickly produces fluent, human-like text.',
+                'Learns and improves based on user input.',
+            ],
         },
         {
-          id: 6,
-          name: 'System Management & Support',
-          features: [
-            'Cloud-based',
-            'API support',
-            'hybrid deployment.',
-          ],
+            id: 6,
+            name: 'System Management & Support',
+            features: [
+                'Cloud-based',
+                'API support',
+                'Hybrid deployment.',
+            ],
         },
-      ],
-    };
+        {
+            id: 7,
+            name: 'Security & Compliance',
+            features: [
+                'GDPR-compliant with robust data security features',
+            ],
+        },
+    ],
+};
 
-const  NapkinFeature = ({ featuresData = mockFeaturesData }) => {
+const HiavaFeature = ({ featuresData = updatedFeaturesData }) => {
   return (
     <Container>
       <FeatureSection>
@@ -145,4 +154,4 @@ const  NapkinFeature = ({ featuresData = mockFeaturesData }) => {
   );
 };
 
-export default NapkinFeature;
+export default HiavaFeature;

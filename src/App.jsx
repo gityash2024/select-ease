@@ -42,7 +42,7 @@ import GlobalScrollbarStyles from './components/GlobalScrollbarStyles';
 import ProductDetailModal from './pages/ProductDetailModal';
 import IndividualReview from './pages/IndividualReview';
 import IndividualFeature from './pages/IndividualFeature';
-import IndividualRating from './pages/individualRating';
+import IndividualRating from './pages/IndividualRating';
 import SoftwareReviews from './pages/SoftwareReviews';
 import GetSoftwareCompanyDemo from './pages/GetSoftwareCompanyDemo';
 import Specifications from './pages/Specifications';
@@ -66,26 +66,59 @@ import LowtouchRating from './pages/LowtouchRating';
 import LowtouchSpecification from './pages/LowtouchSpecification';
 import LowtouchGetSoftwareCompanyDemo from './pages/LowtouchGetSoftwareCompanyDemo';
 import LowtouchDropdwon from './pages/LowtouchDropdwon';
+import InVideoReview from './pages/InVideoReview';
+import InVideoFeature from './pages/InVideoFeature';
+import InVideoRating from './pages/InVideoRating';
+import InVideoSpecification from './pages/InVideoSpecification';
+import InVideoSoftwareRevies from './pages/InVideoSoftwareReviews';
+import InVideoSoftwareCompanyDemo from './pages/InVideoGetSoftwareCompanyDemo';
+import InVideoDropdown from './pages/InVideoDropdown';
+import ZrikaReview from './pages/ZrikaReview';
+import ZrikaFeature from './pages/ZrikaFeature';
+import ZrikaRating from './pages/ZrikaRating';
+import ZrikaSpecification from './pages/ZrikaSpecification';
+import ZrikaSoftwareReviews from './pages/ZrikaSoftwareReviews';
+import ZrikaGetSoftwareCompanyDemo from './pages/ZrikaGetSoftwareCompanyDemo';
+import ZrikaDropdown from './pages/ZrikaDropdown';
+import HiavaReaview from './pages/HiavaReview';
+import HiavaFeature from './pages/HiavaFeature';
+import HiavaRating from './pages/HiavaRating';
+import HiavaSpecification from './pages/HiavaSpecification';
+import HiavaSoftwareReviews from './pages/HiavaSoftwareReviews';
+import HiavaGetSoftwareCompanyDemo from './pages/HiavaGetSoftwareCompanyDemo';
+import HiavaDropdown from './pages/HiavaDropdown';
+import AmmplifyReview from './pages/AmmplifyReview';
+import AmmplifyFeature from './pages/AmmplifyFeature';
+import AmmplifyRating from './pages/AmmplifyRating';
+import AmmplifySpecification from './pages/AmmplifySpecification';
+import AmmplifySoftwareReviews from './pages/AmmplifySoftwareReviews';
+import AmmplifyGetSoftwareCompanyDemo from './pages/AmmplifyGetSoftwareCompanyDemo';
+import AmmplifyDropdown from './pages/AmmplifyDropdown';
 
 
 
 
+import NapkinReview from './pages/NapkinReview';
+import NapkinFeature from './pages/NapkinFeature';
+import NapkinRating from './pages/NapkinRating';
+import NapkinSpecification from './pages/NapkinSpecification';
+import NapkinGetSoftwareCompanyDemo from './pages/NapkinGetSoftwareCompanyDemo';
+import NapkinDropdwon from './pages/NapkinDropdwon';
+import NapkinSoftwareReviews from './pages/NapkinSoftwareReviews';
 
-// import NapkinReview from './pages/NapkinReview';
-// import NapkinFeature from './pages/NapkinFeature';
-// import NapkinRating from './pages/NapkinRating';
-// import NapkinSpecification from './pages/NapkinSpecification';
-// import NapkinGetSoftwareCompanyDemo from './pages/NapkinGetSoftwareCompanyDemo';
-// import NapkinDropdwon from './pages/NapkinDropdwon';
-// import NapkinSoftwareReviews from './pages/NapkinSoftwareReviews';
+import CaptionReview from './pages/CaptionReview';
+import CaptionFeature from './pages/CaptionFeature';
+import CaptionRating from './pages/CaptionRating';
+import CaptionSpecification from './pages/CaptionSpecification'; 
+import CaptionGetSoftwareCompanyDemo from './pages/CaptionGetSoftwareCompanyDemo';
+import CaptionDropdwon from './pages/CaptionDropdwon';
 
-// import CaptionReview from './pages/CaptionReview';
-// import CaptionFeature from './CaptionFeature';
-// import CaptionRating from './CaptionRating';
-// import CaptionSpecification from './CaptionSpecification';
-// import CaptionSoftwareReviews from './CaptionSoftwareReviews';
-// import CaptionGetSoftwareCompanyDemo from './CaptionGetSoftwareCompanyDemo';
-// import CaptionDropdwon from './CaptionDropdwon';
+import FeaturedCategories from './pages/FeaturedCategories';
+import ConversationBot from './pages/ConversationBot';
+import SalesAutomation from './pages/SalesAutomation';
+import DocumentationAi from './pages/DocumentationAi';
+
+
 
 
 // Global scroll to top button  
@@ -123,19 +156,19 @@ function App() {
     // Check if user is authenticated
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-    
+
     if (token && user) {
       setAuthState({
         isAuthenticated: true,
         user: JSON.parse(user),
       });
     }
-    
+
     // Add scroll event listener for scroll-to-top button
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -174,7 +207,7 @@ function App() {
     }
     return children;
   };
-  
+
   const ProtectedUserRoute = ({ children }) => {
     const isAuthenticated = isUserAuthenticated();
     if (!isAuthenticated) {
@@ -182,7 +215,7 @@ function App() {
     }
     return children;
   };
-  
+
   // Auth route that redirects to home if already logged in
   const AuthRoute = ({ children }) => {
     const isAuthenticated = isUserAuthenticated();
@@ -201,7 +234,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={authContextValue}>
-            <GlobalScrollbarStyles />
+      <GlobalScrollbarStyles />
 
       <BrowserRouter>
         <ScrollToTop />
@@ -230,14 +263,14 @@ function App() {
             <Route path="categories" element={<AdminCategories />} />
             <Route path="blogs" element={<AdminBlogs />} />
           </Route>
-          
+
           {/* Auth Routes - No Navbar/Footer */}
           <Route path="/login" element={
             <AuthRoute>
               <Login />
             </AuthRoute>
           } />
-          
+
           <Route path="/signup" element={
             <AuthRoute>
               <Signup />
@@ -291,42 +324,69 @@ function App() {
             <Route path="lowtouch-specificating" element={<LowtouchSpecification />} />
             <Route path="lowtouch-softwarecompanydemo" element={<LowtouchGetSoftwareCompanyDemo />} />
             <Route path="lowtouch-dropdwon" element={<LowtouchDropdwon />} />
-            {/* <Route path="napkin-review" element={<NapkinReview />} />
-            <Route path="napkin-feature" element={<NapkinFeature />} />
-            <Route path="napkin-rating" element={<NapkinRating />} />
-            <Route path="napkin-specificating" element={<NapkinSpecificating />} />
-            <Route path="napkin-softwarecompanydemo" element={<NapkinGetSoftwareCompanyDemo />} />
-            <Route path="napkin-dropdwon" element={<NapkinDropdwon />} /> */}
-
             
-            {/* <Route path="napkin-review" element={<NapkinReview />} />
+            <Route path="napkin-review" element={<NapkinReview />} />
             <Route path="napkin-feature" element={<NapkinFeature />} />
             <Route path="napkin-rating" element={<NapkinRating />} />
-            <Route path="napkin-specification" element={<NapkinSepecification />} />
+            <Route path="napkin-specification" element={<NapkinSpecification />} />
             <Route path="napkin-softwarecompanydemo" element={<NapkinGetSoftwareCompanyDemo />} />
-            <Route path="napkin-dropdwon" element={<NapkinDropdown /> } />
+            <Route path="napkin-dropdwon" element={<NapkinDropdwon /> } />
             <Route path="napkin-software-reviews" element={<NapkinSoftwareReviews />} />
             
 
             <Route path="caption-review" element={<CaptionReview />} />
-            <Route path="caption-feature" element={<CaptionFeature />} />
-            <Route path="caption-rating" element={<CaptionRating />} />
-            <Route path="caption-specification" element={<CaptionSpecification />} />
-            <Route path="caption-softwarecompanydemo" element={<CaptionSoftwareCompanyDemo />} />
-            <Route path="caption-dropdwon" element={<CaptionDropdwon />} />
-            <Route path="caption-software-reviews" element={<CaptionSoftwareReviews />} />  */}
-            
-            
+            <Route path='caption-feature' element={<CaptionFeature />} />
+            <Route path='caption-rating' element={<CaptionRating />} />
+            <Route path='caption-specifitication' element={<CaptionSpecification />} />
+            <Route path='caption-softwarereave' element={<Caption-software />} />
+            <Route path='Captioncompanydemo' element={<CaptionGetSoftwareCompanyDemo />} />
+            <Route path='caption-dropdwon' element={<CaptionDropdwon />} />
+
+            <Route path='invideo-review' element={<InVideoReview />} />
+            <Route path='invideo-feature' element={<InVideoFeature />} />
+            <Route path='invideo-rating' element={<InVideoRating />} />
+            <Route path='invideo-specification' element={<InVideoSpecification />} />
+            <Route path='invideo-softwarereaview' element={<InVideoSoftwareRevies />} />
+            <Route path='invideo-softwarecompanydemo' element={<InVideoSoftwareCompanyDemo />} />
+            <Route path='invideo-dropdwon' element={<InVideoDropdown />} />
+            <Route path='zrika-review' element={<ZrikaReview />} />
+            <Route path='zrika-feature' element={<ZrikaFeature />} />
+            <Route path='zrika-rating' element={<ZrikaRating />} />
+            <Route path='zrika-Specification' element={<ZrikaSpecification />} />
+            <Route path='zrika-softwarereview' element={<ZrikaSoftwareReviews />} />
+            <Route path='zrika-softwarecompanydemo' element={<ZrikaGetSoftwareCompanyDemo />} />
+            <Route path='zrika-dropdown' element={<ZrikaDropdown />} /> 
+            <Route path='hiava-review' element={<HiavaReaview />} />
+            <Route path='hiava-feature' element={<HiavaFeature />} />
+            <Route path='hiava-rating' element={<HiavaRating />} />
+            <Route path='hiava-specification' element={<HiavaSpecification/>} />
+            <Route path='hiava-software-review' element={<HiavaSoftwareReviews />} />
+            <Route path='hiava-getsoftwarecompanydemo' element={<HiavaGetSoftwareCompanyDemo />} />
+            <Route path='hiava-dropdown' element={<HiavaDropdown />} />
+            <Route path='ammplify-review' element={<AmmplifyReview />} />
+            <Route path='ammplify-Feature' element={<AmmplifyFeature />} />
+            <Route path='ammplify-rating' element={<AmmplifyRating />} />
+            <Route path='ammplify-specification' element={<AmmplifySpecification />} />
+            <Route path='ammplify-software-review' element={<AmmplifySoftwareReviews />} />
+            <Route path='ammplify-getsoftwarecompanydemo' element={<AmmplifyGetSoftwareCompanyDemo />} />
+            <Route path='ammplify-dropdown' element={<AmmplifyDropdown />} />
+            <Route path='featured-categories'element={<FeaturedCategories />} />
+            <Route path='conversation-bot'element={<ConversationBot />} />
+            <Route path='sale-automation'element={<SalesAutomation />} />
+            <Route path='documentation-ai'element={<DocumentationAi />} />
+
+
+
 
             
-            <Route path="Dashboard" element={<Dashboard />} />
-            <Route 
-              path="dashboard" 
+            <Route path="Dashboard" element={<Dashboard />} /> 
+            <Route
+              path="dashboard"
               element={
                 <ProtectedUserRoute>
                   <UserDashboard />
                 </ProtectedUserRoute>
-              } 
+              }
             />
             <Route path="*" element={<NotFound />} />
           </Route>

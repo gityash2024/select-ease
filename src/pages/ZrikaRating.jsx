@@ -105,6 +105,8 @@ const ScoreLabel = styled.div`
 `;
 
 const OverallScoreCard = styled.div`
+  width: 521px;
+  
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -338,16 +340,16 @@ const mockRatingsData = {
     ]
   },
   companies: [
-    { id: 1, name: "Name Of Company", color: "#4CAF50" },
-    { id: 2, name: "Name Of Company", color: "#FFC107" },
-    { id: 3, name: "Name Of Company", color: "#F44336" },
-    { id: 4, name: "Name Of Company", color: "#4CAF50" },
-    { id: 5, name: "Name Of Company", color: "#FFC107" },
-    { id: 6, name: "Name Of Company", color: "#F44336" }
+    { id: 1, name: "Descript", color: "#4CAF50" },
+    { id: 2, name: "Veed.io", color: "#FFC107" },
+    { id: 3, name: "Pictory", color: "#F44336" },
+    { id: 4, name: "Descript", color: "#4CAF50" },
+    { id: 5, name: "Veed.io", color: "#FFC107" },
+    { id: 6, name: "Pictory", color: "#F44336" }
   ]
 };
 
-const NipkinRating = ({ ratingsData = mockRatingsData }) => {
+const ZrikaRating = ({ ratingsData = mockRatingsData }) => {
   const scrollLeft = () => {
     const container = document.getElementById('companies-slider');
     if (container) {
@@ -416,8 +418,9 @@ const NipkinRating = ({ ratingsData = mockRatingsData }) => {
             </OverallScoreRight>
           </OverallScoreTop>
           
-          <AddReviewButton>Add Review</AddReviewButton>
+         
         </OverallScoreCard>
+        <AddReviewButton>Add Review</AddReviewButton>
       </RatingsSection>
       
       <CompaniesSection>
@@ -448,4 +451,4 @@ const NipkinRating = ({ ratingsData = mockRatingsData }) => {
   );
 };
 
-export default NipkinRating;
+export default ZrikaRating;

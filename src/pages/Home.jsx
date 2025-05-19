@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { color, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { productAPI, reviewAPI, blogAPI, categoryAPI } from '../services/api';
 import toast from 'react-hot-toast';
@@ -18,6 +18,10 @@ import product_1 from '../assets/product_1.png';
 import product_2 from '../assets/product_2.png';
 import product_3 from '../assets/product_3.png';
 import product_4 from '../assets/product_4.png';
+import QuicksmartAI from '../assets/QuicksmartAI.png';
+import NapkinAI from '../assets/NapkinAI.png';
+import HiavaAI from '../assets/HiavaAI.png';
+import ScogoAI from '../assets/ScogoAI.png';
 import bamboohr from '../assets/bamboohr.svg';
 import avatar1 from '../assets/Photo.svg';
 import avatar2 from '../assets/Photo.svg';
@@ -45,6 +49,20 @@ import Photo from '../assets/Photo.svg';
 import reviewsBg from '../assets/blue bg.png'; 
 import { IoIosSearch } from "react-icons/io";
 import { ArrowRight, Star } from 'lucide-react';
+import salesautomation from '../assets/salesautomation.png';
+import coversationbot from '../assets/coversationbot.png';
+import creativetool from '../assets/creativetool.png';
+import documentation from '../assets/documentation.png';
+import { image } from 'framer-motion/client';
+import napkinlogo2 from '../assets/napkinlogo2.png';
+import caption from '../assets/caption.svg';
+import invideo from '../assets/invideo.svg';
+import amplify from '../assets/amplify.svg';
+import zrika from '../assets/zrika.svg';
+import ava from '../assets/ava.svg';
+import quick from '../assets/quick.svg';
+import lowtouch from '../assets/lowtouch.svg';
+import scogologo from '../assets/scogologo.png';
 
 const Section = styled.section`
   width: 100%;
@@ -103,11 +121,14 @@ const Title = styled(motion.h1)`
   margin-right: auto;
   color: black; 
   font-family: outfit;
+
+   
 `;
 
 const BoldSpan = styled.span`
   font-weight: 700; 
 `;
+
 
 const SearchContainer = styled(motion.div)`
   display: flex;
@@ -118,7 +139,8 @@ const SearchContainer = styled(motion.div)`
   background: white;
   border-radius: 999px;
   border: 1px solid #E5E7EB;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 `;
 
 const SearchInput = styled.input`
@@ -128,6 +150,7 @@ const SearchInput = styled.input`
   border: none;
   font-size: 16px;
   background: white;
+  border-radius: 999px 0 0 999px;
   
   &:focus {
     outline: none;
@@ -147,7 +170,7 @@ const SearchButton = styled(motion.button)`
   background: #026283;
   color: white;
   border: none;
-  border-radius: 0px; 
+  border-radius: 0 999px 999px 0; 
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -161,6 +184,97 @@ const SearchButton = styled(motion.button)`
 
   &:hover {
     background: #005472; 
+  }
+`;
+
+const DropdownContainer = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  z-index: 100;
+  padding: 20px;
+  border: 1px solid #E5E7EB;
+`;
+
+// const Section = styled.div`
+//   margin-bottom: 20px;
+  
+//   &:last-child {
+//     margin-bottom: 0;
+//   }
+// `;
+
+const SectionTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111827;
+`;
+
+const CategoryList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const CategoryItem = styled.div`
+  padding: 8px 16px;
+  background: #F3F4F6;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #111827;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: #E5E7EB;
+  }
+`;
+
+const ProductList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const ProductItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #F3F4F6;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #111827;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: #E5E7EB;
+  }
+`;
+
+const SearchIcon = styled.span`
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    color: #6B7280;
   }
 `;
 
@@ -360,6 +474,7 @@ const UniqueDiscoveryContainer = styled(motion.div)`
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 20px;
+
   }
 `;
 
@@ -372,6 +487,7 @@ const UniqueCategoryLists = styled.div`
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
+   
   }
   
   select {
@@ -432,6 +548,7 @@ const UniqueSoftwareGrid = styled.div`
   @media (max-width: 576px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    margin-left: 50px;
   }
 `;
 
@@ -467,6 +584,12 @@ const UniqueSoftwareIcon = styled.div`
   
   ${UniqueSoftwareCard}:hover & {
     transform: scale(1.1);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the image fits well inside the circular container */
   }
 `;
 
@@ -558,20 +681,20 @@ const ReviewHeading = styled(motion.div)`
 `;
 
 // Update SectionTitle to match ProductsTitle styling
-const SectionTitle = styled(motion.h2)`
-  color: ${props => props.color || '#333'};
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.2;
-  max-width: 600px;
-  margin: 0 0 24px 0;
-  padding: ${props => props.padding || '0'};
+// const SectionTitle = styled(motion.h2)`
+//   color: ${props => props.color || '#333'};
+//   font-size: 28px;
+//   font-weight: 500;
+//   line-height: 1.2;
+//   max-width: 600px;
+//   margin: 0 0 24px 0;
+//   padding: ${props => props.padding || '0'};
   
-  @media (max-width: 768px) {
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     font-size: 22px;
+//     margin-bottom: 16px;
+//   }
+// `;
 
 const ReviewAllButton = styled(motion.button)`
   background-color: rgba(255, 255, 255, 0.1);
@@ -939,6 +1062,7 @@ const InputGroup = styled.div`
   @media (max-width: 576px) {
     flex-direction: column;
     gap: 5px;
+    width: 80%;
   }
 `;
 
@@ -954,7 +1078,7 @@ const InputField = styled.div`
   }
 
   input {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -1252,15 +1376,15 @@ const CategoriesList = styled.div`
   padding-right: 20px;
 `;
 
-const CategoryItem = styled.div`
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  background-color: ${(props) => (props.selected ? '#e0f2fe' : 'transparent')};
-  color: ${(props) => (props.selected ? '#007bff' : '#333')};
-  font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
-`;
+// const CategoryItem = styled.div`
+//   padding: 10px;
+//   cursor: pointer;
+//   border-radius: 8px;
+//   margin-bottom: 10px;
+//   background-color: ${(props) => (props.selected ? '#e0f2fe' : 'transparent')};
+//   color: ${(props) => (props.selected ? '#007bff' : '#333')};
+//   font-weight: ${(props) => (props.selected ? 'bold' : 'normal')};
+// `;
 
 const CardsGrid = styled.div`
   flex: 3;
@@ -1688,14 +1812,14 @@ const SliderArrowButton = styled.button`
   }
 `;
 
-const CategoryList = styled.div`
-  display: flex;
-  gap: 12px;
+// const CategoryList = styled.div`
+//   display: flex;
+//   gap: 12px;
   
-  @media (max-width: 768px) {
-    gap: 8px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     gap: 8px;
+//   }
+// `;
 
 const CategoryButton = styled.button`
   background-color: #f5f5f5;
@@ -1798,15 +1922,31 @@ const Home = () => {
   const [loadingCategory, setLoadingCategory] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const totalSlides = 6; // Total number of products in the slider
-  
+  const dropdownRef = useRef(null);
+
+
   // Featured Categories data
   const categoryData = [
-    { name: "Software Category", color: "#026283" },
-    { name: "Hardware Category", color: "#FF8C00" },
-    { name: "Cloud Services", color: "#8BC34A" },
-    { name: "AI Tools", color: "#9C27B0" },
-    { name: "Development", color: "#F44336" },
-    { name: "Analytics", color: "#2196F3" }
+    { 
+      name: "AI powered creative tools",
+      logo: creativetool,
+      path: '/featured-categories'
+    },
+    { 
+      name: "Conversation BOT", 
+      logo: coversationbot,
+      path: '/conversation-bot'
+    },
+    { 
+      name: "Sales Automation AI",
+      logo: salesautomation,
+      path: '/sale-automation'
+    },
+    { 
+      name: "Documentation AI", 
+      logo: documentation,
+      path: '/documentation-ai'
+    },
   ];
 
   // Handle slider previous for Featured Categories
@@ -1862,6 +2002,56 @@ const Home = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const popularCategories = [
+    { id: 1, name: 'AI powered creative tools', path: '/featured-categories' },
+    { id: 2, name: 'Conversation BOT', path: '/conversation-bot' },
+    { id: 3, name: 'Documentation AI', path: '/documentation-ai' },
+    { id: 4, name: 'Sales Automation tool', path: '/sale-automation' },
+    { id: 5, name: 'HRMS', path: '/categories/hrms' },
+  ];
+
+  const trendingProducts = [
+    { id: 1, name: 'QuicksmartAI', path: '/quick-smart-review' },
+    { id: 2, name: 'ScogoAI', path: '/products/scogo-ai' },
+    { id: 3, name: 'AmmplifAI', path: '/products/ammplif-ai' },
+    { id: 4, name: 'NapkinAI', path: '/products/napkin-ai' },
+    { id: 5, name: 'InvideoAI', path: '/products/invideo-ai' },
+    { id: 6, name: 'Quicksmart', path: '/products/quicksmart' },
+    { id: 7, name: 'HiavaAI', path: '/products/hiava-ai' },
+    { id: 8, name: 'CaptionAI', path: '/products/caption-ai' },
+    { id: 9, name: 'ZrikaAI', path: '/products/zrika-ai' },
+    { id: 10, name: 'LowtouchAI', path: '/products/lowtouch-ai' },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
+
+  const handleInputFocus = () => {
+    setShowDropdown(true);
+  };
+
+ 
+
+  const handleItemClick = (path) => {
+    // Navigate to the selected item's path
+    console.log('Navigating to:', path);
+    // history.push(path);
+    setShowDropdown(false);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1962,22 +2152,24 @@ const Home = () => {
 
   // Software categories data
   const softwareCategories = [
-    'HR Software', 
-    'Accounting Software', 
-    'CRM Software', 
-    'ERP Software', 
-    'Project Management Software', 
-    'Marketing Software'
+    'Ai powered creative tools', 
+    'Conversation BOT', 
+    'Documentation AI', 
+    'Sales Automation AI', 
+   
   ];
   
   // Software data for each category (same data for all categories in this example)
   const softwareData = [
-    { color: '#77DD77', name: 'BambooHR', rating: '5.0', reviews: 144, icon: '👥' },
-    { color: '#FFB347', name: 'Workday', rating: '5.0', reviews: 144, icon: '📊' },
-    { color: '#779ECB', name: 'Zenefits', rating: '5.0', reviews: 144, icon: '🏢' },
-    { color: '#FF6961', name: 'Gusto', rating: '5.0', reviews: 144, icon: '💼' },
-    { color: '#FFD700', name: 'Rippling', rating: '5.0', reviews: 144, icon: '💰' },
-    { color: '#B19CD9', name: 'ADP Workforce', rating: '5.0', reviews: 144, icon: '👔' },
+    { color: '#FFB347', name: 'Napkin.ai', rating: '5.0', reviews: 144,  image:napkinlogo2 },
+    { color: '#FFB347', name: 'Caption.ai', rating: '5.0', reviews: 144, image: caption },
+    { color: '#779ECB', name: 'Invideo.ai', rating: '5.0', reviews: 144, image: invideo },
+    { color: '#FF6961', name: 'Ammplify.ai', rating: '5.0', reviews: 144, image: amplify },
+    { color: '#FFD700', name: 'Quicksmart.ai', rating: '5.0', reviews: 144, image: quick },
+    { color: '#B19CD9', name: 'Scogo.ai', rating: '5.0', reviews: 144,  image : scogologo },
+    { color: '#B19CD9', name: 'Lowtouch.ai', rating: '5.0', reviews: 144, image: lowtouch},
+    { color: '#B19CD9', name: 'Hiava.ai', rating: '5.0', reviews: 144, image: ava },
+    { color: '#B19CD9', name: 'Zrika.ai', rating: '5.0', reviews: 144, image: zrika},
   ];
   
   // Handler for category tab click
@@ -1992,6 +2184,100 @@ const Home = () => {
       setLoadingCategory(false);
     }, 500); // Simulate a short loading time
   };
+
+  const productData = [
+    {
+      id: 1,
+      image: QuicksmartAI,
+      title: "Quicksmart AI",
+      company: "AI-Powered Assistants",
+      rating: 5.0,
+      description: "QuickSmart AI offers AI-driven SIP VoIP with 10+ years of expertise..",
+      price: "On Request"
+    },
+    {
+      id: 2,
+      image: NapkinAI,
+      title: "Napkin AI",
+      company: "By Sketch Solutions",
+      rating: 4.8,
+      description: "Convert hand-drawn sketches into professional wireframes using AI technology.",
+      price: "₹3,499"
+    },
+    {
+      id: 3,
+      image: HiavaAI,
+      title: "Hiava AI",
+      company: "AI-powered writing assistant",
+      rating: 4.9,
+      description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
+      price: "$9/month"
+    },
+    {
+      id: 4,
+      image: ScogoAI,
+      title: "Scogo AI",
+      company: "AI Customer Support Platform",
+      rating: 4.7,
+      description: "Scogo.ai makes AI as simple and affordable as UPI to help businesses grow.",
+      price: "On Request"
+    },
+    {
+      id: 5,
+      image: QuicksmartAI,
+      title: "Quicksmart AI",
+      company: "By Vision Analytics",
+      rating: 4.5,
+      description: "Computer vision software for automated quality control and inspection systems.",
+      price: "₹6,299"
+    },
+    {
+      id: 6,
+      image: NapkinAI,
+      title: "Napkin AI",
+      company: "AI-Powered Assistants",
+      rating: 4.3,
+      description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
+      price: "₹4,599"
+    },
+    {
+      id: 7,
+      image: HiavaAI,
+      title: "Hiava AI",
+      company: " AI-Powered Assistants​",
+      rating: 4.8,
+      description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
+      price: "₹8,999"
+    },
+    {
+      id: 8,
+      image: ScogoAI,
+      title: "Scogo AI",
+      company: "By Cloud Solutions",
+      rating: 4.9,
+      description: "Cloud-based AI infrastructure for deploying and scaling machine learning models.",
+      price: "₹5,499"
+    },
+    {
+      id: 9,
+      image: QuicksmartAI,
+      title: "TextGenius",
+      company: "By Language Tech",
+      rating: 4.7,
+      description: "Natural language processing tool for content analysis and text summarization.",
+      price: "₹3,299"
+    },
+    {
+      id: 10,
+      image: NapkinAI,
+      title: "AudioSense",
+      company: "By Sound Technologies",
+      rating: 5.0,
+      description: "AI-powered audio processing software for speech recognition and sound analysis.",
+      price: "₹4,799"
+    }
+  ];
+  
 
   return (
 
@@ -2021,35 +2307,64 @@ const Home = () => {
             Find the <BoldSpan>Best AI Tools</BoldSpan> with <BoldSpan>Expert Reviews</BoldSpan> and <BoldSpan>Comparisons</BoldSpan>.
           </Title>
 
-          {/* <SearchContainer
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <SearchInput
-              placeholder="Search by Category, Product or Keyword"
-              value={searchTerm}
-              onChange={handleInputChange}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-            />
-            <SearchButton
-              onClick={handleSearch}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <IoIosSearch />
-              Search
-            </SearchButton>
-            {showDropdown && (
-              <Dropdown>
-                {dropdownItems.map((item, index) => (
-                  <DropdownItem key={index} onClick={() => selectDropdownItem(item)}>
-                    {item.name || item.title}
-                  </DropdownItem>
-                ))}
-              </Dropdown>
-            )}
-          </SearchContainer> */}
+          <SearchContainer
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+      ref={dropdownRef}
+    >
+      <SearchInput
+        placeholder="Search by Category, Product or Keyword"
+        value={searchTerm}
+        onChange={handleInputChange}
+        onFocus={handleInputFocus}
+        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+      />
+      <SearchButton
+        onClick={handleSearch}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <IoIosSearch />
+        Search
+      </SearchButton>
+      
+      {showDropdown && (
+        <DropdownContainer>
+          <Section>
+            <SectionTitle>Popular Categories</SectionTitle>
+            <CategoryList>
+              {popularCategories.map((category) => (
+                <CategoryItem 
+                  key={category.id} 
+                  onClick={() => handleItemClick(category.path)}
+                >
+                  {category.name}
+                </CategoryItem>
+              ))}
+            </CategoryList>
+          </Section>
+          
+          <Section>
+            <SectionTitle>Trending Products</SectionTitle>
+            <ProductList>
+              {trendingProducts.map((product) => (
+                <ProductItem 
+                  key={product.id} 
+                  onClick={() => handleItemClick(product.path)}
+                >
+                  <SearchIcon>
+                    <IoIosSearch />
+                  </SearchIcon>
+                  {product.name}
+                </ProductItem>
+              ))}
+            </ProductList>
+          </Section>
+        </DropdownContainer>
+      )}
+    </SearchContainer>
+
 
           <ImagesSection
             initial={{ opacity: 0, y: 20 }}
@@ -2137,11 +2452,9 @@ const Home = () => {
     <CategoryList>
       {categoryData.slice(sliderStartIndex, sliderStartIndex + 3).map((category, index) => (
         <CategoryButton 
-          key={index} 
-          color={category.color}
-          // onClick={() => navigate(`/categories/${sliderStartIndex + index}`)}
+          key={index}
+          onClick={() => navigate(category.path)}
         >
-          <div className="circle" style={{ backgroundColor: category.color }}></div>
           <span>{category.name}</span>
         </CategoryButton>
       ))}
@@ -2153,74 +2466,69 @@ const Home = () => {
 </CategorySliderSection>
 
 <ProductsSection
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
->
-  <ProductsTitle>Recently Visited Products</ProductsTitle>
-  <SliderContainer>
-    <SliderWrapper translateValue={currentSlide * (100 / slidesPerView) * slidesPerView}>
-      {[1, 2, 3, 4, 5, 6].map((item, index) => (
-        <ProductCardWrapper key={index} slidesPerView={slidesPerView}>
-          <ProductCard >
-            <ProductImage>
-              <img 
-                src={index % 3 === 0 ? categories_1 : index % 3 === 1 ? categories_2 : categories_3}
-                alt={`Product ${index + 1}`} 
-              />
-            </ProductImage>
-            <ProductContent>
-              <ProductHeader>
-                <div>
-                  <ProductTitle>Software Rating</ProductTitle>
-                  <ProductCompany>By Software Company</ProductCompany>
-                </div>
-              </ProductHeader>
-              <RatingContainer>
-                <Rating>
-                  <span>5.0</span>
-                  <Star size={16} fill="#FFD700" color="#FFD700" />
-                </Rating>
-                <ActionButton>Read reviews</ActionButton>
-                <ActionButton>Features</ActionButton>
-              </RatingContainer>
-              <ProductDescription>
-                Lorem ipsum dolor sit amet consectetur. Semper ornare viverra volutpat.
-              </ProductDescription>
-              <PriceSection>
-                <PriceContainer>
-                  <PriceLabel>Starting at</PriceLabel>
-                  <Price>₹4,999</Price>
-                </PriceContainer>
-                <BuyButton>Buy Now</BuyButton>
-              </PriceSection>
-            </ProductContent>
-          </ProductCard>
-        </ProductCardWrapper>
-      ))}
-    </SliderWrapper>
-    <SliderControls>
-     
-      {Array.from({ length: Math.ceil(6 / slidesPerView) }).map((_, index) => (
-        <SliderDot 
-          key={index} 
-          active={currentSlide === index} 
-          onClick={() => handleProductSlide(index)}
-        />
-      ))}
-     
-    </SliderControls>
-  </SliderContainer>
-  <CategoryMessage>
-    {/* <MessageText>
-      You have only visited <strong>three product(s)</strong>.<br />
-      There are over <strong>60+ categories</strong> for u to explore.
-    </MessageText>
-    <ViewAllButton onClick={() => navigate('/categories')}>
-      View All Categories
-    </ViewAllButton> */}
-  </CategoryMessage>
-</ProductsSection>
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <ProductsTitle>Recently Visited Products</ProductsTitle>
+      <SliderContainer>
+        <SliderWrapper translateValue={currentSlide * (100 / slidesPerView) * slidesPerView}>
+          {productData.map((product, index) => (
+            <ProductCardWrapper key={index} slidesPerView={slidesPerView}>
+              <ProductCard>
+                <ProductImage>
+                  <img src={product.image} alt={product.title} />
+                </ProductImage>
+                <ProductContent>
+                  <ProductHeader>
+                    <div>
+                      <ProductTitle>Software Rating</ProductTitle>
+                      <ProductCompany>{product.company}</ProductCompany>
+                    </div>
+                  </ProductHeader>
+                  <RatingContainer>
+                    <Rating>
+                      <span>{product.rating.toFixed(1)}</span>
+                      <Star size={16} fill="#FFD700" color="#FFD700" />
+                    </Rating>
+                    <ActionButton>Read reviews</ActionButton>
+                    <ActionButton>Features</ActionButton>
+                  </RatingContainer>
+                  <ProductDescription>
+                    {product.description}
+                  </ProductDescription>
+                  <PriceSection>
+                    <PriceContainer>
+                      <PriceLabel>Starting at</PriceLabel>
+                      <Price>{product.price}</Price>
+                    </PriceContainer>
+                    <BuyButton>Buy Now</BuyButton>
+                  </PriceSection>
+                </ProductContent>
+              </ProductCard>
+            </ProductCardWrapper>
+          ))}
+        </SliderWrapper>
+        <SliderControls>
+          {Array.from({ length: Math.ceil(productData.length / slidesPerView) }).map((_, index) => (
+            <SliderDot 
+              key={index} 
+              active={currentSlide === index} 
+              onClick={() => handleProductSlide(index)}
+            />
+          ))}
+        </SliderControls>
+      </SliderContainer>
+      <CategoryMessage>
+        {/* <MessageText>
+          You have only visited <strong>three product(s)</strong>.<br />
+          There are over <strong>60+ categories</strong> for u to explore.
+        </MessageText>
+        <ViewAllButton onClick={() => navigate('/categories')}>
+          View All Categories
+        </ViewAllButton> */}
+      </CategoryMessage>
+    </ProductsSection>
 
 
       
@@ -2297,7 +2605,7 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        {/* Sidebar Category List - Updated for responsive design */}
+        
         <UniqueCategoryLists>
           {isMobile ? (
             <select 
@@ -2328,36 +2636,34 @@ const Home = () => {
           )}
         </UniqueCategoryLists>
 
-        {/* Software Cards */}
         <UniqueSoftwareGrid>
-          {loadingCategory ? (
-            // Show skeleton loading UI when changing categories
-            Array(6).fill(0).map((_, i) => (
-              <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
-                <UniqueSoftwareIcon bg="#eee" />
-                <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
-                <div style={{ width: '60%', height: '14px', background: '#eee', margin: '0 auto', borderRadius: '4px' }} />
-              </UniqueSoftwareCard>
-            ))
-          ) : (
-            softwareData.map((software, i) => (
-              <UniqueSoftwareCard 
-                key={i} 
-                whileHover={{ scale: 1.03 }}
-                // onClick={() => navigate(`/products/software-${i+1}`)}
-              >
-                <UniqueSoftwareIcon bg={software.color}>
-                  <span style={{ fontSize: '24px' }}>{software.icon}</span>
-                </UniqueSoftwareIcon>
-                <UniqueRatingStars>
-                  <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
-                  <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
-                </UniqueRatingStars>
-                <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
-              </UniqueSoftwareCard>
-            ))
-          )}
-        </UniqueSoftwareGrid>
+  {loadingCategory ? (
+    Array(6).fill(0).map((_, i) => (
+      <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
+        <UniqueSoftwareIcon bg="#eee" />
+        <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
+        <div style={{ width: '60%', height: '14px', background: '#eee', margin: '0 auto', borderRadius: '4px' }} />
+      </UniqueSoftwareCard>
+    ))
+  ) : (
+    softwareData.map((software, i) => (
+      <UniqueSoftwareCard 
+        key={i} 
+        whileHover={{ scale: 1.03 }}
+        onClick={() => navigate(`/products/software-${i+1}`)}
+      >
+        <UniqueSoftwareIcon bg={software.color}>
+          <img src={software.image} alt={software.name} />
+        </UniqueSoftwareIcon>
+        <UniqueRatingStars>
+          <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
+          <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
+        </UniqueRatingStars>
+        <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
+      </UniqueSoftwareCard>
+    ))
+  )}
+</UniqueSoftwareGrid>
       </UniqueDiscoveryContainer>
     </UniqueContentWrapper>
      
@@ -2463,11 +2769,12 @@ const Home = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
+            
             {(products.length > 0 ? products : [
-              { id: 1, name: "Meta AI", image: product_1, description: "Powerful AI assistant for everyday tasks" },
-              { id: 2, name: "Data Explorer", image: product_2, description: "Visualize complex data with ease" },
-              { id: 3, name: "Code Generator", image: product_3, description: "AI-powered code suggestions" },
-              { id: 4, name: "Neural Engine", image: product_4, description: "Advanced neural network tool" }
+              { id: 1, name: "Quicksmart AI", image: QuicksmartAI, description: "offers AI-driven SIP VoIP with 10+ years of expertise." },
+              { id: 2, name: "Napkin AI", image: NapkinAI, description: "AI transforms text into visuals, boosting business communicatio." },
+              { id: 3, name: "Hiava AI", image: HiavaAI, description: "Ava is an AI assistant that speeds up first draft creation." },
+              { id: 4, name: "Scogo AI", image: ScogoAI, description: "Makes AI easy and affordable for business growth." }
             ]).map((product, i) => (
               <Card 
                 key={product.id || i}
@@ -2478,20 +2785,20 @@ const Home = () => {
                 // onClick={() => navigate(`/products/${product.id}`)}
               >
                 <CardImage 
-                  src={product.image_url || product.logo || [product_1, product_2, product_3, product_4][i % 4]} 
+                  src={product.image_url || product.logo || [QuicksmartAI, NapkinAI, HiavaAI, ScogoAI][i % 4]} 
                   alt={product.name}
                   whileHover={{ scale: 1.05 }}
                 />
                 <CardContent>
                   <h3>{product.name}</h3>
                   <p>{product.description?.substring(0, 50) || "Explore this product"}{product.description?.length > 50 ? "..." : ""}</p>
-                  {/* <a href="#" onClick={(e) => {
-                    e.preventDefault();
-                    navigate(`/products/${product.id}`);
-                  }}>
-                    View Product 
-                    <ArrowRight size={14} />
-                  </a> */}
+                    <a href="#" onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/products/${product.id}`);
+                    }}>
+                      View Product 
+                      <ArrowRight size={14} />
+                    </a>
                 </CardContent>
               </Card>
             ))}
@@ -2499,7 +2806,7 @@ const Home = () => {
         </ContentWrapper>
       </Section>
 
-      <Section>
+      {/* <Section>
         <ContentWrapper
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -2567,7 +2874,7 @@ const Home = () => {
             )}
           </ComparisonTable>
         </ContentWrapper>
-      </Section>
+      </Section> */}
 
       <HowItWorksSection
         initial={{ opacity: 0, y: 20 }}
@@ -2668,7 +2975,7 @@ const Home = () => {
         </ContentWrapper>
       </HowItWorksSection>
 
-      <RegisterSection
+      {/* <RegisterSection
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -2721,7 +3028,7 @@ const Home = () => {
             </InputField>
           </InputGroup>
 
-          {/* <NextButton type="submit">Next</NextButton> */}
+          <NextButton type="submit">Next</NextButton>
 
           <LoginLink>
             Already have an account? <span>Sign In</span>
@@ -2733,7 +3040,7 @@ const Home = () => {
           </TermsText>
         </RegisterForm>
       </FormSection>
-    </RegisterSection>
+    </RegisterSection> */}
 
       <TestimonialsSection
         initial={{ opacity: 0, y: 20 }}

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import QuickSmartFeature from './QuickSmartFeature';
-import QuickSmartRating from './QuickSmartRating';
-import QuickSmartSpecification from './QuickSmartSpecification';
-import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
-import QuickGetSoftwareCompanyDemo from './QuickGetSoftwareCompanyDemo';
-import QuickDropdwon from './QuickDropdwon';
-// import Image41 from './src/assets/Image41.png';
-// import Image42 from './src/assets/Image42.png';
-// import Image43 from './src/assets/Image43.png';
-// import Image44 from './src/assets/Image44.png';
-// import Image45 from './src/assets/Image45.png';
+import HiavaFeature from './HiavaFeature';
+import HiavaRating from './HiavaRating';
+import HiavaSpecification from './HiavaSpecification';
+import HiavaSoftwareReviews from './HiavaSoftwareReviews';
+import HiavaGetSoftwareCompanyDemo from './HiavaGetSoftwareCompanyDemo';
+import HiavaDropdwon from './HiavaDropdown';
+// import image52 from '../src/assets/image52.png';
+// import image53 from './src/assets/image53.png';
+// import image54 from './src/assets/image54.png';
+// import image55 from './src/assets/image55.png';
+// import image56 from './src/assets/image56.png'; 
 // Animations
 const fadeIn = keyframes`
   from {
@@ -25,7 +25,7 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
- padding: 50px 25px;
+  padding: 50px 25px;
 `;
 
 const PageContainer = styled.div`
@@ -485,14 +485,12 @@ const DetailValue = styled.td`
   }
 `;
 
-
-
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
-        <SectionTitle>Software Overview</SectionTitle>
+        <SectionTitle>Hiava</SectionTitle>
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -566,8 +564,8 @@ const FAQContent = () => (
 // Mocked data structure for dynamic content
 const mockProductData = {
     id: 1,
-    title: "QuickSmart.ai",
-    company: "AI-Powered Assistants",
+    title: "Hiava",
+    company: "AI-powered writing assistant",
     rating: 4.3,
     reviewCount: 26,
     pricing: "₹ 9999",
@@ -580,20 +578,20 @@ const mockProductData = {
       { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
     ],
     overview: {
-      softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
+      softwareOverview: " Ava is an AI-powered writing assistant designed to help users create their first drafts quickly, enhancing productivity by streamlining the writing process",
       companyDetails: {
-        brandName: "QuickSmart.ai",
+        brandName: "Hiava",
         information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-        founded: "2020",
-        founder: "Tito Rossmanith",
-        companySize: "50-200 employees",
-        otherProducts: "QuickSmart Insights, QuickSmart Analytics"
+        founded: "NA",
+        founder: "NA",
+        companySize: "02-10 employees",
+        otherProducts: "NA"
       }
     }
   };
 
 // Main Component with Dynamic Content
-const QuickSmartReview = ({ product = mockProductData }) => {
+const HiavaReaview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -624,28 +622,28 @@ const QuickSmartReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.quickFeature) {
-        setSectionsVisible(prev => ({...prev, quickFeature: true}));
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.HiavaFeature) {
+        setSectionsVisible(prev => ({...prev, HiavaFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.quickRating) {
-        setSectionsVisible(prev => ({...prev, quickRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.HiavaRating) {
+        setSectionsVisible(prev => ({...prev, HiavaRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.quickspecifications) {
-        setSectionsVisible(prev => ({...prev, quickspecifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.HiavaSpecifications) {
+        setSectionsVisible(prev => ({...prev, HiavaSpecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.quicksoftwareReviews) {
-        setSectionsVisible(prev => ({...prev, quicksoftwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.HiavaSoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, HiavaSoftwareReviews: true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.softwareDemo) {
-        setSectionsVisible(prev => ({...prev, softwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.HiavaGetSoftwareCompanyDemo) {
+        setSectionsVisible(prev => ({...prev, HiavaGetSoftwareCompanyDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.dropdown) {
-        setSectionsVisible(prev => ({...prev, dropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.HiavaDropdwon) {
+        setSectionsVisible(prev => ({...prev, HiavaDropdwon: true}));
       }
     };
     
@@ -716,7 +714,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-     
+      
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -743,7 +741,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                         active={currentImageIndex === index}
                         onClick={() => handleThumbnailClick(index)}
                       >
-                        <img src={img.url} alt={`Thumbnail ${index + 1}`}/>
+                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -758,9 +756,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
-                    {/* <AvatarSection>
-                      <Avatar>H</Avatar>
-                    </AvatarSection> */}
+                   
                   </HeaderSection>
                   
                   <PricingSection>
@@ -824,15 +820,15 @@ const QuickSmartReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.quickFeature && <QuickSmartFeature />}
-          {sectionsVisible.quickRating && <QuickSmartRating />}
-          {sectionsVisible.quickspecifications && <QuickSmartSpecification />}
-          {sectionsVisible.quicksoftwareReviews && <QuickSmartSoftwareReviews />}
-          {sectionsVisible.softwareDemo && <QuickGetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <QuickDropdwon />}
-       
+          {sectionsVisible.HiavaFeature && <HiavaFeature />}
+          {sectionsVisible.HiavaRating&& <HiavaRating/>}
+          {sectionsVisible.HiavaSpecifications && <HiavaSpecification />}
+          {sectionsVisible.HiavaSoftwareReviews && <HiavaSoftwareReviews />}
+          {sectionsVisible.HiavaGetSoftwareCompanyDemo && <HiavaGetSoftwareCompanyDemo />}
+          {sectionsVisible.HiavaDropdwon && <HiavaDropdwon />}
+        
     </Container>
   );
 };
 
-export default QuickSmartReview;
+export default HiavaReaview;

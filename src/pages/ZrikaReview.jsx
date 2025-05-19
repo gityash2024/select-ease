@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import QuickSmartFeature from './QuickSmartFeature';
-import QuickSmartRating from './QuickSmartRating';
-import QuickSmartSpecification from './QuickSmartSpecification';
-import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
-import QuickGetSoftwareCompanyDemo from './QuickGetSoftwareCompanyDemo';
-import QuickDropdwon from './QuickDropdwon';
-// import Image41 from './src/assets/Image41.png';
-// import Image42 from './src/assets/Image42.png';
-// import Image43 from './src/assets/Image43.png';
-// import Image44 from './src/assets/Image44.png';
-// import Image45 from './src/assets/Image45.png';
+import ZrikaFeature from './ZrikaFeature';
+import ZrikaRating from './ZrikaRating';
+import ZrikaSpecification from './ZrikaSpecification';
+import ZrikaSoftwareReviews from './ZrikaSoftwareReviews';
+import ZrikaGetSoftwareCompanyDemo from './ZrikaGetSoftwareCompanyDemo';
+import ZrikaDropdwon from './ZrikaDropdown';
+// import image52 from '../src/assets/image52.png';
+// import image53 from './src/assets/image53.png';
+// import image54 from './src/assets/image54.png';
+// import image55 from './src/assets/image55.png';
+// import image56 from './src/assets/image56.png'; 
 // Animations
 const fadeIn = keyframes`
   from {
@@ -25,7 +25,7 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
- padding: 50px 25px;
+  padding: 50px 25px;
 `;
 
 const PageContainer = styled.div`
@@ -300,6 +300,12 @@ const Description = styled.p`
   }
 `;
 
+const Buttoncontainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px; /* Optional */
+`;
+
 const CallToAction = styled.button`
   background-color: #026283;
   color: white;
@@ -311,10 +317,8 @@ const CallToAction = styled.button`
   font-weight: 500;
   transition: background-color 0.3s ease;
   width: fit-content;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(11, 11, 11, 0.1);
   font-family: 'Outfit', sans-serif;
-  margin: 0 auto; /* Center the button horizontally */
-  display: block;
 
   &:hover {
     background-color: #01516d;
@@ -330,7 +334,6 @@ const CallToAction = styled.button`
     padding: 8px 18px;
   }
 `;
-
 
 const TabsContainer = styled.div`
   display: flex;
@@ -485,14 +488,12 @@ const DetailValue = styled.td`
   }
 `;
 
-
-
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
-        <SectionTitle>Software Overview</SectionTitle>
+        <SectionTitle>Zrika</SectionTitle>
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -566,8 +567,8 @@ const FAQContent = () => (
 // Mocked data structure for dynamic content
 const mockProductData = {
     id: 1,
-    title: "QuickSmart.ai",
-    company: "AI-Powered Assistants",
+    title: "Zrika",
+    company: "Financial Technology (Fintech) Services",
     rating: 4.3,
     reviewCount: 26,
     pricing: "₹ 9999",
@@ -580,20 +581,20 @@ const mockProductData = {
       { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
     ],
     overview: {
-      softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
+      softwareOverview: "Zrika is a dynamic software firm dedicated to pushing boundaries in fintech. Their core focus lies in creating innovative, tailored technology solutions across three specialized divisions: Payments, Solutions, and Value Plus. By partnering with banks, payment aggregators, NBFCs, and a diverse range of digital merchants, Zrika empowers clients to bridge the divide between legacy systems and the demands of the modern digital era. Their approach centers on delivering secure, scalable, and user-friendly technology that drives both business growth and financial inclusivity. ",
       companyDetails: {
-        brandName: "QuickSmart.ai",
+        brandName: "Zrika",
         information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
-        founded: "2020",
-        founder: "Tito Rossmanith",
-        companySize: "50-200 employees",
+        founded: " June 2024",
+        founder: "Pramod Ganji",
+        companySize: "11-50 employees",
         otherProducts: "QuickSmart Insights, QuickSmart Analytics"
       }
     }
   };
 
 // Main Component with Dynamic Content
-const QuickSmartReview = ({ product = mockProductData }) => {
+const ZrikaReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -624,28 +625,28 @@ const QuickSmartReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.quickFeature) {
-        setSectionsVisible(prev => ({...prev, quickFeature: true}));
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.ZrikaFeature) {
+        setSectionsVisible(prev => ({...prev, ZrikaFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.quickRating) {
-        setSectionsVisible(prev => ({...prev, quickRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.ZrikaRating) {
+        setSectionsVisible(prev => ({...prev, ZrikaRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.quickspecifications) {
-        setSectionsVisible(prev => ({...prev, quickspecifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.ZrikaSpecifications) {
+        setSectionsVisible(prev => ({...prev, ZrikaSpecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.quicksoftwareReviews) {
-        setSectionsVisible(prev => ({...prev, quicksoftwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.ZrikaSoftwareReviews ) {
+        setSectionsVisible(prev => ({...prev, ZrikaSoftwareReviews : true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.softwareDemo) {
-        setSectionsVisible(prev => ({...prev, softwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.ZrikaGetSoftwareDemo) {
+        setSectionsVisible(prev => ({...prev, ZrikaGetSoftwareDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.dropdown) {
-        setSectionsVisible(prev => ({...prev, dropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.ZrikaDropdwon) {
+        setSectionsVisible(prev => ({...prev, ZrikaDropdwon: true}));
       }
     };
     
@@ -716,7 +717,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-     
+      
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -743,7 +744,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                         active={currentImageIndex === index}
                         onClick={() => handleThumbnailClick(index)}
                       >
-                        <img src={img.url} alt={`Thumbnail ${index + 1}`}/>
+                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -758,9 +759,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
-                    {/* <AvatarSection>
-                      <Avatar>H</Avatar>
-                    </AvatarSection> */}
+                   
                   </HeaderSection>
                   
                   <PricingSection>
@@ -769,7 +768,9 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                   </PricingSection>
                   
                   <Description>{product.description}</Description>
+                  < Buttoncontainer >
                   <CallToAction>Get Free Demo</CallToAction>
+                  </Buttoncontainer>
                 </InfoSection>
               </ProductCard>
 
@@ -824,15 +825,15 @@ const QuickSmartReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.quickFeature && <QuickSmartFeature />}
-          {sectionsVisible.quickRating && <QuickSmartRating />}
-          {sectionsVisible.quickspecifications && <QuickSmartSpecification />}
-          {sectionsVisible.quicksoftwareReviews && <QuickSmartSoftwareReviews />}
-          {sectionsVisible.softwareDemo && <QuickGetSoftwareCompanyDemo />}
-          {sectionsVisible.dropdown && <QuickDropdwon />}
-       
+          {sectionsVisible.ZrikaFeature && <ZrikaFeature />}
+          {sectionsVisible.ZrikaRating&& <ZrikaRating/>}
+          {sectionsVisible.ZrikaSpecifications && <ZrikaSpecification />}
+          {sectionsVisible.ZrikaSoftwareReviews  && <ZrikaSoftwareReviews  />}
+          {sectionsVisible.ZrikaGetSoftwareCompanyDemo && <ZrikaGetSoftwareCompanyDemo />}
+          {sectionsVisible.ZrikaDropdwon && <ZrikaDropdwon />}
+        
     </Container>
   );
 };
 
-export default QuickSmartReview;
+export default ZrikaReview;

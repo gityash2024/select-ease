@@ -14,7 +14,7 @@
 .footer-content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  gap: 32px; /* Adjust this gap for smaller screens */
   margin-bottom: 24px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .footer-section:not(:first-child) {
-  padding-left: 32px;
+  padding-left: 32px; /* Consider reducing or removing on smaller screens */
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -105,14 +105,14 @@
 
 @media (max-width: 1024px) {
   .footer-content {
-    gap: 24px;
+    gap: 16px; /* Reduced gap for tablets */
   }
 }
 
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 16px; /* Further reduced gap for smaller tablets */
   }
 
   .footer-section:not(:first-child) {
@@ -122,7 +122,7 @@
 
   .footer-section:nth-child(3),
   .footer-section:nth-child(4) {
-    padding-top: 32px;
+    padding-top: 24px; /* Slightly reduced top padding */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
@@ -138,13 +138,13 @@
 
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px; /* Adjusted gap for mobile */
   }
 
   .footer-section {
     padding: 0 !important;
     border: none !important;
-    margin-top: 24px;
+    margin-top: 16px; /* Reduced top margin */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 
@@ -154,11 +154,20 @@
   }
 
   .footer-heading {
-    font-size: 15px;
+    font-size: 16px; /* Slightly reduced heading size */
+    margin-bottom: 16px; /* Reduced bottom margin */
+  }
+
+  .footer-links li {
+    margin-bottom: 8px; /* Reduced link item margin */
   }
 
   .footer-links a {
     font-size: 13px;
+  }
+
+  .contact-info {
+    gap: 6px; /* Reduced gap in contact info */
   }
 
   .contact-info p {

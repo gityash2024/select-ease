@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styled from 'styled-components';
 import plus from '../assets/plus.svg';
@@ -23,15 +22,20 @@ const ProsConsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const ProsColumn = styled.div``;
+const ProsContainer = styled.div`
+  width: auto;
+  border-right: 1px solid #eee;
+`;
 
-const ConsColumn = styled.div``;
+const ConsContainer = styled.div`
+  width: auto;
+`;
 
 const ColumnTitle = styled.h3`
   font-size: 18px;
@@ -45,7 +49,7 @@ const ReviewItem = styled.div`
   margin-bottom: 24px;
   padding-bottom: 24px;
   border-bottom: 1px solid #eee;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -53,47 +57,48 @@ const ReviewItem = styled.div`
 
 const ReviewHeader = styled.div`
   display: flex;
+  align-items: center; /* Vertically align icon and text */
   margin-bottom: 8px;
 `;
 
 const ReviewIcon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 16px; /* Adjust icon size */
+  height: 16px; /* Adjust icon size */
   margin-right: 12px;
-  margin-top: 2px;
+  color: #026283;
 `;
 
 const ReviewText = styled.p`
   font-size: 14px;
   line-height: 1.5;
   color: #333;
-  margin: 0 0 8px 0;
+  margin: 0; /* Remove default paragraph margins */
 `;
 
 const ReviewAuthor = styled.div`
   font-size: 12px;
   color: #777;
-  margin-top: 8px;
-  margin-left: 32px;
+  margin-top: 4px; /* Adjust spacing between text and author */
+  margin-left: 28px; /* Adjust indentation to align with text */
 `;
 
-const mockProsConsData = {
+const updatedProsConsData = {
   pros: [
     {
       id: 1,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Strong automation capabilities",
       author: "Jane Doe",
       date: "August 16, 2024"
     },
     {
       id: 2,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Easy integrations with major platforms",
       author: "Jane Doe",
       date: "August 16, 2024"
     },
     {
       id: 3,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Real-time anomaly detection",
       author: "Jane Doe",
       date: "August 16, 2024"
     }
@@ -101,31 +106,31 @@ const mockProsConsData = {
   cons: [
     {
       id: 1,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Basic customization options",
       author: "Jane Doe",
       date: "August 16, 2024"
     },
     {
       id: 2,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Less effective on smartphones",
       author: "Jane Doe",
       date: "August 16, 2024"
     },
     {
       id: 3,
-      text: "Salesforce is an American cloud computing company head quartered in San Francisco, California.",
+      text: "Limited advanced analytics",
       author: "Jane Doe",
       date: "August 16, 2024"
     }
   ]
 };
 
-const NapkinSpecification = ({ prosConsData = mockProsConsData }) => {
+const InVideoSpecification = ({ prosConsData = updatedProsConsData }) => {
   return (
     <Container>
       <ProsConsSection>
         <ProsConsGrid>
-          <ProsColumn>
+          <ProsContainer>
             <ColumnTitle>Pros</ColumnTitle>
             {prosConsData.pros.map(pro => (
               <ReviewItem key={pro.id}>
@@ -136,9 +141,9 @@ const NapkinSpecification = ({ prosConsData = mockProsConsData }) => {
                 <ReviewAuthor>{pro.author} - {pro.date}</ReviewAuthor>
               </ReviewItem>
             ))}
-          </ProsColumn>
-          
-          <ConsColumn>
+          </ProsContainer>
+
+          <ConsContainer>
             <ColumnTitle>Cons</ColumnTitle>
             {prosConsData.cons.map(con => (
               <ReviewItem key={con.id}>
@@ -149,11 +154,11 @@ const NapkinSpecification = ({ prosConsData = mockProsConsData }) => {
                 <ReviewAuthor>{con.author} - {con.date}</ReviewAuthor>
               </ReviewItem>
             ))}
-          </ConsColumn>
+          </ConsContainer>
         </ProsConsGrid>
       </ProsConsSection>
     </Container>
   );
 };
 
-export default NapkinSpecification;
+export default InVideoSpecification;

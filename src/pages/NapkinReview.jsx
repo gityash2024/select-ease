@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
-import NapkinFeature from '../NapkinFeature';
-import NapkinRating from '../NapkinRating';
-import NapkinSpecification from '../NapkinSpecification';
-import NapkinSoftwareReviews from '../NapkinSoftwareReviews';
-import NapkinGetSoftwareCompanyDemo from '../NapkinGetSoftwareCompanyDemo';
-import NapkinDropdwon from '../NapkinDropdwon';
-// import napkin1 from '../src/assets/napkin1.png';
-// import napkin2 from './src/assets/napkin2.png';
-// import napkin3 from './src/assets/napkin3.png';
-// import napkin4 from './src/assets/napkin4.png';
-// import napkin5 from './src/assets/napkin5.png'; 
-// // Animations
+import NapkinFeature from './NapkinFeature';
+import NapkinRating from './NapkinRating';
+import NapkinSpecification from './NapkinSpecification';
+import NapkinSoftwareReviews from './NapkinSoftwareReviews';
+import NapkinGetSoftwareCompanyDemo from './NapkinGetSoftwareCompanyDemo';
+import NapkinDropdwon from './NapkinDropdwon';
+// import image6 from '../src/assets/image6.png';
+// import image7 from './src/assets/image7.png';
+// import image8 from './src/assets/image8.png';
+// import image9 from './src/assets/image9.png';
+// import image10 from './src/assets/image10.png'; 
+// Animations
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -35,7 +35,7 @@ const shimmer = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+ padding: 50px 25px;
 `;
 
 const PageContainer = styled.div`
@@ -209,6 +209,25 @@ const HeaderSection = styled.div`
 
 const TitleSection = styled.div`
   flex: 1;
+`;
+
+const AvatarSection = styled.div`
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    align-self: flex-end;
+  }
+`;
+
+const Avatar = styled.div`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color:rgb(9, 9, 9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
 `;
 
 const Title = styled.h2`
@@ -414,6 +433,171 @@ const DetailValue = styled.td`
   font-family: 'Outfit', sans-serif;
 `;
 
+// Skeleton Components
+const SkeletonPulse = styled.div`
+  background: #eee;
+  background-image: linear-gradient(
+    to right,
+    #eee 0%,
+    #f5f5f5 20%,
+    #eee 40%,
+    #eee 100%
+  );
+  background-size: 800px 104px;
+  animation: ${shimmer} 1.5s linear infinite;
+`;
+
+const SkeletonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const SkeletonProductCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const SkeletonImageSection = styled.div`
+  width: 300px;
+  margin-right: 30px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+`;
+
+const SkeletonMainImage = styled(SkeletonPulse)`
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+`;
+
+const SkeletonThumbnails = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const SkeletonThumbnail = styled(SkeletonPulse)`
+  width: 60px;
+  height: 45px;
+  border-radius: 4px;
+`;
+
+const SkeletonInfoSection = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SkeletonTitle = styled(SkeletonPulse)`
+  width: 70%;
+  height: 24px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+`;
+
+const SkeletonSubtitle = styled(SkeletonPulse)`
+  width: 40%;
+  height: 16px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+`;
+
+const SkeletonRating = styled(SkeletonPulse)`
+  width: 30%;
+  height: 16px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+`;
+
+const SkeletonPricing = styled(SkeletonPulse)`
+  width: 25%;
+  height: 20px;
+  margin: 15px 0;
+  border-radius: 4px;
+`;
+
+const SkeletonDescription = styled(SkeletonPulse)`
+  width: 100%;
+  height: 80px;
+  margin-bottom: 25px;
+  border-radius: 4px;
+`;
+
+const SkeletonButton = styled(SkeletonPulse)`
+  width: 150px;
+  height: 42px;
+  border-radius: 30px;
+`;
+
+const SkeletonTabs = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+`;
+
+const SkeletonTab = styled(SkeletonPulse)`
+  width: 100px;
+  height: 36px;
+  border-radius: 4px;
+  flex-shrink: 0;
+`;
+
+const SkeletonContent = styled(SkeletonPulse)`
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+`;
+
+// Skeleton Loader Component
+const SkeletonLoader = () => (
+  <SkeletonContainer>
+    <SkeletonProductCard>
+      <SkeletonImageSection>
+        <SkeletonMainImage />
+        <SkeletonThumbnails>
+          <SkeletonThumbnail />
+          <SkeletonThumbnail />
+          <SkeletonThumbnail />
+          <SkeletonThumbnail />
+        </SkeletonThumbnails>
+      </SkeletonImageSection>
+      <SkeletonInfoSection>
+        <SkeletonTitle />
+        <SkeletonSubtitle />
+        <SkeletonRating />
+        <SkeletonSubtitle />
+        <SkeletonPricing />
+        <SkeletonDescription />
+        <SkeletonButton />
+      </SkeletonInfoSection>
+    </SkeletonProductCard>
+    
+    <SkeletonTabs>
+      <SkeletonTab />
+      <SkeletonTab />
+      <SkeletonTab />
+      <SkeletonTab />
+      <SkeletonTab />
+      <SkeletonTab />
+      <SkeletonTab />
+    </SkeletonTabs>
+    
+    <SkeletonContent />
+  </SkeletonContainer>
+);
+
 // Dynamic Overview Content Component
 const OverviewContent = ({ data }) => {
   return (
@@ -551,28 +735,28 @@ const NapkinReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
-      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.napkinFeature) {
-        setSectionsVisible(prev => ({...prev, napkinFeature: true}));
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.NapkinFeature) {
+        setSectionsVisible(prev => ({...prev, NapkinFeature: true}));
       }
       
-      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.napkinRating) {
-        setSectionsVisible(prev => ({...prev, napkinRating: true}));
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.NapkinRating) {
+        setSectionsVisible(prev => ({...prev, NapkinRating: true}));
       }
       
-      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.napkinspecifications) {
-        setSectionsVisible(prev => ({...prev, napkinspecifications: true}));
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.NapkinSpecifications) {
+        setSectionsVisible(prev => ({...prev, NapkinSpecifications: true}));
       }
       
-      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.napkinsoftwareReviews) {
-        setSectionsVisible(prev => ({...prev, napkinsoftwareReviews: true}));
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.NapkinSoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, NapkinSoftwareReviews: true}));
       }
       
-      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.napkinsoftwareDemo) {
-        setSectionsVisible(prev => ({...prev, napkinsoftwareDemo: true}));
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.NapkinGetSoftwareDemo) {
+        setSectionsVisible(prev => ({...prev, NapkinGetSoftwareDemo: true}));
       }
       
-      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.napkindropdown) {
-        setSectionsVisible(prev => ({...prev, napkindropdown: true}));
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.NapkinDropdwon) {
+        setSectionsVisible(prev => ({...prev, NapkinDropdwon: true}));
       }
     };
     
@@ -643,7 +827,10 @@ const NapkinReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-     
+      {loading ? (
+        <SkeletonLoader />
+      ) : (
+        <>
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -685,6 +872,9 @@ const NapkinReview = ({ product = mockProductData }) => {
                       </Rating>
                       <WriteReview href="#">Write a Review</WriteReview>
                     </TitleSection>
+                    {/* <AvatarSection>
+                      <Avatar>H</Avatar>
+                    </AvatarSection> */}
                   </HeaderSection>
                   
                   <PricingSection>
@@ -748,13 +938,14 @@ const NapkinReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
-          {sectionsVisible.napkinFeature && <NapkinFeature />}
-          {sectionsVisible.napkinRating && <NapkinRating />}
-          {sectionsVisible.napkinspecifications && <NapkinSpecification />}
-          {sectionsVisible.napkinsoftwareReviews && <NapkinSoftwareReviews />}
-          {sectionsVisible.napkinsoftwareDemo && <NapkinGetSoftwareCompanyDemo />}
-          {sectionsVisible.napkindropdown && <NapkinDropdwon />}
-        
+          {sectionsVisible.NapkinFeature && <NapkinFeature />}
+          {sectionsVisible.NapkinRating && <NapkinRating />}
+          {sectionsVisible.NapkinSpecifications && <NapkinSpecification />}
+          {sectionsVisible.NapkinSoftwareReviews && <NapkinSoftwareReviews />}
+          {sectionsVisible.NapkinGetsoftwareDemo && <NapkinGetSoftwareCompanyDemo />}
+          {sectionsVisible.NapkinDropdwon && <NapkinDropdwon />}
+        </>
+      )}
     </Container>
   );
 };
