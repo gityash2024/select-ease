@@ -102,6 +102,9 @@ const HeroSection = styled(motion.section)`
     bottom: 0;
     z-index: 1;
   }
+     @media (min-width: 769px) {
+    padding: 200px 0 190px;
+  }
 `;
 
 const ContentWrapper = styled(motion.div)`
@@ -2710,7 +2713,7 @@ const Home = () => {
 
       
 
-      <UniqueContentWrapper
+      {/* <UniqueContentWrapper
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
@@ -2760,6 +2763,7 @@ const Home = () => {
         </UniqueCategoryLists>
 
         <UniqueSoftwareGrid>
+<<<<<<< HEAD
   {loadingCategory ? (
     Array(cardsPerCategory[activeCategory]).fill(0).map((_, i) => (
       <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
@@ -2787,8 +2791,38 @@ const Home = () => {
     ))
   )}
 </UniqueSoftwareGrid>
+=======
+          {loadingCategory ? (
+           
+            Array(6).fill(0).map((_, i) => (
+              <UniqueSoftwareCard key={i} style={{ opacity: 0.6 }}>
+                <UniqueSoftwareIcon bg="#eee" />
+                <div style={{ width: '80%', height: '14px', background: '#eee', margin: '0 auto 8px', borderRadius: '4px' }} />
+                <div style={{ width: '60%', height: '14px', background: '#eee', margin: '0 auto', borderRadius: '4px' }} />
+              </UniqueSoftwareCard>
+            ))
+          ) : (
+            softwareData.map((software, i) => (
+              <UniqueSoftwareCard 
+                key={i} 
+                whileHover={{ scale: 1.03 }}
+                onClick={() => navigate(`/products/software-${i+1}`)}
+              >
+                <UniqueSoftwareIcon bg={software.color}>
+                  <span style={{ fontSize: '24px' }}>{software.icon}</span>
+                </UniqueSoftwareIcon>
+                <UniqueRatingStars>
+                  <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
+                  <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
+                </UniqueRatingStars>
+                <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
+              </UniqueSoftwareCard>
+            ))
+          )}
+        </UniqueSoftwareGrid>
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       </UniqueDiscoveryContainer>
-    </UniqueContentWrapper>
+    </UniqueContentWrapper> */}
      
       <ReviewsWrapper
         backgroundImage={reviewsBg}

@@ -6,7 +6,11 @@ import HiavaRating from './HiavaRating';
 import HiavaSpecification from './HiavaSpecification';
 import HiavaSoftwareReviews from './HiavaSoftwareReviews';
 import HiavaGetSoftwareCompanyDemo from './HiavaGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import HiavaDropdwon from './HiavaDropdown';
+=======
+import HiavaDropdwon from './HiavaDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';
@@ -25,7 +29,11 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
   padding: 50px 25px;
+=======
+  padding: 0 20px;
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 `;
 
 const PageContainer = styled.div`
@@ -561,6 +569,7 @@ const FAQContent = () => (
   <div>Frequently Asked Questions will be here.</div>
 );
 
+<<<<<<< HEAD
 // Add this YouTube video embed component
 const YouTubeEmbed = styled.iframe`
   width: 100%;
@@ -606,6 +615,23 @@ const mockProductData = {
       { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "Hiava Demo 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
       { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "Hiava Demo 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
       { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "Hiava Demo 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
+=======
+// Mocked data structure for dynamic content
+const mockProductData = {
+    id: 1,
+    title: "Hiava",
+    company: "AI-powered writing assistant",
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     ],
     overview: {
       softwareOverview: " Ava is an AI-powered writing assistant designed to help users create their first drafts quickly, enhancing productivity by streamlining the writing process",
@@ -621,11 +647,18 @@ const mockProductData = {
   };
 
 // Main Component with Dynamic Content
+<<<<<<< HEAD
 const HiavaReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false); // Add state for video playback
+=======
+const HiavaReaview = ({ product = mockProductData }) => {
+  const [activeTab, setActiveTab] = useState('Reviews');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
     quickFeature: false,
@@ -721,11 +754,14 @@ const HiavaReview = ({ product = mockProductData }) => {
     return stars;
   };
 
+<<<<<<< HEAD
   // Add a function to toggle video play state
   const toggleVideoPlay = () => {
     setIsPlaying(!isPlaying);
   };
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   // Render tab content based on active tab
   const renderTabContent = () => {
     switch (activeTab) {
@@ -750,10 +786,14 @@ const HiavaReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
+<<<<<<< HEAD
       {loading ? (
         <LoadingSpinner />
       ) : (
         <>
+=======
+      
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -762,6 +802,7 @@ const HiavaReview = ({ product = mockProductData }) => {
                     <LeftArrow onClick={goToPreviousImage}>
                       <FaChevronLeft />
                     </LeftArrow>
+<<<<<<< HEAD
                     {isPlaying ? (
                       <YouTubeEmbed
                         src={`https://www.youtube.com/embed/${product.images[currentImageIndex].videoId}?autoplay=1`}
@@ -777,6 +818,14 @@ const HiavaReview = ({ product = mockProductData }) => {
                     )}
                     <PlayButton onClick={toggleVideoPlay}>
                       {isPlaying ? '■' : <FaPlay />}
+=======
+                    <img 
+                      src={product.images[currentImageIndex].url} 
+                      alt={product.images[currentImageIndex].alt} 
+                    />
+                    <PlayButton>
+                      <FaPlay />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
                     </PlayButton>
                     <RightArrow onClick={goToNextImage}>
                       <FaChevronRight />
@@ -787,12 +836,18 @@ const HiavaReview = ({ product = mockProductData }) => {
                       <Thumbnail
                         key={index}
                         active={currentImageIndex === index}
+<<<<<<< HEAD
                         onClick={() => {
                           handleThumbnailClick(index);
                           if (isPlaying) setIsPlaying(false);
                         }}
                       >
                         <img src={img.thumbnail} alt={`Thumbnail ${index + 1}`} />
+=======
+                        onClick={() => handleThumbnailClick(index)}
+                      >
+                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -877,10 +932,18 @@ const HiavaReview = ({ product = mockProductData }) => {
           {sectionsVisible.HiavaSoftwareReviews && <HiavaSoftwareReviews />}
           {sectionsVisible.HiavaGetSoftwareCompanyDemo && <HiavaGetSoftwareCompanyDemo />}
           {sectionsVisible.HiavaDropdwon && <HiavaDropdwon />}
+<<<<<<< HEAD
         </>
       )}
+=======
+        
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     </Container>
   );
 };
 
+<<<<<<< HEAD
 export default HiavaReview;
+=======
+export default HiavaReaview;
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6

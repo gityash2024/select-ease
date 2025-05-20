@@ -303,6 +303,228 @@ const CompareButton = styled.button`
     }
   }
 `;
+<<<<<<< HEAD
+=======
+
+// Specifications Component
+const Specifications = () => {
+  const specifications = [
+    { label: 'Supported Platform', value: 'Web-based application.' },
+    { label: 'Devices', value: 'Accessible via web browsers on desktops and mobile devices.' },
+    { label: 'Deployment', value: 'Cloud-based.' },
+    { label: 'Suitable for', value: 'Individuals and teams seeking efficient writing assistance.' },
+    { label: 'Business Size', value: 'NA' },
+    { label: 'Setup Time', value: '' },
+    { label: 'Customer Support', value: 'Can ask questions by sending them e-mail' },
+    { label: 'Support Report Time', value: 'Not specified' },
+    { label: 'Training', value: 'Not specified' },
+    { label: 'Language', value: ' Not specified' },
+    { label: 'Demographic', value: 'Not specified' }
+  ];
+
+  return (
+    <SpecificationsContainer>
+      <SpecTitle>Specifications</SpecTitle>
+      <SpecTable>
+        {specifications.map((spec, index) => (
+          <SpecRow key={index}>
+            <SpecLabel>{spec.label}</SpecLabel>
+            <SpecValue>{spec.value}</SpecValue>
+          </SpecRow>
+        ))}
+      </SpecTable>
+    </SpecificationsContainer>
+  );
+};
+
+// Software Comparison Component
+const SoftwareComparison = () => {
+  const [selectedCount, setSelectedCount] = useState(1); // Initialize with 1 selected (first card)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isChecked, setIsChecked] = useState([true, false, false, false]);
+  const [isCompareEnabled, setIsCompareEnabled] = useState(false);
+  const cardsRef = useRef(null);
+  
+  // Sample software data
+  const softwareOptions = [
+    {
+      id: 1,
+      name: 'Software Company A',
+      company: 'By : Company A',
+      rating: '5.0',
+      reviews: '144',
+      image: 'https://via.placeholder.com/80', // Replace with actual image URLs
+    },
+    {
+      id: 2,
+      name: 'Software Company B',
+      company: 'By : Company B',
+      rating: '4.5',
+      reviews: '120',
+      image: 'https://via.placeholder.com/80',
+    },
+    {
+      id: 3,
+      name: 'Software Company C',
+      company: 'By : Company C',
+      rating: '4.0',
+      reviews: '98',
+      image: 'https://via.placeholder.com/80',
+    },
+     {
+      id: 4,
+      name: 'Software Company D',
+      company: 'By : Company D',
+      rating: '4.8',
+      reviews: '202',
+      image: 'https://via.placeholder.com/80',
+    }
+  ];
+  
+  useEffect(() => {
+    // Count selected software
+    const count = isChecked.filter(Boolean).length;
+    setSelectedCount(count);
+    setIsCompareEnabled(count >= 2);
+  }, [isChecked]);
+  
+  const handleCheckboxChange = (index) => {
+    const newChecked = [...isChecked];
+    newChecked[index] = !newChecked[index];
+    setIsChecked(newChecked);
+  };
+  
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+  
+  const handleNext = () => {
+    if (currentIndex < softwareOptions.length - 3) { // changed from 2 to 3
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+  
+  // First card is fixed, others slide
+    const renderCards = () => {
+    const cardVariants = {
+      hidden: { opacity: 0, x: 50 },
+      visible: { opacity: 1, x: 0 },
+      exit: { opacity: 0, x: -50 },
+    };
+
+    return (
+      <>
+        <Card
+          variants={cardVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <CardImage>
+             <img src={softwareOptions[0].image} alt={softwareOptions[0].name} />
+          </CardImage>
+          <CardTitle>{softwareOptions[0].name}</CardTitle>
+          <CardCompany>{softwareOptions[0].company}</CardCompany>
+          <RatingContainer>
+            <RatingValue>{softwareOptions[0].rating}</RatingValue>
+            <RatingIcon>★</RatingIcon>
+            <ReviewCount>({softwareOptions[0].reviews} Reviews)</ReviewCount>
+          </RatingContainer>
+          <CheckboxContainer>
+            <Checkbox
+              type="checkbox"
+              id={`compare-${0}`}
+              checked={isChecked[0]}
+              onChange={() => handleCheckboxChange(0)}
+            />
+            <CheckboxLabel htmlFor={`compare-${0}`}>
+              Add To Compare
+            </CheckboxLabel>
+          </CheckboxContainer>
+        </Card>
+
+        <VsCircle>VS</VsCircle>
+
+        <AnimatePresence>
+          {softwareOptions.slice(1).map((software, idx) => {
+            const actualIndex = idx + 1;
+            const isVisible = idx >= currentIndex && idx < currentIndex + 2;
+
+            return isVisible ? (
+              <Card
+                key={software.id}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <CardImage>
+                  <img src={software.image} alt={software.name} />
+                </CardImage>
+                <CardTitle>{software.name}</CardTitle>
+                <CardCompany>{software.company}</CardCompany>
+                <RatingContainer>
+                  <RatingValue>{software.rating}</RatingValue>
+                  <RatingIcon>★</RatingIcon>
+                  <ReviewCount>({software.reviews} Reviews)</ReviewCount>
+                </RatingContainer>
+                <CheckboxContainer>
+                  <Checkbox
+                    type="checkbox"
+                    id={`compare-${actualIndex}`}
+                    checked={isChecked[actualIndex]}
+                    onChange={() => handleCheckboxChange(actualIndex)}
+                  />
+                  <CheckboxLabel htmlFor={`compare-${actualIndex}`}>
+                    Add To Compare
+                  </CheckboxLabel>
+                </CheckboxContainer>
+              </Card>
+            ) : null;
+          })}
+        </AnimatePresence>
+      </>
+    );
+  };
+  
+  return (
+    <ComparisonContainer>
+      <ComparisonTitle>Compare Software Company with Other Softwares</ComparisonTitle>
+      <CarouselContainer>
+        <NavigationButton 
+          className="prev" 
+          onClick={handlePrev} 
+          disabled={currentIndex === 0}
+        >
+          ❮
+        </NavigationButton>
+        
+        <CardContainer ref={cardsRef}>
+          {renderCards()}
+        </CardContainer>
+        
+        <NavigationButton 
+          className="next" 
+          onClick={handleNext} 
+          disabled={currentIndex >= softwareOptions.length - 3} // changed from 2 to 3
+        >
+          ❯
+        </NavigationButton>
+      </CarouselContainer>
+      
+      <CompareSection>
+        <SelectedCount>({selectedCount}) Product Selected</SelectedCount>
+        <CompareButton disabled={!isCompareEnabled}>
+            Compare Now
+        </CompareButton>
+      </CompareSection>
+    </ComparisonContainer>
+  );
+};
+
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 // Demo Section Component (from your existing code)
 const SectionContainer = styled.section`
   background-color: #003750;
@@ -395,6 +617,7 @@ const ResponsiveIframe = styled.iframe`
   border: none;
 `;
 
+<<<<<<< HEAD
 // Specifications Component
 const Specifications = () => {
   const specifications = [
@@ -607,6 +830,8 @@ const SoftwareComparison = () => {
   );
 };
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 const HiavaGetSoftwareCompanyDemo = ({
   youtubeVideoId = "Ou-K_BAC9pY",
   title = "Get Software Company Demo",

@@ -72,28 +72,44 @@ import InVideoRating from './pages/InVideoRating';
 import InVideoSpecification from './pages/InVideoSpecification';
 import InVideoSoftwareRevies from './pages/InVideoSoftwareReviews';
 import InVideoSoftwareCompanyDemo from './pages/InVideoGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import InVideoDropdown from './pages/InVideoDropdown';
+=======
+import InVideoDropdwon from './pages/InVideoDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 import ZrikaReview from './pages/ZrikaReview';
 import ZrikaFeature from './pages/ZrikaFeature';
 import ZrikaRating from './pages/ZrikaRating';
 import ZrikaSpecification from './pages/ZrikaSpecification';
 import ZrikaSoftwareReviews from './pages/ZrikaSoftwareReviews';
 import ZrikaGetSoftwareCompanyDemo from './pages/ZrikaGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import ZrikaDropdown from './pages/ZrikaDropdown';
+=======
+import ZrikaDropdwon from './pages/ZrikaDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 import HiavaReaview from './pages/HiavaReview';
 import HiavaFeature from './pages/HiavaFeature';
 import HiavaRating from './pages/HiavaRating';
 import HiavaSpecification from './pages/HiavaSpecification';
 import HiavaSoftwareReviews from './pages/HiavaSoftwareReviews';
 import HiavaGetSoftwareCompanyDemo from './pages/HiavaGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import HiavaDropdown from './pages/HiavaDropdown';
+=======
+import HiavaDropdwon from './pages/HiavaDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 import AmmplifyReview from './pages/AmmplifyReview';
 import AmmplifyFeature from './pages/AmmplifyFeature';
 import AmmplifyRating from './pages/AmmplifyRating';
 import AmmplifySpecification from './pages/AmmplifySpecification';
 import AmmplifySoftwareReviews from './pages/AmmplifySoftwareReviews';
 import AmmplifyGetSoftwareCompanyDemo from './pages/AmmplifyGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import AmmplifyDropdown from './pages/AmmplifyDropdown';
+=======
+import AmmplifyDropdwon from './pages/AmmplifyDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 
 
 
@@ -105,6 +121,7 @@ import NapkinSpecification from './pages/NapkinSpecification';
 import NapkinGetSoftwareCompanyDemo from './pages/NapkinGetSoftwareCompanyDemo';
 import NapkinDropdwon from './pages/NapkinDropdwon';
 import NapkinSoftwareReviews from './pages/NapkinSoftwareReviews';
+<<<<<<< HEAD
 
 import CaptionReview from './pages/CaptionReview';
 import CaptionFeature from './pages/CaptionFeature';
@@ -119,6 +136,15 @@ import SalesAutomation from './pages/SalesAutomation';
 import DocumentationAi from './pages/DocumentationAi';
 
 
+=======
+
+import CaptionReview from './pages/CaptionReview';
+import CaptionFeature from './pages/CaptionFeature';
+import CaptionRating from './pages/CaptionRating';
+import CaptionSpecification from './pages/CaptionSpecification'; 
+import CaptionGetSoftwareCompanyDemo from './pages/CaptionGetSoftwareCompanyDemo';
+import CaptionDropdwon from './pages/CaptionDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 
 
 // Global scroll to top button  
@@ -341,40 +367,60 @@ function App() {
             <Route path='caption-softwarereave' element={<Caption-software />} />
             <Route path='Captioncompanydemo' element={<CaptionGetSoftwareCompanyDemo />} />
             <Route path='caption-dropdwon' element={<CaptionDropdwon />} />
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
             <Route path='invideo-review' element={<InVideoReview />} />
             <Route path='invideo-feature' element={<InVideoFeature />} />
             <Route path='invideo-rating' element={<InVideoRating />} />
             <Route path='invideo-specification' element={<InVideoSpecification />} />
             <Route path='invideo-softwarereaview' element={<InVideoSoftwareRevies />} />
             <Route path='invideo-softwarecompanydemo' element={<InVideoSoftwareCompanyDemo />} />
+<<<<<<< HEAD
             <Route path='invideo-dropdwon' element={<InVideoDropdown />} />
+=======
+            <Route path='invideo-dropdwon' element={<InVideoDropdwon />} />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
             <Route path='zrika-review' element={<ZrikaReview />} />
             <Route path='zrika-feature' element={<ZrikaFeature />} />
             <Route path='zrika-rating' element={<ZrikaRating />} />
             <Route path='zrika-Specification' element={<ZrikaSpecification />} />
             <Route path='zrika-softwarereview' element={<ZrikaSoftwareReviews />} />
             <Route path='zrika-softwarecompanydemo' element={<ZrikaGetSoftwareCompanyDemo />} />
+<<<<<<< HEAD
             <Route path='zrika-dropdown' element={<ZrikaDropdown />} /> 
+=======
+            <Route path='zrika-dropdown' element={<ZrikaDropdwon />} /> 
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
             <Route path='hiava-review' element={<HiavaReaview />} />
             <Route path='hiava-feature' element={<HiavaFeature />} />
             <Route path='hiava-rating' element={<HiavaRating />} />
             <Route path='hiava-specification' element={<HiavaSpecification/>} />
             <Route path='hiava-software-review' element={<HiavaSoftwareReviews />} />
             <Route path='hiava-getsoftwarecompanydemo' element={<HiavaGetSoftwareCompanyDemo />} />
+<<<<<<< HEAD
             <Route path='hiava-dropdown' element={<HiavaDropdown />} />
+=======
+            <Route path='hiava-dropdown' element={<HiavaDropdwon />} />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
             <Route path='ammplify-review' element={<AmmplifyReview />} />
             <Route path='ammplify-Feature' element={<AmmplifyFeature />} />
             <Route path='ammplify-rating' element={<AmmplifyRating />} />
             <Route path='ammplify-specification' element={<AmmplifySpecification />} />
             <Route path='ammplify-software-review' element={<AmmplifySoftwareReviews />} />
             <Route path='ammplify-getsoftwarecompanydemo' element={<AmmplifyGetSoftwareCompanyDemo />} />
+<<<<<<< HEAD
             <Route path='ammplify-dropdown' element={<AmmplifyDropdown />} />
             <Route path='featured-categories'element={<FeaturedCategories />} />
             <Route path='conversation-bot'element={<ConversationBot />} />
             <Route path='sale-automation'element={<SalesAutomation />} />
             <Route path='documentation-ai'element={<DocumentationAi />} />
 
+=======
+            <Route path='ammplify-dropdown' element={<AmmplifyDropdwon />} />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 
 
 

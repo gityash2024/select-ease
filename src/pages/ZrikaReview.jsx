@@ -6,7 +6,11 @@ import ZrikaRating from './ZrikaRating';
 import ZrikaSpecification from './ZrikaSpecification';
 import ZrikaSoftwareReviews from './ZrikaSoftwareReviews';
 import ZrikaGetSoftwareCompanyDemo from './ZrikaGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import ZrikaDropdwon from './ZrikaDropdown';
+=======
+import ZrikaDropdwon from './ZrikaDropdwon';
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';
@@ -25,7 +29,11 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
   padding: 50px 25px;
+=======
+  padding: 0 20px;
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 `;
 
 const PageContainer = styled.div`
@@ -300,12 +308,15 @@ const Description = styled.p`
   }
 `;
 
+<<<<<<< HEAD
 const Buttoncontainer = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-right: 16px; /* Optional */
 `;
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 const CallToAction = styled.button`
   background-color: #026283;
   color: white;
@@ -317,8 +328,15 @@ const CallToAction = styled.button`
   font-weight: 500;
   transition: background-color 0.3s ease;
   width: fit-content;
+<<<<<<< HEAD
   box-shadow: 0 2px 5px rgba(11, 11, 11, 0.1);
   font-family: 'Outfit', sans-serif;
+=======
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Outfit', sans-serif;
+  margin: 0 320px ; 
+  
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 
   &:hover {
     background-color: #01516d;
@@ -335,6 +353,10 @@ const CallToAction = styled.button`
   }
 `;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 const TabsContainer = styled.div`
   display: flex;
   border-bottom: 1px solid #eee;
@@ -564,6 +586,7 @@ const FAQContent = () => (
   <div>Frequently Asked Questions will be here.</div>
 );
 
+<<<<<<< HEAD
 // Add this YouTube video embed component
 const YouTubeEmbed = styled.iframe`
   width: 100%;
@@ -609,6 +632,23 @@ const mockProductData = {
       { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "Zrika Demo 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
       { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "Zrika Demo 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
       { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "Zrika Demo 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
+=======
+// Mocked data structure for dynamic content
+const mockProductData = {
+    id: 1,
+    title: "Zrika",
+    company: "Financial Technology (Fintech) Services",
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
+      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     ],
     overview: {
       softwareOverview: "Zrika is a dynamic software firm dedicated to pushing boundaries in fintech. Their core focus lies in creating innovative, tailored technology solutions across three specialized divisions: Payments, Solutions, and Value Plus. By partnering with banks, payment aggregators, NBFCs, and a diverse range of digital merchants, Zrika empowers clients to bridge the divide between legacy systems and the demands of the modern digital era. Their approach centers on delivering secure, scalable, and user-friendly technology that drives both business growth and financial inclusivity. ",
@@ -628,7 +668,10 @@ const ZrikaReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
   const [isPlaying, setIsPlaying] = useState(false); // Add state for video playback
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
     quickFeature: false,
@@ -705,11 +748,14 @@ const ZrikaReview = ({ product = mockProductData }) => {
     setCurrentImageIndex(index);
   };
 
+<<<<<<< HEAD
   // Add a function to toggle video play state
   const toggleVideoPlay = () => {
     setIsPlaying(!isPlaying);
   };
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   // Generate stars for rating
   const renderStars = (rating) => {
     const stars = [];
@@ -753,10 +799,14 @@ const ZrikaReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
+<<<<<<< HEAD
       {loading ? (
         <LoadingSpinner />
       ) : (
         <>
+=======
+      
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -765,6 +815,7 @@ const ZrikaReview = ({ product = mockProductData }) => {
                     <LeftArrow onClick={goToPreviousImage}>
                       <FaChevronLeft />
                     </LeftArrow>
+<<<<<<< HEAD
                     {isPlaying ? (
                       <YouTubeEmbed
                         src={`https://www.youtube.com/embed/${product.images[currentImageIndex].videoId}?autoplay=1`}
@@ -780,6 +831,14 @@ const ZrikaReview = ({ product = mockProductData }) => {
                     )}
                     <PlayButton onClick={toggleVideoPlay}>
                       {isPlaying ? '■' : <FaPlay />}
+=======
+                    <img 
+                      src={product.images[currentImageIndex].url} 
+                      alt={product.images[currentImageIndex].alt} 
+                    />
+                    <PlayButton>
+                      <FaPlay />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
                     </PlayButton>
                     <RightArrow onClick={goToNextImage}>
                       <FaChevronRight />
@@ -790,12 +849,18 @@ const ZrikaReview = ({ product = mockProductData }) => {
                       <Thumbnail
                         key={index}
                         active={currentImageIndex === index}
+<<<<<<< HEAD
                         onClick={() => {
                           handleThumbnailClick(index);
                           if (isPlaying) setIsPlaying(false);
                         }}
                       >
                         <img src={img.thumbnail} alt={`Thumbnail ${index + 1}`} />
+=======
+                        onClick={() => handleThumbnailClick(index)}
+                      >
+                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -819,9 +884,13 @@ const ZrikaReview = ({ product = mockProductData }) => {
                   </PricingSection>
                   
                   <Description>{product.description}</Description>
+<<<<<<< HEAD
                   < Buttoncontainer >
                   <CallToAction>Get Free Demo</CallToAction>
                   </Buttoncontainer>
+=======
+                  <CallToAction>Get Free Demo</CallToAction>
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
                 </InfoSection>
               </ProductCard>
 
@@ -883,8 +952,11 @@ const ZrikaReview = ({ product = mockProductData }) => {
           {sectionsVisible.ZrikaGetSoftwareCompanyDemo && <ZrikaGetSoftwareCompanyDemo />}
           {sectionsVisible.ZrikaDropdwon && <ZrikaDropdwon />}
         
+<<<<<<< HEAD
         </>
       )}
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     </Container>
   );
 };

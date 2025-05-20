@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaStar, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+import AmmplifyFeature from './AmmplifyFeature';
+import AmmplifyRating from './AmmplifyRating';
+import AmmplifySpecification from './AmmplifySpecification';
+import AmmplifySoftwareReviews from './AmmplifySoftwareReviews';
+import AmmplifyGetSoftwareCompanyDemo from './AmmplifyGetSoftwareCompanyDemo';
+import AmmplifyDropdwon from './AmmplifyDropdown';
+========
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 import InVideoFeature from './InVideoFeature';
 import InVideoRating from './InVideoRating';
 import InVideoSpecification from './InVideoSpecification';
 import InVideoSoftwareReviews from './InVideoSoftwareReviews';
 import InVideoGetSoftwareCompanyDemo from './InVideoGetSoftwareCompanyDemo';
+<<<<<<< HEAD
 import InVideoDropdwon from './InVideoDropdown';
+=======
+import InVideoDropdwon from './InVideoDropdwon';
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 // import image52 from '../src/assets/image52.png';
 // import image53 from './src/assets/image53.png';
 // import image54 from './src/assets/image54.png';
@@ -25,7 +41,11 @@ const fadeIn = keyframes`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
  padding: 50px 25px;
+=======
+  padding: 50px 25px;
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 `;
 
 const PageContainer = styled.div`
@@ -490,7 +510,15 @@ const OverviewContent = ({ data }) => {
   return (
     <div>
       <OverviewSection>
+<<<<<<< HEAD
         <SectionTitle>InVideo</SectionTitle>
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+        <SectionTitle>Ammplify</SectionTitle>
+========
+        <SectionTitle>InVideo</SectionTitle>
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
         <SectionParagraph>
           {data.softwareOverview}
         </SectionParagraph>
@@ -594,6 +622,7 @@ const LoadingSpinner = styled.div`
 // Update the mockProductData
 const mockProductData = {
     id: 1,
+<<<<<<< HEAD
     title: "InVideo",
     company: "Online Video Editor",
     rating: 4.7,
@@ -608,6 +637,37 @@ const mockProductData = {
       { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "InVideo Demo 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
     ],
     overview: {
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+    title: "Ammplify",
+    company: "AI powered Content Studio",
+========
+    title: "InVideo",
+    company: "AI-Powered  Creative Tools / Assistants",
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+    rating: 4.3,
+    reviewCount: 26,
+    pricing: "₹ 9999",
+    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    images: [
+      { id: 1, url: "https://www.youtube.com/watch?v=SbAKYgfYET8", alt: "Ammplify Video 1", videoId: "SbAKYgfYET8", thumbnail: "https://img.youtube.com/vi/SbAKYgfYET8/0.jpg" },
+      { id: 2, url: "https://www.youtube.com/watch?v=V9PVRfjEBTI", alt: "Ammplify Video 2", videoId: "V9PVRfjEBTI", thumbnail: "https://img.youtube.com/vi/V9PVRfjEBTI/0.jpg" },
+      { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "Ammplify Video 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
+      { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "Ammplify Video 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
+      { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "Ammplify Video 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
+    ],
+    overview: {
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+      softwareOverview: " Ava Ammmplify is a hyper-personalized AI copilot designed for LinkedIn creators. It transforms users' expertise into viral content by learning their unique voice, understanding their audience, and enhancing their LinkedIn impact while maintaining authenticity an AI-powered writing assistant designed to help users create their first drafts quickly, enhancing productivity by streamlining the writing process",
+      companyDetails: {
+        brandName: "Ammplify",
+        information: "all-in-one solution for remote access, collaboration and desktop sharing over the internet.",
+        founded: "2024",
+        founder: "Vinay Mora",
+        companySize: "02-10 employees",
+        otherProducts: "NA"
+========
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       softwareOverview: " InVideo offers a user-friendly interface that allows users to transform scripts, text, or visual content into engaging videos with just a few clicks. Its AI-powered tools generate scripts, visuals, and voiceovers, streamlining the video creation process. ",
       companyDetails: {
         brandName: "InVideo",
@@ -616,12 +676,24 @@ const mockProductData = {
         founder: "Sanket Shah, Pankit Chedda, and Harsh Vakharia",
         companySize: "11-50 employees",
         otherProducts: "QuickSmart Insights, QuickSmart Analytics"
+<<<<<<< HEAD
+=======
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       }
     }
   };
 
 // Main Component with Dynamic Content
+<<<<<<< HEAD
 const InVideoReview = ({ product = mockProductData }) => {
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+const AmmplifyReview = ({ product = mockProductData }) => {
+========
+const InVideoReview = ({ product = mockProductData }) => {
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -653,6 +725,33 @@ const InVideoReview = ({ product = mockProductData }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Show components sequentially based on scroll position  
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+      if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.AmmplifyFeature) {
+        setSectionsVisible(prev => ({...prev, AmmplifyFeature: true}));
+      }
+      
+      if (scrollPosition > 0.3 * documentHeight && !sectionsVisible.AmmplifyRating) {
+        setSectionsVisible(prev => ({...prev, AmmplifyRating: true}));
+      }
+      
+      if (scrollPosition > 0.4 * documentHeight && !sectionsVisible.AmmplifySpecifications) {
+        setSectionsVisible(prev => ({...prev, AmmplifySpecifications: true}));
+      }
+      
+      if (scrollPosition > 0.5 * documentHeight && !sectionsVisible.AmmplifySoftwareReviews) {
+        setSectionsVisible(prev => ({...prev, AmmplifySoftwareReviews: true}));
+      }
+      
+      if (scrollPosition > 0.6 * documentHeight && !sectionsVisible.AmmplifyGetSoftwareCompanyDemo) {
+        setSectionsVisible(prev => ({...prev, AmmplifyGetSoftwareCompanyDemo: true}));
+      }
+      
+      if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.AmmplifyDropdwon) {
+        setSectionsVisible(prev => ({...prev, AmmplifyDropdwon: true}));
+========
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       if (scrollPosition > 0.2 * documentHeight && !sectionsVisible.InVideoFeature) {
         setSectionsVisible(prev => ({...prev, InVideoFeature: true}));
       }
@@ -675,6 +774,10 @@ const InVideoReview = ({ product = mockProductData }) => {
       
       if (scrollPosition > 0.7 * documentHeight && !sectionsVisible.InVideoDropdwon) {
         setSectionsVisible(prev => ({...prev, InVideoDropdwon: true}));
+<<<<<<< HEAD
+=======
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       }
     };
     
@@ -721,11 +824,14 @@ const InVideoReview = ({ product = mockProductData }) => {
     return stars;
   };
 
+<<<<<<< HEAD
   // Add a function to toggle video play state
   const toggleVideoPlay = () => {
     setIsPlaying(!isPlaying);
   };
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   // Render tab content based on active tab
   const renderTabContent = () => {
     switch (activeTab) {
@@ -748,12 +854,29 @@ const InVideoReview = ({ product = mockProductData }) => {
     }
   };
 
+<<<<<<< HEAD
   return (
     <Container>
+=======
+  // Add a function to toggle video play state
+  const toggleVideoPlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <Container>
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       {loading ? (
         <LoadingSpinner />
       ) : (
         <>
+<<<<<<< HEAD
+=======
+========
+      
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -871,6 +994,20 @@ const InVideoReview = ({ product = mockProductData }) => {
             </PageContainer>
           )}
           
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+          {sectionsVisible.AmmplifyFeature && <AmmplifyFeature />}
+          {sectionsVisible.AmmplifyRating&& <AmmplifyRating/>}
+          {sectionsVisible.AmmplifySpecifications && <AmmplifySpecification />}
+          {sectionsVisible.AmmplifySoftwareReviews && <AmmplifySoftwareReviews />}
+          {sectionsVisible.AmmplifyGetSoftwareCompanyDemo && <AmmplifyGetSoftwareCompanyDemo />}
+          {sectionsVisible.AmmplifyDropdwon && <AmmplifyDropdwon />}
+        
+        </>
+      )}
+========
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
           {sectionsVisible.InVideoFeature && <InVideoFeature />}
           {sectionsVisible.InVideoRating&& <InVideoRating/>}
           {sectionsVisible.InVideoSpecifications && <InVideoSpecification />}
@@ -878,10 +1015,22 @@ const InVideoReview = ({ product = mockProductData }) => {
           {sectionsVisible.InVideoGetSoftwareCompanyDemo && <InVideoGetSoftwareCompanyDemo />}
           {sectionsVisible.InVideoDropdwon && <InVideoDropdwon />}
         
+<<<<<<< HEAD
         </>
       )}
+=======
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     </Container>
   );
 };
 
+<<<<<<< HEAD
 export default InVideoReview;
+=======
+<<<<<<<< HEAD:src/pages/AmmplifyReview.jsx
+export default AmmplifyReview;
+========
+export default InVideoReview;
+>>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6:src/pages/InVideoReview.jsx
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6

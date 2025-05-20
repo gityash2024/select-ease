@@ -879,8 +879,12 @@ const CaptionReview = ({ product = mockProductData }) => {
           {sectionsVisible.CaptionSoftwareReviews && <CaptionSoftwareReviews />}
           {sectionsVisible.CaptionGetSoftwareCompanyDemo && <CaptionGetSoftwareCompanyDemo />}
           {sectionsVisible.CaptionDropdwon && <CaptionDropdwon />}
+<<<<<<< HEAD
         </>
       )}
+=======
+        
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
     </Container>
   );
 };

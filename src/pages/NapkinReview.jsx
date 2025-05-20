@@ -560,6 +560,7 @@ const SkeletonContent = styled(SkeletonPulse)`
   border-radius: 8px;
 `;
 
+<<<<<<< HEAD
 // Add this YouTube video embed component
 const YouTubeEmbed = styled.iframe`
   width: 100%;
@@ -590,6 +591,8 @@ const LoadingSpinner = styled.div`
   }
 `;
 
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
 // Skeleton Loader Component
 const SkeletonLoader = () => (
   <SkeletonContainer>
@@ -864,7 +867,11 @@ const NapkinReview = ({ product = mockProductData }) => {
   return (
     <Container>
       {loading ? (
+<<<<<<< HEAD
         <LoadingSpinner />
+=======
+        <SkeletonLoader />
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       ) : (
         <>
           {sectionsVisible.mainContent && (

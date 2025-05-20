@@ -105,8 +105,11 @@ const ScoreLabel = styled.div`
 `;
 
 const OverallScoreCard = styled.div`
+<<<<<<< HEAD
   width: 521px;
   
+=======
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -418,9 +421,14 @@ const ZrikaRating = ({ ratingsData = mockRatingsData }) => {
             </OverallScoreRight>
           </OverallScoreTop>
           
+<<<<<<< HEAD
          
         </OverallScoreCard>
         <AddReviewButton>Add Review</AddReviewButton>
+=======
+          <AddReviewButton>Add Review</AddReviewButton>
+        </OverallScoreCard>
+>>>>>>> a40c99d968e50c53d54f47993591b04519fc8df6
       </RatingsSection>
       
       <CompaniesSection>
