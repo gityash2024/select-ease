@@ -561,7 +561,37 @@ const FAQContent = () => (
   <div>Frequently Asked Questions will be here.</div>
 );
 
-// Mocked data structure for dynamic content
+// Add this YouTube video embed component
+const YouTubeEmbed = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+// Loading spinner component
+const LoadingSpinner = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(2, 98, 131, 0.1);
+  border-radius: 50%;
+  border-top-color: #026283;
+  animation: spin 1s linear infinite;
+  margin: 100px auto;
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+// Update the mockProductData
 const mockProductData = {
     id: 1,
     title: "Ammplify",
@@ -571,11 +601,11 @@ const mockProductData = {
     pricing: "₹ 9999",
     description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
     images: [
-      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+      { id: 1, url: "https://www.youtube.com/watch?v=SbAKYgfYET8", alt: "Ammplify Video 1", videoId: "SbAKYgfYET8", thumbnail: "https://img.youtube.com/vi/SbAKYgfYET8/0.jpg" },
+      { id: 2, url: "https://www.youtube.com/watch?v=V9PVRfjEBTI", alt: "Ammplify Video 2", videoId: "V9PVRfjEBTI", thumbnail: "https://img.youtube.com/vi/V9PVRfjEBTI/0.jpg" },
+      { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "Ammplify Video 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
+      { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "Ammplify Video 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
+      { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "Ammplify Video 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
     ],
     overview: {
       softwareOverview: " Ava Ammmplify is a hyper-personalized AI copilot designed for LinkedIn creators. It transforms users' expertise into viral content by learning their unique voice, understanding their audience, and enhancing their LinkedIn impact while maintaining authenticity an AI-powered writing assistant designed to help users create their first drafts quickly, enhancing productivity by streamlining the writing process",
@@ -595,6 +625,7 @@ const AmmplifyReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false); // Add state for video playback
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
     quickFeature: false,
@@ -712,9 +743,17 @@ const AmmplifyReview = ({ product = mockProductData }) => {
     }
   };
 
+  // Add a function to toggle video play state
+  const toggleVideoPlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <Container>
-      
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -723,12 +762,21 @@ const AmmplifyReview = ({ product = mockProductData }) => {
                     <LeftArrow onClick={goToPreviousImage}>
                       <FaChevronLeft />
                     </LeftArrow>
-                    <img 
-                      src={product.images[currentImageIndex].url} 
-                      alt={product.images[currentImageIndex].alt} 
-                    />
-                    <PlayButton>
-                      <FaPlay />
+                    {isPlaying ? (
+                      <YouTubeEmbed
+                        src={`https://www.youtube.com/embed/${product.images[currentImageIndex].videoId}?autoplay=1`}
+                        title={product.images[currentImageIndex].alt}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <img 
+                        src={product.images[currentImageIndex].thumbnail} 
+                        alt={product.images[currentImageIndex].alt} 
+                      />
+                    )}
+                    <PlayButton onClick={toggleVideoPlay}>
+                      {isPlaying ? '■' : <FaPlay />}
                     </PlayButton>
                     <RightArrow onClick={goToNextImage}>
                       <FaChevronRight />
@@ -739,9 +787,12 @@ const AmmplifyReview = ({ product = mockProductData }) => {
                       <Thumbnail
                         key={index}
                         active={currentImageIndex === index}
-                        onClick={() => handleThumbnailClick(index)}
+                        onClick={() => {
+                          handleThumbnailClick(index);
+                          if (isPlaying) setIsPlaying(false);
+                        }}
                       >
-                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
+                        <img src={img.thumbnail} alt={`Thumbnail ${index + 1}`} />
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -827,6 +878,8 @@ const AmmplifyReview = ({ product = mockProductData }) => {
           {sectionsVisible.AmmplifyGetSoftwareCompanyDemo && <AmmplifyGetSoftwareCompanyDemo />}
           {sectionsVisible.AmmplifyDropdwon && <AmmplifyDropdwon />}
         
+        </>
+      )}
     </Container>
   );
 };

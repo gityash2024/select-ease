@@ -577,7 +577,7 @@ const PricingPlans = ({ plans = [] }) => {
 const App = () => {
   return (
     <div className="app">
-      <SoftwareReviews />
+      <QuickSmartSoftwareReviews />
       <PricingPlans />
     </div>
   );

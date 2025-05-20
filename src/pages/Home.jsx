@@ -71,18 +71,26 @@ const Section = styled.section`
 `;
 
 const HeroSection = styled(motion.section)`
-  padding: 40px 0 80px;
+  padding: 0 !important;
   position: relative;
   text-align: center;
+  min-height: 100vh !important; /* Increase to full viewport height */
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  overflow: visible !important;
   
   .contact-hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    z-index: 0 !important;
   }
 
   &::before {
@@ -102,13 +110,12 @@ const ContentWrapper = styled(motion.div)`
   padding: 0 20px;
   position: relative;
   z-index: 2;
-  overflow-x: hidden;
+  overflow: visible; /* Allow dropdowns to show */
 `;
 
 const Container = styled(motion.div)`
   width: 100%;
-  overflow-x: hidden;
- 
+  overflow: visible; /* Allow dropdowns to show */
 `;
 
 const Title = styled(motion.h1)`
@@ -141,6 +148,7 @@ const SearchContainer = styled(motion.div)`
   border: 1px solid #E5E7EB;
   overflow: visible;
   position: relative;
+  z-index: 100;
 `;
 
 const SearchInput = styled.input`
@@ -194,11 +202,12 @@ const DropdownContainer = styled.div`
   width: 100%;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   margin-top: 8px;
-  z-index: 100;
+  z-index: 9999;
   padding: 20px;
   border: 1px solid #E5E7EB;
+  overflow: visible;
 `;
 
 // const Section = styled.div`
@@ -209,7 +218,7 @@ const DropdownContainer = styled.div`
 //   }
 // `;
 
-const SectionTitle = styled.h3`
+const SectionTitle = styled.h2`
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 12px;
@@ -220,6 +229,7 @@ const CategoryList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 20px;
 `;
 
 const CategoryItem = styled.div`
@@ -240,6 +250,7 @@ const ProductList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
+  width: 100%;
   
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -1999,9 +2010,17 @@ const Home = () => {
       }
     };
     
+    // Reset animation states when mounted
+    document.body.style.overflow = 'auto';
+    window.scrollTo(0, 0);
+    
     handleResize(); // Call once on component mount
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      // Clean up any animations or states when component unmounts
+      document.body.style.overflow = 'auto';
+    };
   }, []);
 
   const popularCategories = [
@@ -2014,15 +2033,15 @@ const Home = () => {
 
   const trendingProducts = [
     { id: 1, name: 'QuicksmartAI', path: '/quick-smart-review' },
-    { id: 2, name: 'ScogoAI', path: '/products/scogo-ai' },
-    { id: 3, name: 'AmmplifAI', path: '/products/ammplif-ai' },
-    { id: 4, name: 'NapkinAI', path: '/products/napkin-ai' },
-    { id: 5, name: 'InvideoAI', path: '/products/invideo-ai' },
-    { id: 6, name: 'Quicksmart', path: '/products/quicksmart' },
-    { id: 7, name: 'HiavaAI', path: '/products/hiava-ai' },
-    { id: 8, name: 'CaptionAI', path: '/products/caption-ai' },
-    { id: 9, name: 'ZrikaAI', path: '/products/zrika-ai' },
-    { id: 10, name: 'LowtouchAI', path: '/products/lowtouch-ai' },
+    { id: 2, name: 'ScogoAI', path: '/scogo-review' },
+    { id: 3, name: 'AmmplifAI', path: '/ammplify-review' },
+    { id: 4, name: 'NapkinAI', path: '/napkin-review' },
+    { id: 5, name: 'InvideoAI', path: '/invideo-review' },
+    { id: 6, name: 'Quicksmart', path: '/quick-smart-review' },
+    { id: 7, name: 'HiavaAI', path: '/hiava-review' },
+    { id: 8, name: 'CaptionAI', path: '/caption-review' },
+    { id: 9, name: 'ZrikaAI', path: '/zrika-review' },
+    { id: 10, name: 'LowtouchAI', path: '/lowtouch-review' },
   ];
 
   useEffect(() => {
@@ -2047,10 +2066,20 @@ const Home = () => {
  
 
   const handleItemClick = (path) => {
-    // Navigate to the selected item's path
-    console.log('Navigating to:', path);
-    // history.push(path);
+    // First hide the dropdown
     setShowDropdown(false);
+    
+    // Reset any animation properties that might cause flickering
+    document.body.style.overflow = 'auto';
+    
+    // Small delay to ensure UI updates before navigation
+    setTimeout(() => {
+      // Use navigate with state to help identify it's coming from a search click
+      navigate(path, { 
+        replace: false,
+        state: { fromSearch: true }
+      });
+    }, 10);
   };
 
 
@@ -2194,7 +2223,8 @@ const Home = () => {
       company: "AI-Powered Assistants",
       rating: 5.0,
       description: "QuickSmart AI offers AI-driven SIP VoIP with 10+ years of expertise..",
-      price: "On Request"
+      price: "On Request",
+      path: '/quick-smart-review'
     },
     {
       id: 2,
@@ -2203,7 +2233,8 @@ const Home = () => {
       company: "By Sketch Solutions",
       rating: 4.8,
       description: "Convert hand-drawn sketches into professional wireframes using AI technology.",
-      price: "₹3,499"
+      price: "₹3,499",
+      path: '/napkin-review'
     },
     {
       id: 3,
@@ -2212,7 +2243,8 @@ const Home = () => {
       company: "AI-powered writing assistant",
       rating: 4.9,
       description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
-      price: "$9/month"
+      price: "$9/month",
+      path: '/hiava-review'
     },
     {
       id: 4,
@@ -2221,7 +2253,8 @@ const Home = () => {
       company: "AI Customer Support Platform",
       rating: 4.7,
       description: "Scogo.ai makes AI as simple and affordable as UPI to help businesses grow.",
-      price: "On Request"
+      price: "On Request",
+      path: '/scogo-review'
     },
     {
       id: 5,
@@ -2230,7 +2263,8 @@ const Home = () => {
       company: "By Vision Analytics",
       rating: 4.5,
       description: "Computer vision software for automated quality control and inspection systems.",
-      price: "₹6,299"
+      price: "₹6,299",
+      path: '/quick-smart-review'
     },
     {
       id: 6,
@@ -2239,16 +2273,18 @@ const Home = () => {
       company: "AI-Powered Assistants",
       rating: 4.3,
       description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
-      price: "₹4,599"
+      price: "₹4,599",
+      path: '/napkin-review'
     },
     {
       id: 7,
       image: HiavaAI,
       title: "Hiava AI",
-      company: " AI-Powered Assistants​",
+      company: "AI-Powered Assistants​",
       rating: 4.8,
       description: "Ava an AI assistant boosts by create drafts first helping is productivity quickly that users writing.",
-      price: "₹8,999"
+      price: "₹8,999",
+      path: '/hiava-review'
     },
     {
       id: 8,
@@ -2257,62 +2293,106 @@ const Home = () => {
       company: "By Cloud Solutions",
       rating: 4.9,
       description: "Cloud-based AI infrastructure for deploying and scaling machine learning models.",
-      price: "₹5,499"
+      price: "₹5,499",
+      path: '/scogo-review'
     },
     {
       id: 9,
       image: QuicksmartAI,
-      title: "TextGenius",
+      title: "Caption AI",
       company: "By Language Tech",
       rating: 4.7,
       description: "Natural language processing tool for content analysis and text summarization.",
-      price: "₹3,299"
+      price: "₹3,299",
+      path: '/caption-review'
     },
     {
       id: 10,
       image: NapkinAI,
-      title: "AudioSense",
+      title: "Zrika AI",
       company: "By Sound Technologies",
       rating: 5.0,
       description: "AI-powered audio processing software for speech recognition and sound analysis.",
-      price: "₹4,799"
+      price: "₹4,799",
+      path: '/zrika-review'
     }
   ];
   
+
+  // Remove the standalone useEffect for route changes that was causing the error
+  // useEffect(() => {
+  //   const handleRouteChange = () => {
+  //     // Reset all animation states and overflow states when routes change
+  //     document.body.style.overflow = 'auto';
+  //     window.scrollTo(0, 0);
+  //   };
+  // 
+  //   // Clean up any animations or states when component unmounts
+  //   return () => {
+  //     document.body.style.overflow = 'auto';
+  //   };
+  // }, []);
 
   return (
 
     
     <Container
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }} 
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }} 
     >
       <HeroSection
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.3 }}
+        style={{ position: 'relative', height: '100vh', width: '100%' }}
       >
-        <img src={hero} alt="" className="contact-hero-background" />
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden'
+        }}>
+          <img 
+            src={hero} 
+            alt="" 
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+          />
+        </div>
 
         <ContentWrapper
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5 }}
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <Title
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5 }}
           >
             Find the <BoldSpan>Best AI Tools</BoldSpan> with <BoldSpan>Expert Reviews</BoldSpan> and <BoldSpan>Comparisons</BoldSpan>.
           </Title>
 
           <SearchContainer
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
+      transition={{ duration: 0.5 }}
       ref={dropdownRef}
+      className="SearchContainer"
+      style={{ position: 'relative' }}
     >
       <SearchInput
         placeholder="Search by Category, Product or Keyword"
@@ -2331,10 +2411,17 @@ const Home = () => {
       </SearchButton>
       
       {showDropdown && (
-        <DropdownContainer>
-          <Section>
+        <DropdownContainer style={{ 
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          width: '100%',
+          maxHeight: 'none',
+          overflowY: 'visible'
+        }}>
+          <div style={{ marginBottom: '20px' }}>
             <SectionTitle>Popular Categories</SectionTitle>
-            <CategoryList>
+            <CategoryList style={{ marginBottom: '20px', flexWrap: 'wrap' }}>
               {popularCategories.map((category) => (
                 <CategoryItem 
                   key={category.id} 
@@ -2344,12 +2431,17 @@ const Home = () => {
                 </CategoryItem>
               ))}
             </CategoryList>
-          </Section>
+          </div>
           
-          <Section>
+          <div>
             <SectionTitle>Trending Products</SectionTitle>
-            <ProductList>
-              {trendingProducts.map((product) => (
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', 
+              gap: '10px',
+              width: '100%'
+            }}>
+              {trendingProducts.slice(0, 9).map((product) => (
                 <ProductItem 
                   key={product.id} 
                   onClick={() => handleItemClick(product.path)}
@@ -2360,22 +2452,22 @@ const Home = () => {
                   {product.name}
                 </ProductItem>
               ))}
-            </ProductList>
-          </Section>
+            </div>
+          </div>
         </DropdownContainer>
       )}
     </SearchContainer>
 
 
           <ImagesSection
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.5 }}
           >
             <ImageWrapper
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 1, x: 0 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
               <Dot
                 color="#FF6B6B"
@@ -2388,9 +2480,9 @@ const Home = () => {
             </ImageWrapper>
 
             <ImageWrapper
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
+              transition={{ duration: 0.5 }}
             >
               <motion.img src={seo_2} alt="AI Interface" whileHover={{ scale: 1.05 }} />
               <motion.img
@@ -2423,9 +2515,9 @@ const Home = () => {
             </ImageWrapper>
 
             <ImageWrapper
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 1, x: 0 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
+              transition={{ duration: 0.5 }}
             >
               <Dot 
                 color="#FF6B6B" 
@@ -2476,14 +2568,20 @@ const Home = () => {
         <SliderWrapper translateValue={currentSlide * (100 / slidesPerView) * slidesPerView}>
           {productData.map((product, index) => (
             <ProductCardWrapper key={index} slidesPerView={slidesPerView}>
-              <ProductCard>
+              <ProductCard 
+                onClick={() => {
+                  console.log('Navigating to:', product.path); // Debug log
+                  navigate(product.path);
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 <ProductImage>
                   <img src={product.image} alt={product.title} />
                 </ProductImage>
                 <ProductContent>
                   <ProductHeader>
                     <div>
-                      <ProductTitle>Software Rating</ProductTitle>
+                      <ProductTitle>{product.title}</ProductTitle>
                       <ProductCompany>{product.company}</ProductCompany>
                     </div>
                   </ProductHeader>
@@ -2492,8 +2590,24 @@ const Home = () => {
                       <span>{product.rating.toFixed(1)}</span>
                       <Star size={16} fill="#FFD700" color="#FFD700" />
                     </Rating>
-                    <ActionButton>Read reviews</ActionButton>
-                    <ActionButton>Features</ActionButton>
+                    <ActionButton 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('Read reviews navigating to:', product.path); // Debug log
+                        navigate(product.path);
+                      }}
+                    >
+                      Read reviews
+                    </ActionButton>
+                    <ActionButton 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('Features navigating to:', product.path); // Debug log
+                        navigate(product.path);
+                      }}
+                    >
+                      Features
+                    </ActionButton>
                   </RatingContainer>
                   <ProductDescription>
                     {product.description}
@@ -2503,7 +2617,15 @@ const Home = () => {
                       <PriceLabel>Starting at</PriceLabel>
                       <Price>{product.price}</Price>
                     </PriceContainer>
-                    <BuyButton>Buy Now</BuyButton>
+                    <BuyButton 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('Buy Now navigating to:', product.path); // Debug log
+                        navigate(product.path);
+                      }}
+                    >
+                      Buy Now
+                    </BuyButton>
                   </PriceSection>
                 </ProductContent>
               </ProductCard>
@@ -2756,11 +2878,20 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
+          style={{ paddingTop: 0 }}
         >
           <SectionTitle
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
+            style={{
+              fontFamily: 'Outfit, sans-serif',
+              fontWeight: 500,
+              fontSize: '40px',
+              color: '#383B46',
+              marginBottom: '32px',
+              marginTop: '0',
+            }}
           >
             Top Rated Products
           </SectionTitle>
@@ -2769,39 +2900,104 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
+            style={{ gap: '24px' }}
           >
-            
             {(products.length > 0 ? products : [
-              { id: 1, name: "Quicksmart AI", image: QuicksmartAI, description: "offers AI-driven SIP VoIP with 10+ years of expertise." },
-              { id: 2, name: "Napkin AI", image: NapkinAI, description: "AI transforms text into visuals, boosting business communicatio." },
-              { id: 3, name: "Hiava AI", image: HiavaAI, description: "Ava is an AI assistant that speeds up first draft creation." },
-              { id: 4, name: "Scogo AI", image: ScogoAI, description: "Makes AI easy and affordable for business growth." }
+              { id: 1, name: "Quicksmart AI", image: QuicksmartAI, description: "offers AI-driven SIP VoIP with 10+ years of expertise.", path: '/quick-smart-review' },
+              { id: 2, name: "Scogo AI", image: ScogoAI, description: "Makes AI easy and affordable for business growth.", path: '/scogo-review' },
+              { id: 3, name: "Hiava AI", image: HiavaAI, description: "Ava is an AI assistant that speeds up first draft creation.", path: '/hiava-review' },
+              { id: 4, name: "Napkin AI", image: NapkinAI, description: "AI transforms text into visuals, boosting business communicatio.", path: '/napkin-review' }
             ]).map((product, i) => (
-              <Card 
+              <div
                 key={product.id || i}
-                whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.8 + (i * 0.1) }}
-                // onClick={() => navigate(`/products/${product.id}`)}
+                style={{
+                  background: '#fff',
+                  borderRadius: '16px',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  padding: '32px 24px 24px 24px',
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                  transition: 'box-shadow 0.2s',
+                  minHeight: '370px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                onClick={() => navigate(product.path)}
               >
-                <CardImage 
-                  src={product.image_url || product.logo || [QuicksmartAI, NapkinAI, HiavaAI, ScogoAI][i % 4]} 
-                  alt={product.name}
-                  whileHover={{ scale: 1.05 }}
-                />
-                <CardContent>
-                  <h3>{product.name}</h3>
-                  <p>{product.description?.substring(0, 50) || "Explore this product"}{product.description?.length > 50 ? "..." : ""}</p>
-                    <a href="#" onClick={(e) => {
-                      e.preventDefault();
-                      navigate(`/products/${product.id}`);
-                    }}>
-                      View Product 
-                      <ArrowRight size={14} />
-                    </a>
-                </CardContent>
-              </Card>
+                <div
+                  style={{
+                    width: '160px',
+                    height: '160px',
+                    margin: '0 auto 24px auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#fafbfc',
+                    borderRadius: '18px',
+                    border: '1.5px solid #E5E7EB',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      borderRadius: '14px',
+                      background: '#fff',
+                    }}
+                  />
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'Outfit, sans-serif',
+                    fontWeight: 500,
+                    fontSize: '22px',
+                    margin: '0 0 12px 0',
+                    color: '#383B46',
+                  }}
+                >
+                  {product.name}
+                </h3>
+                <p
+                  style={{
+                    fontSize: '15px',
+                    color: '#383B46',
+                    margin: '0 0 24px 0',
+                    fontWeight: 400,
+                    minHeight: '44px',
+                  }}
+                >
+                  {product.description?.substring(0, 70) || "Explore this product"}{product.description?.length > 70 ? "..." : ""}
+                </p>
+                <a
+                  href="#"
+                  onClick={e => {
+                    e.preventDefault();
+                    navigate(product.path);
+                  }}
+                  style={{
+                    color: '#026283',
+                    fontWeight: 600,
+                    fontSize: '16px',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    marginTop: 'auto',
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseOver={e => (e.currentTarget.style.color = '#014e6a')}
+                  onMouseOut={e => (e.currentTarget.style.color = '#026283')}
+                >
+                  Explore Categories <ArrowRight size={18} />
+                </a>
+              </div>
             ))}
           </Grid>
         </ContentWrapper>

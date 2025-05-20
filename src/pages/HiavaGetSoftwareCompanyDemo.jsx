@@ -438,35 +438,31 @@ const SoftwareComparison = () => {
   const softwareOptions = [
     {
       id: 1,
-      name: 'Software Company A',
-      company: 'By : Company A',
+      name: 'Name of Software',
+      company: 'By : Software Company',
       rating: '5.0',
-      reviews: '144',
-      image: 'https://via.placeholder.com/80', // Replace with actual image URLs
+      reviews: '144'
     },
     {
       id: 2,
-      name: 'Software Company B',
-      company: 'By : Company B',
-      rating: '4.5',
-      reviews: '120',
-      image: 'https://via.placeholder.com/80',
+      name: 'Name of Software',
+      company: 'By : Software Company',
+      rating: '5.0',
+      reviews: '144'
     },
     {
       id: 3,
-      name: 'Software Company C',
-      company: 'By : Company C',
-      rating: '4.0',
-      reviews: '98',
-      image: 'https://via.placeholder.com/80',
+      name: 'Name of Software',
+      company: 'By : Software Company',
+      rating: '5.0',
+      reviews: '144'
     },
-     {
+    {
       id: 4,
-      name: 'Software Company D',
-      company: 'By : Company D',
-      rating: '4.8',
-      reviews: '202',
-      image: 'https://via.placeholder.com/80',
+      name: 'Name of Software',
+      company: 'By : Software Company',
+      rating: '5.0',
+      reviews: '144'
     }
   ];
   
@@ -587,7 +583,7 @@ const SoftwareComparison = () => {
           onClick={handlePrev} 
           disabled={currentIndex === 0}
         >
-          ❮
+          &#10094;
         </NavigationButton>
         
         <CardContainer ref={cardsRef}>
@@ -597,17 +593,15 @@ const SoftwareComparison = () => {
         <NavigationButton 
           className="next" 
           onClick={handleNext} 
-          disabled={currentIndex >= softwareOptions.length - 3} // changed from 2 to 3
+          disabled={currentIndex >= softwareOptions.length - 3}
         >
-          ❯
+          &#10095;
         </NavigationButton>
       </CarouselContainer>
       
       <CompareSection>
         <SelectedCount>({selectedCount}) Product Selected</SelectedCount>
-        <CompareButton disabled={!isCompareEnabled}>
-            Compare Now
-        </CompareButton>
+        <CompareButton disabled={selectedCount === 0}>Compare Now</CompareButton>
       </CompareSection>
     </ComparisonContainer>
   );

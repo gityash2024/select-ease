@@ -561,21 +561,51 @@ const FAQContent = () => (
   <div>Frequently Asked Questions will be here.</div>
 );
 
-// Mocked data structure for dynamic content
+// Add this YouTube video embed component
+const YouTubeEmbed = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+// Loading spinner component
+const LoadingSpinner = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(2, 98, 131, 0.1);
+  border-radius: 50%;
+  border-top-color: #026283;
+  animation: spin 1s linear infinite;
+  margin: 100px auto;
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+// Update the mockProductData
 const mockProductData = {
     id: 1,
     title: "InVideo",
-    company: "AI-Powered  Creative Tools / Assistants",
-    rating: 4.3,
-    reviewCount: 26,
-    pricing: "₹ 9999",
-    description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
+    company: "Online Video Editor",
+    rating: 4.7,
+    reviewCount: 47,
+    pricing: "$ 25/mo",
+    description: "A powerful online video creation platform that lets you create professional-quality videos in minutes without requiring any technical expertise.",
     images: [
-      { id: 1, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 2, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 3, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 4, url: "/api/placeholder/300/200", alt: "image40" },
-      { id: 5, url: "/api/placeholder/300/200", alt: "image40" }
+      { id: 1, url: "https://www.youtube.com/watch?v=SbAKYgfYET8", alt: "InVideo Demo 1", videoId: "SbAKYgfYET8", thumbnail: "https://img.youtube.com/vi/SbAKYgfYET8/0.jpg" },
+      { id: 2, url: "https://www.youtube.com/watch?v=V9PVRfjEBTI", alt: "InVideo Demo 2", videoId: "V9PVRfjEBTI", thumbnail: "https://img.youtube.com/vi/V9PVRfjEBTI/0.jpg" },
+      { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "InVideo Demo 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
+      { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "InVideo Demo 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
+      { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "InVideo Demo 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
     ],
     overview: {
       softwareOverview: " InVideo offers a user-friendly interface that allows users to transform scripts, text, or visual content into engaging videos with just a few clicks. Its AI-powered tools generate scripts, visuals, and voiceovers, streamlining the video creation process. ",
@@ -595,6 +625,7 @@ const InVideoReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false); // Add state for video playback
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
     quickFeature: false,
@@ -690,6 +721,11 @@ const InVideoReview = ({ product = mockProductData }) => {
     return stars;
   };
 
+  // Add a function to toggle video play state
+  const toggleVideoPlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   // Render tab content based on active tab
   const renderTabContent = () => {
     switch (activeTab) {
@@ -714,7 +750,10 @@ const InVideoReview = ({ product = mockProductData }) => {
 
   return (
     <Container>
-      
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
           {sectionsVisible.mainContent && (
             <PageContainer>
               <ProductCard>
@@ -723,12 +762,21 @@ const InVideoReview = ({ product = mockProductData }) => {
                     <LeftArrow onClick={goToPreviousImage}>
                       <FaChevronLeft />
                     </LeftArrow>
-                    <img 
-                      src={product.images[currentImageIndex].url} 
-                      alt={product.images[currentImageIndex].alt} 
-                    />
-                    <PlayButton>
-                      <FaPlay />
+                    {isPlaying ? (
+                      <YouTubeEmbed
+                        src={`https://www.youtube.com/embed/${product.images[currentImageIndex].videoId}?autoplay=1`}
+                        title={product.images[currentImageIndex].alt}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <img 
+                        src={product.images[currentImageIndex].thumbnail} 
+                        alt={product.images[currentImageIndex].alt} 
+                      />
+                    )}
+                    <PlayButton onClick={toggleVideoPlay}>
+                      {isPlaying ? '■' : <FaPlay />}
                     </PlayButton>
                     <RightArrow onClick={goToNextImage}>
                       <FaChevronRight />
@@ -739,9 +787,12 @@ const InVideoReview = ({ product = mockProductData }) => {
                       <Thumbnail
                         key={index}
                         active={currentImageIndex === index}
-                        onClick={() => handleThumbnailClick(index)}
+                        onClick={() => {
+                          handleThumbnailClick(index);
+                          if (isPlaying) setIsPlaying(false);
+                        }}
                       >
-                        <img src={img.url} alt={`Thumbnail ${index + 1}`} />
+                        <img src={img.thumbnail} alt={`Thumbnail ${index + 1}`} />
                       </Thumbnail>
                     ))}
                   </ImageThumbnails>
@@ -827,6 +878,8 @@ const InVideoReview = ({ product = mockProductData }) => {
           {sectionsVisible.InVideoGetSoftwareCompanyDemo && <InVideoGetSoftwareCompanyDemo />}
           {sectionsVisible.InVideoDropdwon && <InVideoDropdwon />}
         
+        </>
+      )}
     </Container>
   );
 };
