@@ -2190,17 +2190,27 @@ const Home = () => {
   ];
   
   // Software data for each category (same data for all categories in this example)
-  const softwareData = [
-    { color: '#FFB347', name: 'Napkin.ai', rating: '5.0', reviews: 144,  image:napkinlogo2 },
+ const softwareDataByCategory = [
+  [
+    { color: '#FFB347', name: 'Napkin.ai', rating: '5.0', reviews: 144,  image: napkinlogo2 },
     { color: '#FFB347', name: 'Caption.ai', rating: '5.0', reviews: 144, image: caption },
     { color: '#779ECB', name: 'Invideo.ai', rating: '5.0', reviews: 144, image: invideo },
     { color: '#FF6961', name: 'Ammplify.ai', rating: '5.0', reviews: 144, image: amplify },
+  ],
+  [
     { color: '#FFD700', name: 'Quicksmart.ai', rating: '5.0', reviews: 144, image: quick },
-    { color: '#B19CD9', name: 'Scogo.ai', rating: '5.0', reviews: 144,  image : scogologo },
-    { color: '#B19CD9', name: 'Lowtouch.ai', rating: '5.0', reviews: 144, image: lowtouch},
+    { color: '#B19CD9', name: 'Scogo.ai', rating: '5.0', reviews: 144, image: scogologo },
+    { color: '#B19CD9', name: 'Lowtouch.ai', rating: '5.0', reviews: 144, image: lowtouch },
+  ],
+  [
     { color: '#B19CD9', name: 'Hiava.ai', rating: '5.0', reviews: 144, image: ava },
-    { color: '#B19CD9', name: 'Zrika.ai', rating: '5.0', reviews: 144, image: zrika},
-  ];
+   
+  ],
+  [
+     { color: '#B19CD9', name: 'Zrika.ai', rating: '5.0', reviews: 144, image: zrika },
+  ],
+];
+
   
   // Handler for category tab click
   const handleCategoryClick = (index) => {
@@ -2769,22 +2779,23 @@ const Home = () => {
       </UniqueSoftwareCard>
     ))
   ) : (
-    softwareData.slice(0, cardsPerCategory[activeCategory]).map((software, i) => (
-      <UniqueSoftwareCard 
-        key={i} 
-        whileHover={{ scale: 1.03 }}
-        onClick={() => navigate(`/products/software-${i+1}`)}
-      >
-        <UniqueSoftwareIcon bg={software.color}>
-          <img src={software.image} alt={software.name} />
-        </UniqueSoftwareIcon>
-        <UniqueRatingStars>
-          <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
-          <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
-        </UniqueRatingStars>
-        <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
-      </UniqueSoftwareCard>
-    ))
+   softwareDataByCategory[activeCategory].map((software, i) => (
+  <UniqueSoftwareCard 
+    key={i} 
+    whileHover={{ scale: 1.03 }}
+    // onClick={() => navigate(`category.path-${i+1}`)}
+  >
+    <UniqueSoftwareIcon bg={software.color}>
+      <img src={software.image} alt={software.name} />
+    </UniqueSoftwareIcon>
+    <UniqueRatingStars>
+      <UniqueRatingBadge>{software.rating} ★</UniqueRatingBadge>
+      <UniqueReviewCount>({software.reviews} Reviews)</UniqueReviewCount>
+    </UniqueRatingStars>
+    <UniqueSoftwareName>{software.name}</UniqueSoftwareName>
+  </UniqueSoftwareCard>
+))
+
   )}
 </UniqueSoftwareGrid>
       </UniqueDiscoveryContainer>

@@ -7,11 +7,11 @@ import QuickSmartSpecification from './QuickSmartSpecification';
 import QuickSmartSoftwareReviews from './QuickSmartSoftwareReviews';
 import QuickGetSoftwareCompanyDemo from './QuickGetSoftwareCompanyDemo';
 import QuickDropdwon from './QuickDropdwon';
-// import Image41 from './src/assets/Image41.png';
-// import Image42 from './src/assets/Image42.png';
-// import Image43 from './src/assets/Image43.png';
-// import Image44 from './src/assets/Image44.png';
-// import Image45 from './src/assets/Image45.png';
+import image40 from '../assets/image40.png';
+import image41 from '../assets/image41.png';
+import image42 from '../assets/image42.png';
+import image43 from '../assets/image43.png';
+import image44 from '../assets/image44.png';
 // Animations
 const fadeIn = keyframes`
   from {
@@ -591,7 +591,7 @@ const FAQContent = () => (
   <div>Frequently Asked Questions will be here.</div>
 );
 
-// Update mockProductData to use YouTube links
+// Update mockProductData to use static images
 const mockProductData = {
     id: 1,
     title: "QuickSmart.ai",
@@ -601,11 +601,11 @@ const mockProductData = {
     pricing: "₹ 9999",
     description: "An AI-powered automation platform that streamlines workflows, enhances decision-making, and reduces operational errors for businesses.",
     images: [
-      { id: 1, url: "https://www.youtube.com/watch?v=SbAKYgfYET8", alt: "QuickSmartAI Video 1", videoId: "SbAKYgfYET8", thumbnail: "https://img.youtube.com/vi/SbAKYgfYET8/0.jpg" },
-      { id: 2, url: "https://www.youtube.com/watch?v=V9PVRfjEBTI", alt: "QuickSmartAI Video 2", videoId: "V9PVRfjEBTI", thumbnail: "https://img.youtube.com/vi/V9PVRfjEBTI/0.jpg" },
-      { id: 3, url: "https://www.youtube.com/watch?v=fTrqoVSrw1Y", alt: "QuickSmartAI Video 3", videoId: "fTrqoVSrw1Y", thumbnail: "https://img.youtube.com/vi/fTrqoVSrw1Y/0.jpg" },
-      { id: 4, url: "https://www.youtube.com/watch?v=IsaOXzb4Uh0", alt: "QuickSmartAI Video 4", videoId: "IsaOXzb4Uh0", thumbnail: "https://img.youtube.com/vi/IsaOXzb4Uh0/0.jpg" },
-      { id: 5, url: "https://www.youtube.com/watch?v=8kxufj_snhI", alt: "QuickSmartAI Video 5", videoId: "8kxufj_snhI", thumbnail: "https://img.youtube.com/vi/8kxufj_snhI/0.jpg" }
+      { id: 1, url: image40, alt: "QuickSmartAI Image 1", thumbnail: image40 },
+      { id: 2, url: image41, alt: "QuickSmartAI Image 2", thumbnail: image41 },
+      { id: 3, url: image42, alt: "QuickSmartAI Image 3", thumbnail: image42 },
+      { id: 4, url: image43, alt: "QuickSmartAI Image 4", thumbnail: image43 },
+      { id: 5, url: image44, alt: "QuickSmartAI Image 5", thumbnail: image44 }
     ],
     overview: {
       softwareOverview: "Salesforce is an American cloud computing company headquartered in San Francisco, California. Though its revenue comes from a customer relationship management (CRM) product, Salesforce also capitalizes on commercial applications of social networking through acquisition.",
@@ -625,7 +625,6 @@ const QuickSmartReview = ({ product = mockProductData }) => {
   const [activeTab, setActiveTab] = useState('Reviews');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [sectionsVisible, setSectionsVisible] = useState({
     mainContent: false,
     quickFeature: false,
@@ -702,11 +701,6 @@ const QuickSmartReview = ({ product = mockProductData }) => {
     setCurrentImageIndex(index);
   };
 
-  // Add a function to toggle video play state
-  const toggleVideoPlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
   // Generate stars for rating
   const renderStars = (rating) => {
     const stars = [];
@@ -762,22 +756,10 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                     <LeftArrow onClick={goToPreviousImage}>
                       <FaChevronLeft />
                     </LeftArrow>
-                    {isPlaying ? (
-                      <YouTubeEmbed
-                        src={`https://www.youtube.com/embed/${product.images[currentImageIndex].videoId}?autoplay=1`}
-                        title={product.images[currentImageIndex].alt}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <img 
-                        src={product.images[currentImageIndex].thumbnail} 
-                        alt={product.images[currentImageIndex].alt} 
-                      />
-                    )}
-                    <PlayButton onClick={toggleVideoPlay}>
-                      {isPlaying ? '■' : <FaPlay />}
-                    </PlayButton>
+                    <img 
+                      src={product.images[currentImageIndex].url} 
+                      alt={product.images[currentImageIndex].alt} 
+                    />
                     <RightArrow onClick={goToNextImage}>
                       <FaChevronRight />
                     </RightArrow>
@@ -787,10 +769,7 @@ const QuickSmartReview = ({ product = mockProductData }) => {
                       <Thumbnail
                         key={index}
                         active={currentImageIndex === index}
-                        onClick={() => {
-                          handleThumbnailClick(index);
-                          if (isPlaying) setIsPlaying(false);
-                        }}
+                        onClick={() => handleThumbnailClick(index)}
                       >
                         <img src={img.thumbnail} alt={`Thumbnail ${index + 1}`}/>
                       </Thumbnail>
